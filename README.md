@@ -10,7 +10,8 @@ rcup \
   -t git \ 
   -t ubuntu \
   -t fish \
-  -t vim
+  -t vim \
+  -t tmux
 ```
 
 ### Install script
