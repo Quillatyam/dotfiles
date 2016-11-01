@@ -4,9 +4,6 @@
 [hub]
     protocol = https
 [alias]
-    # rank the contributors of the current repository
-    rank-contributors = !$ZSH/bin/git-rank-contributors
-
     # commit count
     count             = !git shortlog -sn
 	

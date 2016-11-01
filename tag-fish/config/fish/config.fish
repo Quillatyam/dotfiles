@@ -17,15 +17,3 @@ alias grb "git rebase -i @{u}"
 alias passgen "pass generate --no-symbols --clip"
 alias tm "tmux attach -t base ;or tmux new -s base"
 
-# Load Xmodmap on linux (Ubuntu)
-if [ (uname) == "Linux" ]
-    xmodmap ~/.Xmodmap
-end
-
-if [ ! $TERM =~ screen ]
-    exec tmux
-end
-
-
-	
-
