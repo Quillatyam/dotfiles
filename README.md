@@ -1,21 +1,13 @@
 Dotfiles
 ========
+My dotfiles.
 
-### RCUP
+## Install RCM
+
 ```
-rcup \ 
-  -x install \ 
-  -x install.sh \
-  -x README.md \
-  -t git \ 
-  -t ubuntu \
-  -t fish \
-  -t vim \
-  -t tmux
+sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
+sudo apt-get update
+sudo apt-get install rcm
 ```
 
-### Install script
-```
-./install.sh
-```
-
+Run `make install` poof... magic!

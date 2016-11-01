@@ -3,6 +3,7 @@ set -U EDITOR vim
 
 # Go lib and GOPATH.
 set -U fish_user_paths /usr/local/go/bin $fish_user_paths
+set -U fish_user_paths $HOME/src/go/bin $fish_user_paths
 set -x GOPATH $HOME/src/go
 
 # Aliasses
