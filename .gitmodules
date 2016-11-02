@@ -43,3 +43,9 @@
 [submodule "tag-vim/config/nvim/bundle/vim-go"]
 	path = tag-vim/config/nvim/bundle/vim-go
 	url = git@github.com:fatih/vim-go.git
+[submodule "tag-vim/config/nvim/bundle/SimpleAutoComplPop"]
+	path = tag-vim/config/nvim/bundle/SimpleAutoComplPop
+	url = git@github.com:roxma/SimpleAutoComplPop.git
+[submodule "tag-vim/config/nvim/bundle/deoplete-go"]
+	path = tag-vim/config/nvim/bundle/deoplete-go
+	url = git@github.com:zchee/deoplete-go.git
