@@ -157,9 +157,21 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 "By default syntax-highlighting for Functions, Methods and Structs is disabled.
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+"By default new terminals are opended in vertical split, make it horizontal
+let g:go_term_mode = "split"
+
+"Run go-test in a new terminal
+let g:go_term_enabled = 1
+
+"Use with syntastic
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
 
 "Enable goimports to automatically insert import paths instead of gofmt
 let g:go_fmt_command = "goimports"
@@ -173,6 +185,9 @@ let g:go_fmt_autosave = 1
 "Syntastic fixes
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+"Disable updating dependencies when installing/updating binaries
+let g:go_get_update = 0
 
 "Elm
 """""""""""""""""""""""""""""""""""""""""""""""""""
