@@ -49,3 +49,15 @@
 [submodule "tag-vim/config/nvim/bundle/deoplete-go"]
 	path = tag-vim/config/nvim/bundle/deoplete-go
 	url = git@github.com:zchee/deoplete-go.git
+[submodule "tag-vim/config/nvim/bundle/php.vim"]
+	path = tag-vim/config/nvim/bundle/php.vim
+	url = git@github.com:StanAngeloff/php.vim.git
+[submodule "tag-vim/config/nvim/bundle/hardmode"]
+	path = tag-vim/config/nvim/bundle/hardmode
+	url = git@github.com:wikitopian/hardmode.git
+[submodule "tag-vim/config/nvim/bundle/vim-hardtime"]
+	path = tag-vim/config/nvim/bundle/vim-hardtime
+	url = git@github.com:takac/vim-hardtime.git
+[submodule "tag-vim/config/nvim/bundle/Vundle.vim"]
+	path = tag-vim/config/nvim/bundle/Vundle.vim
+	url = git@github.com:VundleVim/Vundle.vim.git
