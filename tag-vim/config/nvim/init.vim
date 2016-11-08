@@ -7,6 +7,8 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
+set nocompatible
+filetype off
 
 "Pathogen
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -26,7 +28,16 @@ set wildmenu
 set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
 set wildmode=longest,list,full
 set nocompatible
+
+"Wrap lines settings
 set nowrap
+"set wrap
+"set linebreak
+"set nolist " list disables linebreak
+"set textwidth=0
+"set wrapmargin=0
+"set formatoptions+=l
+
 set showmode
 set tw=80
 set so=7
@@ -72,7 +83,7 @@ let g:deoplete#enable_at_startup = 1
 
 "FileTypePlugin
 """""""""""""""""""""""""""""""""""""""""""""""""""
-filetype plugin on
+filetype plugin indent on
 
 "NerdCommenter
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -209,12 +220,25 @@ map <silent> ts :GhcModSplitFunCase<CR>
 map <silent> tq :GhcModType<CR>
 map <silent> te :GHCModTypeClear<CR>
 
-"Disabling the directional keys
+"PHP (God forbid)
 """""""""""""""""""""""""""""""""""""""""""""""""""
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+"g:php_syntax_extensions_enabled = 1
+
+"Disabling the directional keys / Hardtime config
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>h :HardTimeToggle<CR>
+let g:hardtime_default_on = 1
+let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+","<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+"]
+let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+let g:hardtime_showmsg = 1
+let g:hardtime_timeout = 100
+"let g:hardtime_ignore_buffer_patterns = [ "CustomPatt[ae]rn", "NERD.*" ]
+
+"map <up> <nop>
+"map <down> <nop>
+"map <left> <nop>
+"map <right> <nop>
 "imap <up> <nop>
 "imap <down> <nop>
 "imap <left> <nop>
