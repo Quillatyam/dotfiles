@@ -73,3 +73,6 @@
 [submodule "tag-vim/config/nvim/bundle/vim-jsx"]
 	path = tag-vim/config/nvim/bundle/vim-jsx
 	url = git@github.com:mxw/vim-jsx.git
+[submodule "tag-vim/config/nvim/bundle/vim-javascript"]
+	path = tag-vim/config/nvim/bundle/vim-javascript
+	url = git@github.com:pangloss/vim-javascript.git
