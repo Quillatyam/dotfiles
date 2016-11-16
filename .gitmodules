@@ -52,3 +52,24 @@
 [submodule "tag-vim/config/nvim/bundle/vim-hardtime"]
 	path = tag-vim/config/nvim/bundle/vim-hardtime
 	url = git@github.com:takac/vim-hardtime.git
+[submodule "tag-vim/config/nvim/bundle/vimproc.vim"]
+	path = tag-vim/config/nvim/bundle/vimproc.vim
+	url = git@github.com:Shougo/vimproc.vim.git
+[submodule "tag-vim/config/nvim/bundle/phpcomplete-extended"]
+	path = tag-vim/config/nvim/bundle/phpcomplete-extended
+	url = git@github.com:m2mdas/phpcomplete-extended.git
+[submodule "tag-vim/config/nvim/bundle/vim-php-cs-fixer"]
+	path = tag-vim/config/nvim/bundle/vim-php-cs-fixer
+	url = git@github.com:stephpy/vim-php-cs-fixer.git
+[submodule "tag-vim/config/nvim/bundle/tagbar-phpctags.vim"]
+	path = tag-vim/config/nvim/bundle/tagbar-phpctags.vim
+	url = git@github.com:vim-php/tagbar-phpctags.vim.git
+[submodule "tag-vim/config/nvim/bundle/vim-surround"]
+	path = tag-vim/config/nvim/bundle/vim-surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "tag-vim/config/nvim/bundle/vdebug"]
+	path = tag-vim/config/nvim/bundle/vdebug
+	url = git@github.com:joonty/vdebug.git
+[submodule "tag-vim/config/nvim/bundle/vim-jsx"]
+	path = tag-vim/config/nvim/bundle/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git

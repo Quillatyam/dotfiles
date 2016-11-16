@@ -158,6 +158,10 @@ let g:haskellmode_completion_ghc = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 
+"React
+""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:jsx_ext_required = 0
+
 "Golang
 """""""""""""""""""""""""""""""""""""""""""""""""""
 au FileType go nmap <leader>r <Plug>(go-run)
@@ -222,18 +226,57 @@ map <silent> te :GHCModTypeClear<CR>
 
 "PHP (God forbid)
 """""""""""""""""""""""""""""""""""""""""""""""""""
-"g:php_syntax_extensions_enabled = 1
+"Autocompletion
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+"Format to psr2
+let g:php_cs_fixer_level = "psr2"
+let g:php_cs_fixer_config = "default"
+"let g:php_cs_fixer_config_file = '.php_cs'
+let g:php_cs_fixer_php_path = "php"
+"If you want to define specific fixers:
+"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    
+let g:php_cs_fixer_verbose = 0
+
+"Ctags
+let g:tagbar_phpctags_memory_limit = '256M'
+
+"XDebug / VDebug
+"let g:vdebug_options = {"path_maps": {"/var/www": "/path/to/pilotboat/sites"}, "break_on_open": 0, "watch_window_style": "compact", "server" : "172.17.0.1", "port": 9000}
+
+"VDebug
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vdebug
+"let g:vdebug_keymap = {
+"\    "run" : "<Leader>/",
+"\    "run_to_cursor" : "<Down>",
+"\    "step_over" : "<Up>",
+"\    "step_into" : "<Left>",
+"\    "step_out" : "<Right>",
+"\    "close" : "q",
+"\    "detach" : "x",
+"\    "set_breakpoint" : "<Leader>p",
+"\    "eval_visual" : "<Leader>e"
+"\}
+
+let g:vdebug_options = {
+\    "break_on_open" : 0,
+\    "server" : "192.168.1.12",
+\    "port" : 9001
+\}
 
 "Disabling the directional keys / Hardtime config
 """""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>h :HardTimeToggle<CR>
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+","<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+"]
 let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:hardtime_showmsg = 1
 let g:hardtime_timeout = 100
-"let g:hardtime_ignore_buffer_patterns = [ "CustomPatt[ae]rn", "NERD.*" ]
+let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 
 "map <up> <nop>
 "map <down> <nop>

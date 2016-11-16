@@ -11,6 +11,8 @@ end
 switch (uname)
     case Linux
 	set -U fish_user_paths /usr/local/go/bin $fish_user_paths
+    set -x GOPATH $HOME/src/go
+    set -U fish_user_paths $HOME/src/go/bin $fish_user_paths
     case '*'
 	set -x GOPATH $HOME/src/go
 	set -U fish_user_paths $HOME/src/go/bin $fish_user_paths
