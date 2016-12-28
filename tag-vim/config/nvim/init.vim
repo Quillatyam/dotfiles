@@ -58,7 +58,8 @@ set lazyredraw
 set magic
 set showmatch
 set mat=2
-set completeopt+=noselect "deoplete recommend
+set completeopt-=preview
+"set completeopt+=noselect "deoplete recommend
 "set completeopt=menuone,menu,longest
 "set completeopt+=longest
 set t_CO=256
@@ -80,6 +81,7 @@ set noswapfile
 "Use deoplete.
 """""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 
 "FileTypePlugin
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -123,7 +125,6 @@ map <Leader>" :sp<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""
 map <Leader>t :tabnew<CR>
 
-
 "Terminal session open
 map <Leader>~ :e term://fish<CR>
 
@@ -132,7 +133,7 @@ map <Leader>~ :e term://fish<CR>
 map <Leader>s :SyntasticToggleMode<CR>
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
 
@@ -227,15 +228,19 @@ map <silent> te :GHCModTypeClear<CR>
 "PHP (God forbid)
 """""""""""""""""""""""""""""""""""""""""""""""""""
 "Autocompletion
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+"php.vim
+"let g:php_syntax_extensions_enabled = 1
+"let b:php_syntax_extensions_enabled = 1
 
 "Format to psr2
 let g:php_cs_fixer_level = "psr2"
 let g:php_cs_fixer_config = "default"
-"let g:php_cs_fixer_config_file = '.php_cs'
+let g:php_cs_fixer_config_file = '.php_cs'
 let g:php_cs_fixer_php_path = "php"
 "If you want to define specific fixers:
-"let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
+let g:php_cs_fixer_fixers_list = "linefeed,short_tag,indentation"
 let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0                    
 let g:php_cs_fixer_verbose = 0
@@ -261,11 +266,11 @@ let g:tagbar_phpctags_memory_limit = '256M'
 "\    "eval_visual" : "<Leader>e"
 "\}
 
-let g:vdebug_options = {
-\    "break_on_open" : 0,
-\    "server" : "192.168.1.12",
-\    "port" : 9001
-\}
+"let g:vdebug_options = {
+"\    "break_on_open" : 0,
+"\    "server" : "192.168.1.12",
+"\    "port" : 9001
+"\}
 
 "Disabling the directional keys / Hardtime config
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -293,22 +298,22 @@ let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 
 "SuperTab
 """""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  endif
-endif
+"if has("gui_running")
+"  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+"else " no gui
+"  if has("unix")
+"    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+"  endif
+"endif
 
 
 "ctrl+p
 """"""""""""""""""""""""""""""""""""""""""""""""""
 "map <silent> <Leader>t :CtrlP()<CR>
-noremap <leader>b<space> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/]dist$'
+"noremap <leader>b<space> :CtrlPBuffer<cr>
+"let g:ctrlp_custom_ignore = '\v[\/]dist$'
 
 
 "copy and paste
@@ -344,36 +349,11 @@ map <leader>tm :tabmove
 "Clear last search highlight by esaping twice
 nnoremap <esc><esc> :noh<return>
 
-"Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *Ignore
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
-"Remember info about open buffers on close
-set viminfo^=%
-
-
 "Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""
 "Always show the status line
 set laststatus=2
 let g:airline_powerline_fonts = 1
-
-"Format the status line
-"set statusline=%t       "tail of the filename
-"set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-"set statusline+=%{&ff}] "file format
-"set statusline+=%h      "help file flag
-"set statusline+=%m      "modified flag
-"set statusline+=%r      "read only flag
-"set statusline+=%y      "filetype
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"set statusline+=%=      "left/right separator
-"set statusline+=%c,     "cursor column
-"set statusline+=%l/%L   "cursor line/total lines
-"set statusline+=\ %P    "percent through file
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -381,18 +361,11 @@ set statusline+=%*
 
 "Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""
-"Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z<Paste>
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
+"Move a line of text using ALT+[jk]
+nnoremap <S-Up> :m-2<CR>
+nnoremap <S-Down> :m+<CR>
+inoremap <S-Up> <Esc>:m-2<CR>
+inoremap <S-Down> <Esc>:m+<CR>
 
 "Fast saving
 nmap <leader>w :w!<cr>

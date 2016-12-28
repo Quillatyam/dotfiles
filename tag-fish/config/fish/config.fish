@@ -7,16 +7,10 @@ switch (uname)
         set -U EDITOR nvim
 end
 
-# Set PATH per OS.
-switch (uname)
-    case Linux
-	set -U fish_user_paths /usr/local/go/bin $fish_user_paths
-    set -x GOPATH $HOME/src/go
-    set -U fish_user_paths $HOME/src/go/bin $fish_user_paths
-    case '*'
-	set -x GOPATH $HOME/src/go
-	set -U fish_user_paths $HOME/src/go/bin $fish_user_paths
-end
+# Paths etc.
+set -x GOPATH $HOME/src/go
+set -x PATH $HOME/src/go/bin $PATH
+set -x PATH $HOME/.local/bin $PATH
 	
 # Aliasses.
 alias e "$EDITOR"
@@ -29,3 +23,5 @@ alias grb "git rebase -i @{u}"
 alias passgen "pass generate --no-symbols --clip"
 alias tm "tmux attach -t base ;or tmux new -s base"
 
+#source local stuff.
+source ~/.localrc

@@ -76,3 +76,24 @@
 [submodule "tag-vim/config/nvim/bundle/vim-javascript"]
 	path = tag-vim/config/nvim/bundle/vim-javascript
 	url = git@github.com:pangloss/vim-javascript.git
+[submodule "tag-vim/config/nvim/bundle/unite.vim"]
+	path = tag-vim/config/nvim/bundle/unite.vim
+	url = git@github.com:Shougo/unite.vim.git
+[submodule "tag-vim/config/nvim/bundle/vim-addon-mw-utils"]
+	path = tag-vim/config/nvim/bundle/vim-addon-mw-utils
+	url = git@github.com:MarcWeber/vim-addon-mw-utils.git
+[submodule "tag-vim/config/nvim/bundle/vim-snipmate"]
+	path = tag-vim/config/nvim/bundle/vim-snipmate
+	url = git@github.com:garbas/vim-snipmate.git
+[submodule "tag-vim/config/nvim/bundle/vim-snippets"]
+	path = tag-vim/config/nvim/bundle/vim-snippets
+	url = git@github.com:honza/vim-snippets.git
+[submodule "tag-vim/config/nvim/bundle/vim-php-namespace"]
+	path = tag-vim/config/nvim/bundle/vim-php-namespace
+	url = git@github.com:arnaud-lb/vim-php-namespace.git
+[submodule "tag-vim/config/nvim/bundle/vim-autotag"]
+	path = tag-vim/config/nvim/bundle/vim-autotag
+	url = git@github.com:craigemery/vim-autotag.git
+[submodule "tag-vim/config/nvim/bundle/Nvim-R"]
+	path = tag-vim/config/nvim/bundle/Nvim-R
+	url = git@github.com:jalvesaq/Nvim-R.git
