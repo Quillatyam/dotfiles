@@ -11,7 +11,10 @@ end
 set -x GOPATH $HOME/src/go
 set -x PATH $HOME/src/go/bin $PATH
 set -x PATH $HOME/.local/bin $PATH
-	
+set -x PATH $HOME/.cabal/bin $PATH
+set -x PATH $HOME/.stack/programs/x86_64-osx/ghc-8.0.1/bin $PATH
+set -x PATH $HOME/.composer/vendor/bin $PATH
+
 # Aliasses.
 alias e "$EDITOR"
 alias gs "git status -sb"

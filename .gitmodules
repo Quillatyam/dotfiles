@@ -97,3 +97,21 @@
 [submodule "tag-vim/config/nvim/bundle/Nvim-R"]
 	path = tag-vim/config/nvim/bundle/Nvim-R
 	url = git@github.com:jalvesaq/Nvim-R.git
+[submodule "tag-vim/config/nvim/bundle/ghcmod-vim"]
+	path = tag-vim/config/nvim/bundle/ghcmod-vim
+	url = git@github.com:eagletmt/ghcmod-vim.git
+[submodule "tag-vim/config/nvim/bundle/neco-ghc"]
+	path = tag-vim/config/nvim/bundle/neco-ghc
+	url = git@github.com:eagletmt/neco-ghc.git
+[submodule "tag-vim/config/nvim/bundle/nerdcommenter"]
+	path = tag-vim/config/nvim/bundle/nerdcommenter
+	url = git@github.com:scrooloose/nerdcommenter.git
+[submodule "tag-vim/config/nvim/bundle/vim-hdevtools"]
+	path = tag-vim/config/nvim/bundle/vim-hdevtools
+	url = git@github.com:bitc/vim-hdevtools.git
+[submodule "tag-vim/config/nvim/bundle/vim-gitgutter"]
+	path = tag-vim/config/nvim/bundle/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
+[submodule "tag-vim/config/nvim/bundle/vim-easymotion"]
+	path = tag-vim/config/nvim/bundle/vim-easymotion
+	url = git@github.com:easymotion/vim-easymotion.git
