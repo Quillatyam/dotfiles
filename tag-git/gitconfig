@@ -60,3 +60,6 @@
 [user]
 	name = Jasper de Vries
 	email = quillatyam@gmail.com
+	signingkey = 31790ABCFECEA5E0
+[commit]
+	gpgsign = true
