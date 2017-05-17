@@ -60,6 +60,7 @@
 [user]
 	name = Robert den Harink
 	email = robert@robhar.com
+	signingkey = 79C6AEED
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 

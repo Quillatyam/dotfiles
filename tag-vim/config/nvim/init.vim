@@ -36,7 +36,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-set so=999
 set mat=5
 
 set incsearch
@@ -52,12 +51,31 @@ set autoread
 set cmdheight=1
 set shiftwidth=4
 set hlsearch
+set noshowmode
 
-colorscheme base16-eighties
+colorscheme base16-google
 set background=dark
 set colorcolumn=80
 let &colorcolumn=join(range(81,999), ',')
-highlight ColorColumn guibg=Yellow
+highlight ColorColumn ctermbg=235 guibg=#232528
+highlight LineNr ctermfg=grey ctermbg=235 guibg=#1d1f21
+
+
+""Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 
 " Pathogen Infect
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -71,7 +89,19 @@ let g:mapleader = ","
 " Git Gutter
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let g:gitgutter_realtime=1                                                           
-let g:gitgutter_eager=1 
+let g:gitgutter_eager=0
+let g:gitgutter_max_signs = 500
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+highlight SignColumn guibg=#1d1f21
+
+
+" List line feed, returns etc
+""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>l :set list!<CR>
+set listchars=tab:▸\ ,eol:¬
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
 
 " Deoplete.
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -284,15 +314,78 @@ nmap <leader>w :w!<cr>
 "Fast close
 nmap <leader>q :q<cr>
 
+"Light line
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'LightlineModified',
+      \   'readonly': 'LightlineReadonly',
+      \   'fugitive': 'LightlineFugitive',
+      \   'filename': 'LightlineFilename',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'fileencoding': 'LightlineFileencoding',
+      \   'mode': 'LightlineMode',
+      \ },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
+      \ }
+
+function! LightlineModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! LightlineReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '' : ''
+endfunction
+
+function! LightlineFilename()
+  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+function! LightlineFugitive()
+  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+    let branch = fugitive#head()
+    return branch !=# '' ? ''.branch : ''
+  endif
+  return ''
+endfunction
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightlineMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
 "Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""
-"set laststatus=2
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme='base16_eighties'
+set laststatus=2
+"let g:airline#extensions#tabline#show_buffers = 0
+"let g:airline_powerline_fonts = 1
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline_theme='base16_google'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}

@@ -24,7 +24,7 @@ alias gca "git commit -a"
 alias gl "git pull --prune"
 alias grb "git rebase -i @{u}"
 alias passgen "pass generate --no-symbols --clip"
-alias tm "tmux attach -t base ;or tmux new -s base"
+alias tm "tmux -2 new -A -s base"
 
 #source local stuff.
 source ~/.localrc

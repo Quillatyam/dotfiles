@@ -31,12 +31,6 @@
 [submodule "tag-vim/config/nvim/bundle/vCoolor.vim"]
 	path = tag-vim/config/nvim/bundle/vCoolor.vim
 	url = git@github.com:KabbAmine/vCoolor.vim.git
-[submodule "tag-vim/config/nvim/bundle/vim-airline"]
-	path = tag-vim/config/nvim/bundle/vim-airline
-	url = git@github.com:vim-airline/vim-airline.git
-[submodule "tag-vim/config/nvim/bundle/vim-airline-themes"]
-	path = tag-vim/config/nvim/bundle/vim-airline-themes
-	url = git@github.com:vim-airline/vim-airline-themes.git
 [submodule "tag-vim/config/nvim/bundle/vim-fugitive"]
 	path = tag-vim/config/nvim/bundle/vim-fugitive
 	url = git@github.com:tpope/vim-fugitive.git
@@ -115,3 +109,15 @@
 [submodule "tag-vim/config/nvim/bundle/vim-easymotion"]
 	path = tag-vim/config/nvim/bundle/vim-easymotion
 	url = git@github.com:easymotion/vim-easymotion.git
+[submodule "tag-vim/config/nvim/bundle/vim-indent-guides"]
+	path = tag-vim/config/nvim/bundle/vim-indent-guides
+	url = git@github.com:nathanaelkane/vim-indent-guides.git
+[submodule "tag-vim/config/nvim/bundle/onedark.vim"]
+	path = tag-vim/config/nvim/bundle/onedark.vim
+	url = git@github.com:joshdick/onedark.vim.git
+[submodule "tag-vim/config/nvim/bundle/lightline.vim"]
+	path = tag-vim/config/nvim/bundle/lightline.vim
+	url = git@github.com:itchyny/lightline.vim.git
+[submodule "tag-tmux/plugins/tpm"]
+	path = tag-tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm.git
