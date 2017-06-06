@@ -6,19 +6,28 @@ windows:
   panes:
   - shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
+    - 'docker-compose up -d'
+    - 'sleep 60'
+    - 'docker-compose up -d'
+    - 'sleep 60'
+    - 'docker-compose up -d'
+    - 'sleep 60'
+    - 'docker-compose up -d'
+    - 'sleep 60'
     - clear
     - 'docker-compose up'
   - focus: 'true'
     shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-nginx-proxy'
+    - 'sleep 120'
+    - 'docker-compose up -d'
+    - 'sleep 120'
+    - 'docker-compose up -d'
     - clear
-    - 'sleep 60'
     - 'docker-compose up'
   - shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
     - fish
-    - 'sleep 60'
-    - 'docker-compose up -d'
     - clear
   - shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
