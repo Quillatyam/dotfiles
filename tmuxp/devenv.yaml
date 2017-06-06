@@ -1,0 +1,27 @@
+session_name: devenv
+windows:
+- focus: 'true'
+  layout: e741,238x63,0,0[238x24,0,0,7,238x38,0,25{78x38,0,25,6,78x38,79,25,3,80x38,158,25,1}]
+  options: {}
+  panes:
+  - shell_command:
+    - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
+    - clear
+    - 'docker-compose up'
+  - focus: 'true'
+    shell_command:
+    - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-nginx-proxy'
+    - clear
+    - 'sleep 60'
+    - 'docker-compose up'
+  - shell_command:
+    - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
+    - fish
+    - 'sleep 60'
+    - 'docker-compose up -d'
+    - clear
+  - shell_command:
+    - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
+    - fish
+    - clear
+  window_name: devenv
