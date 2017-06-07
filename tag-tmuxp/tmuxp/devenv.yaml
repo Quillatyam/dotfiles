@@ -6,23 +6,12 @@ windows:
   panes:
   - shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
-    - 'docker-compose up -d'
-    - 'sleep 60'
-    - 'docker-compose up -d'
-    - 'sleep 60'
-    - 'docker-compose up -d'
-    - 'sleep 60'
-    - 'docker-compose up -d'
-    - 'sleep 60'
     - clear
     - 'docker-compose up'
   - focus: 'true'
     shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-nginx-proxy'
-    - 'sleep 120'
-    - 'docker-compose up -d'
-    - 'sleep 120'
-    - 'docker-compose up -d'
+    - 'sleep 20'
     - clear
     - 'docker-compose up'
   - shell_command:
@@ -33,4 +22,5 @@ windows:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-current'
     - fish
     - clear
+    - 'watch -n 1 docker ps -a'
   window_name: devenv
