@@ -11,7 +11,7 @@ windows:
   - focus: 'true'
     shell_command:
     - 'cd /home/quillatyam/repositories/Xlab-nl/kedo-nginx-proxy'
-    - 'sleep 20'
+    - 'sleep 60'
     - clear
     - 'docker-compose up'
   - shell_command:
