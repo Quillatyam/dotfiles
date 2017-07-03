@@ -1,1 +1,3 @@
-function eclipse; /opt/eclipse/eclipse-neon/eclipse $argv &; end
+function eclipse; 
+    /opt/eclipse/eclipse $argv &; 
+end
