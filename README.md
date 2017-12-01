@@ -10,4 +10,4 @@ sudo apt-get update
 sudo apt-get install rcm
 ```
 
-Run `make install` poof... magic!
+Install by running `rcup -t <tag> -v`.

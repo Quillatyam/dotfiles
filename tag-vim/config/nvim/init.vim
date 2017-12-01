@@ -1,392 +1,539 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer:
-"       Robert den Harink
-"       http://robhar.com robert@robhar.com
-" Version:
-"       1.1 - 28-10-2016
+" Robert den Harink .vimrc
+" Most aimed at Haskell / Golang / C / LaTeX
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Feel free to copy ;-)
 
-"General
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+" General {{{
+" Syntax highlighting
 syntax on
+
+" enable loading indent filt for filetype
 filetype plugin indent on
-                       
-set nocompatible
-set hidden
-set number
-set ruler
-set showmode
-set lazyredraw
-set mouse=a
-set encoding=utf8
-set clipboard=unnamed
-set pastetoggle=<F11>
-set ffs=unix,mac,dos
 
-set wrap
-set lbr
-set tw=79
+" Use indentation for folds
+set foldmethod=indent
+set foldnestmax=5
+set foldlevelstart=99
+set foldcolumn=0
 
-set smarttab
-set expandtab
-set smartindent
-set autoindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+augroup vimrcFold
+  " fold vimrc itself by categories
+  autocmd!
+  autocmd FileType vim set foldmethod=marker
+  autocmd FileType vim set foldlevel=0
+augroup END
 
-set mat=5
-
-set incsearch
-set smartcase
-set wildmenu
-set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
-set wildmode=longest,list,full
-set completeopt=menuone,menu,longest
-
-set magic
-set showmatch
+" Set to auto read when a file is changed from the outside
 set autoread
-set cmdheight=1
-set shiftwidth=4
-set hlsearch
-set noshowmode
 
-colorscheme base16-google
-set background=dark
-set colorcolumn=80
-let &colorcolumn=join(range(81,999), ',')
-highlight ColorColumn ctermbg=235 guibg=#232528
-highlight LineNr ctermfg=grey ctermbg=235 guibg=#1d1f21
+" Use par for prettier line formatting
+set formatprg=par
+let $PARINIT = 'rTbgqR B=.,?_A_a Q=_s>|'
 
+" Set a leader key
+let mapleader = ","
+  
+" Leader key timeout
+set tm=2000 "Leader key timeout
 
-""Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+" Allow the normal use of "," by pressing it twice
+noremap ,, ,
+
+" Kill the damned Ex mode.
+nnoremap Q <nop>
+
+" Make <c-h> work like <c-h> again (this is a problem with libterm)
+nnoremap <BS> <C-w>h
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+" }}}
+
+" Plug Manager {{{
+call plug#begin()
+Plug 'tpope/vim-sensible'
+Plug 'scrooloose/nerdcommenter'
+Plug 'kien/ctrlp.vim'
+Plug 'twinside/vim-hoogle'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'eagletmt/ghcmod-vim'
+Plug 'reedes/vim-lexical'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'niklasl/vim-rdf'
+Plug 'eagletmt/neco-ghc'
+Plug 'neomake/neomake'
+Plug 'scrooloose/nerdcommenter'
+Plug 'nbouscal/vim-stylish-haskell'
+Plug 'tpope/vim-surround'
+Plug 'shougo/vimproc.vim'
+Plug 'ervandew/supertab'
+Plug 'vim-syntastic/syntastic'
+Plug 'godlygeek/tabular'
+Plug 'majutsushi/tagbar'
+Plug 'tomtom/tlib_vim'
+Plug 'vim-scripts/vim-addon-mw-utils'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'easymotion/vim-easymotion'
+Plug 'dag/vim-fish'
+Plug 'int3/vim-extradite'
+Plug 'tpope/vim-fugitive'
+Plug 'b4b4r07/vim-hcl'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim'
+call plug#end()
+" }}}
+
+" Vim UI {{{
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Turn on the WiLd menu
+set wildmenu
+" Tab-complete files up to longest unambiguous prefix
+set wildmode=list:longest,full
+
+" Always show current position
+set ruler
+set number
+
+" Show trailing whitespace
+set list
+" But only interesting whitespace
+if &listchars ==# 'eol:$'
+  set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 
-" Pathogen Infect
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-execute pathogen#infect()
+" Height of the command bar
+set cmdheight=1
 
-" Leader
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ","
-let g:mapleader = ","
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
 
-" Git Gutter
-""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gitgutter_realtime=1                                                           
-let g:gitgutter_eager=0
-let g:gitgutter_max_signs = 500
-let g:gitgutter_map_keys = 0
-let g:gitgutter_override_sign_column_highlight = 0
-highlight SignColumn guibg=#1d1f21
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
 
 
-" List line feed, returns etc
-""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>l :set list!<CR>
-set listchars=tab:▸\ ,eol:¬
-hi IndentGuidesOdd  ctermbg=black
-hi IndentGuidesEven ctermbg=darkgrey
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
 
-" Deoplete.
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-" Golang
-let g:deoplete#sources#go#use_cache = 1
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#json_directory = '~/.cache/deoplete/go/$GOOS_GOARCH'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" For regular expressions turn magic on
+set magic
 
-" EasyMotion
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:EasyMotion_smartcase = 1
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-" Gif config
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to 
-" EasyMotion. Without these mappings, `n` & `N` works fine. 
-" (These mappings just provide different highlight method and have some other 
-" features )
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
 
-" NerdCommenter
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-"Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-"Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-"Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-"Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-"Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-"Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
+" No annoying sound on errors
+set noerrorbells
+set vb t_vb=
 
-" Syntastic
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
 
-" NERDTree
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"Open NERDTREE when no file is opened
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
+" Force redraw
+map <silent> <leader>r :redraw!<CR>
 
-" Haskell
-""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" Turn mouse mode on
+nnoremap <leader>ma :set mouse=a<cr>
 
-au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+" Turn mouse mode off
+nnoremap <leader>mo :set mouse=<cr>
 
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
+" Default to mouse mode on
+set mouse=a
 
-let g:haskell_tabular = 1
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 
-" Tabularize
-""""""""""""""""""""""""""""""""""""""""""""""""""
-vmap a= :Tabularize /=<CR>
-vmap a; :Tabularize /::<CR>
-vmap a- :Tabularize /-><CR>
-vmap a, :Tabularize /<-<CR>
-vmap al :Tabularize /[\[\\|,]<CR>
+" }}}
 
-" React
-""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:jsx_ext_required = 0
+" Colors and Fonts {{{
+" Use 256 colors
+let base16colorspace=256
+set t_Co=256
 
-" Golang
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
+" Dark background
+set background=dark
 
-"By default syntax-highlighting for Functions,
-"Methods and Structs is disabled.
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+" Colorscheme
+colorscheme base16-3024
 
-"By default new terminals are opended in vertical split, 
-"make it horizontal
-let g:go_term_mode = "split"
-"Run go-test in a new terminal
-let g:go_term_enabled = 1
-"Use with syntastic
-let g:go_list_type = "quickfix"
-"Enable goimports to automatically insert import paths 
-"instead of gofmt
-let g:go_fmt_command = "goimports"
-"vim-go shows errors for the fmt command
-let g:go_fmt_fail_silently = 0
-"Format on save
-let g:go_fmt_autosave = 1
-"Disable updating dependencies when installing/updating binaries
-let g:go_get_update = 0
+" Color SignColumn and Linenr the same as background.
+highlight clear SignColumn
+highlight clear LineNr
+highlight LineNr ctermfg=grey
+highlight LineNr ctermfg=8
 
-" PHP
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" php.vim
-let g:syntastic_php_checkers=['php', 'phpcs']
-let g:syntastic_php_phpcs_args='--standard=PSR2 -n'
+" Use pleasant but very visible search hilighting
+hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
+hi! link Visual Search
 
-" Format to psr2
-let g:php_cs_fixer_rules = "@PSR2"
-let g:php_cs_fixer_php_path = "php"
-let g:php_cs_fixer_enable_default_mapping = 1 "default (<leader>pcd, <leader>pcf)
-let g:php_cs_fixer_dry_run = 0                    
-let g:php_cs_fixer_verbose = 0
+" Searing red very visible cursor
+hi Cursor guibg=red
+" }}}
 
-" Ctags
-let g:tagbar_phpctags_memory_limit = '256M'
+" Files, backups and undo {{{
+" Turn backup off, since most stuff is in Git anyway...
+set nobackup
+set nowb
+set noswapfile
 
-" VDebug
-let g:vdebug_options= {
-    \    "port" : 9001,
-    \    "server" : '',
-    \    "timeout" : 20,
-    \    "on_close" : 'detach',
-    \    "break_on_open" : 0,
-    \    "ide_key" : '',
-    \    "path_maps": {'/opt/www/kedo-current': '/Users/robert/src/github.com/Rauwekost/kedo-dev-env/kedo-current'},
-    \    "debug_window_level" : 2,
-    \    "debug_file_level" : 0,
-    \    "debug_file" : "",
-    \    "watch_window_style" : 'compact',
-    \    "marker_default" : '⬦',
-    \    "marker_closed_tree" : '▸',
-    \    "marker_open_tree" : '▾'
-    \}
-let g:vdebug_keymap = {
-\    "run_to_cursor" : "<Down>",
-\    "step_over" : "<Up>",
-\    "step_into" : "<Left>",
-\    "step_out" : "<Right>",
-\    "close" : "q",
-\    "detach" : "x",
-\}
+" Open file prompt with current path
+nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
 
-" Disabling the directional keys / Hardtime config
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>h :HardTimeToggle<CR>
-let g:hardtime_default_on = 0
-let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+","<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+"]
-let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-let g:hardtime_showmsg = 1
-let g:hardtime_timeout = 100
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
+" Show undo tree
+nmap <silent> <leader>u :MundoToggle<CR>
 
-" SuperTab
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+" Fuzzy find files
+nnoremap <silent> <Leader><space> :CtrlP<CR>
+let g:ctrlp_max_files=0
+let g:ctrlp_show_hidden=1
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
+" }}}
 
-" Ctrl+P
-""""""""""""""""""""""""""""""""""""""""""""""""""
-map <silent> <Leader>t :CtrlP()<CR>
+" Text, tab and indent related {{{
+" Use spaces instead of tabs
+set expandtab
+
+" 1 tab == 2 spaces, unless the file is already
+" using tabs, in which case tabs will be inserted.
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+"set wrap "Wrap lines
+
+" Copy and paste to os clipboard
+nmap <leader>y "*y
+vmap <leader>y "*y
+nmap <leader>d "*d
+vmap <leader>d "*d
+nmap <leader>p "*p
+vmap <leader>p "*p
+" }}}
+
+" Visual mode related {{{
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+" }}}
+
+" Moving around, tabs, windows and buffers {{{
+" Treat long lines as break lines (useful when moving around in them)
+nnoremap j gj
+nnoremap k gk
+
+noremap <c-h> <c-w>h
+noremap <c-k> <c-w>k
+noremap <c-j> <c-w>j
+noremap <c-l> <c-w>l
+
+" Disable highlight when <leader><cr> is pressed
+" but preserve cursor coloring
+nmap <silent> <leader><cr> :noh\|hi Cursor guibg=red<cr>
+
+" Return to last edit position when opening files (You want this!)
+augroup last_edit
+  autocmd!
+  autocmd BufReadPost *
+       \ if line("'\"") > 0 && line("'\"") <= line("$") |
+       \   exe "normal! g`\"" |
+       \ endif
+augroup END
+
+" Remember info about open buffers on close
+set viminfo^=%
+
+" Open window splits in various places
+nmap <leader>sh :leftabove  vnew<CR>
+nmap <leader>sl :rightbelow vnew<CR>
+nmap <leader>sk :leftabove  new<CR>
+nmap <leader>sj :rightbelow new<CR>
+
+" Manually create key mappings (to avoid rebinding C-\)
+let g:tmux_navigator_no_mappings = 1
+
+" don't close buffers when you aren't displaying them
+set hidden
+
+" previous buffer, next buffer
+nnoremap <leader>bp :bp<cr>
+nnoremap <leader>bn :bn<cr>
+
+" close every window in current tabview but the current
+nnoremap <leader>bo <c-w>o
+
+" delete buffer without closing pane
+noremap <leader>bd :Bd<cr>
+
+" fuzzy find buffers
 noremap <leader>b<space> :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/]dist$'
 
-" Tagbar
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F6> :TagbarToggle<CR>
+" Neovim terminal configurations
+" Use <Esc> to escape terminal insert mode
+tnoremap <Esc> <C-\><C-n>
 
-" Mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
-"Move a line of text using SHIFT+[jk]
-nnoremap <S-Up> :m-2<CR>
-nnoremap <S-Down> :m+<CR>
-inoremap <S-Up> <Esc>:m-2<CR>
-inoremap <S-Down> <Esc>:m+<CR>
-"Clear last search highlight by esaping twice
-nnoremap <esc><esc> :noh<return>
-"Fast saving
-nmap <leader>w :w!<cr>
-"Fast close
-nmap <leader>q :q<cr>
+" Make terminal buffers start in insertmode
+autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd BufLeave term://* stopinsert
 
-"Light line
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:lightline = {
-      \ 'colorscheme': 'onedark',
-      \ 'mode_map': { 'c': 'NORMAL' },
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'modified': 'LightlineModified',
-      \   'readonly': 'LightlineReadonly',
-      \   'fugitive': 'LightlineFugitive',
-      \   'filename': 'LightlineFilename',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'fileencoding': 'LightlineFileencoding',
-      \   'mode': 'LightlineMode',
-      \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
+" Make terminal split moving behave like normal neovim
+tnoremap <c-h> <C-\><C-n><C-w>h
+tnoremap <c-j> <C-\><C-n><C-w>j
+tnoremap <c-k> <C-\><C-n><C-w>k
+tnoremap <c-l> <C-\><C-n><C-w>l
+" }}}
 
-function! LightlineModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightlineReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '' : ''
-endfunction
-
-function! LightlineFilename()
-  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
-
-function! LightlineFugitive()
-  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-    let branch = fugitive#head()
-    return branch !=# '' ? ''.branch : ''
-  endif
-  return ''
-endfunction
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
-
-function! LightlineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-"Status line
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Status line {{{
+" Always show the status line
 set laststatus=2
-"let g:airline#extensions#tabline#show_buffers = 0
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline_theme='base16_google'
+" }}}
+
+" Editing mappings {{{
+" Utility function to delete trailing white space
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+" }}}
+
+" NERDTree {{{
+" Close nerdtree after a file is selected
+let NERDTreeQuitOnOpen = 0
+
+function! IsNERDTreeOpen()
+  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+endfunction
+
+function! ToggleFindNerd()
+  if IsNERDTreeOpen()
+    exec ':NERDTreeToggle'
+  else
+    exec ':NERDTreeFind'
+  endif
+endfunction
+
+" If nerd tree is closed, find current file, if open, close it
+nmap <silent> <leader>f <ESC>:call ToggleFindNerd()<CR>
+nmap <silent> <leader>F <ESC>:NERDTreeToggle<CR>
+" }}}
+
+" Alignment {{{
+" Stop Align plugin from forcing its mappings on us
+let g:loaded_AlignMapsPlugin=1
+" Align on equal signs
+map <Leader>a= :Align =<CR>
+" Align on commas
+map <Leader>a, :Align ,<CR>
+" Align on pipes
+map <Leader>a<bar> :Align <bar><CR>
+" Prompt for align character
+map <leader>ap :Align
+" }}}
+
+" Tags {{{
+map <leader>tt :TagbarToggle<CR>
+
+set tags=tags;/
+set cst
+set csverb
+" }}}
+
+" Git {{{
+let g:extradite_width = 60
+" Hide messy Ggrep output and copen automatically
+function! NonintrusiveGitGrep(term)
+  execute "copen"
+  " Map 't' to open selected item in new tab
+  execute "nnoremap <silent> <buffer> t <C-W><CR><C-W>T"
+  execute "silent! Ggrep " . a:term
+  execute "redraw!"
+endfunction
+
+command! -nargs=1 GGrep call NonintrusiveGitGrep(<q-args>)
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gg :copen<CR>:GGrep 
+nmap <leader>gl :Extradite!<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gb :Gblame<CR>
+
+function! CommittedFiles()
+  " Clear quickfix list
+  let qf_list = []
+  " Find files committed in HEAD
+  let git_output = system("git diff-tree --no-commit-id --name-only -r HEAD\n")
+  for committed_file in split(git_output, "\n")
+    let qf_item = {'filename': committed_file}
+    call add(qf_list, qf_item)
+  endfor
+  " Fill quickfix list with them
+  call setqflist(qf_list)
+endfunction
+
+" Show list of last-committed files
+nnoremap <silent> <leader>g? :call CommittedFiles()<CR>:copen<CR>
+" }}}
+
+" Completion {{{
+set completeopt+=longest
+
+" Use buffer words as default tab completion
+let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
+if has("gui_running")
+  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+else " no gui
+  if has("unix")
+    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  endif
+endif
+" }}}
+
+" Syntastic {{{
+map <Leader>s :SyntasticToggleMode<CR>
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['haskell'] }
+" }}}
+
+" Autocorect {{{
+ab teh the
+ab sefl self
+ab equivelant equivalent
+" }}}
+
+" Other Languages {{{
+autocmd BufNewFile,BufRead *.ocaml set filetype=ocaml
+autocmd BufNewFile,BufRead *.go set filetype=go
+autocmd BufNewFile,BufRead *.pure set filetype=pure
+autocmd BufNewFile,BufRead *.js set filetype=javascript
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.ll set filetype=llvm
+autocmd BufNewFile,BufRead *.scala set filetype=scala
+autocmd BufNewFile,BufRead *.c set filetype=c
+" }}}
+
+" Tabularize {{{
+let g:haskell_tabular = 1
+
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a, :Tabularize /,<CR>
+" }}}
+
+" Fast Navigation {{{
+" Go to last edited line one keystroke 
+map ` g;
+map gl <C-^>
+" }}}
+
+" Writing Mode {{{
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+" autocmd Filetype markdown call SetMarkdownOptions()
+
+:hi SpellBad cterm=underline ctermfg=red
+
+" function SetMarkdownOptions()
+"  Goyo
+" endfunction
+
+" Autogroup Pencil.
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,md call pencil#init()
+  autocmd FileType text            call pencil#init()
+augroup END
+
+" Autogroup lexical
+augroup lexical
+  autocmd!
+  autocmd FileType markdown,mkd call lexical#init()
+  autocmd FileType textile      call lexical#init()
+  autocmd FileType text         call lexical#init({ 'spell': 0 })
+augroup END
+
+" Limelight / Goyo
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
+
+" Lexical settings
+let g:lexical#spelllang = ["en_gb","nl",]
+let g:lexical#thesaurus = ['~/.config/nvim/thesaurus/mthesaur.txt',]
+let g:lexical#dictionary_key = '<leader>k'
+
+"autocmd BufNewFi,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal spell
+"autocmd BufNewFile,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal nonumber
+" }}}
+
+" Motion {{{
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+" }}}
+
+" Airline {{{
+let g:airline_powerline_fonts = 1
+let g:airline_theme='base16_3024'
+" }}}
+
+" Deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" }}}
+
+" Slime {{{
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": ":.1"}
+
+vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
+nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
+nmap <silent> <Leader>rv <Plug>SetTmuxVars
+" }}}
+
+" Haskell {{{
+" haskell config path
+let h_config_haskell = expand(resolve($HOME . "/.config/nvim/vimrc.haskell"))
+execute 'source '. h_config_haskell
+"let $PATH = $PATH . ':' . expand('~/.cabal/bin')
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+" }}}
