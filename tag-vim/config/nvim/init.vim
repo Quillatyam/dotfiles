@@ -47,41 +47,69 @@ nnoremap <BS> <C-w>h
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+" 80 Column mark
+set colorcolumn=80
+
 " }}}
 
 " Plug Manager {{{
 call plug#begin()
-Plug 'tpope/vim-sensible'
-Plug 'scrooloose/nerdcommenter'
-Plug 'kien/ctrlp.vim'
-Plug 'twinside/vim-hoogle'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'eagletmt/ghcmod-vim'
-Plug 'reedes/vim-lexical'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'niklasl/vim-rdf'
-Plug 'eagletmt/neco-ghc'
-Plug 'neomake/neomake'
-Plug 'scrooloose/nerdcommenter'
-Plug 'nbouscal/vim-stylish-haskell'
-Plug 'tpope/vim-surround'
-Plug 'shougo/vimproc.vim'
+Plug 'jgdavey/tslime.vim'
 Plug 'ervandew/supertab'
-Plug 'vim-syntastic/syntastic'
-Plug 'godlygeek/tabular'
-Plug 'majutsushi/tagbar'
-Plug 'tomtom/tlib_vim'
-Plug 'vim-scripts/vim-addon-mw-utils'
+Plug 'moll/vim-bbye'
+Plug 'vim-scripts/gitignore'
+Plug 'neomake/neomake'
+
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'int3/vim-extradite'
+
+" Bars, panels, and files
+Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+
+" Themes
+Plug 'joshdick/onedark.vim'
+
+" Text manipulation
+Plug 'vim-scripts/Align'
+Plug 'simnalamburt/vim-mundo'
+Plug 'tpope/vim-commentary'
+Plug 'godlygeek/tabular'
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'easymotion/vim-easymotion'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'terryma/vim-multiple-cursors'
+
+" Allow pane movement to jump out of vim into tmux
+Plug 'christoomey/vim-tmux-navigator'
+
+" Haskell
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
+Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
+Plug 'nbouscal/vim-stylish-haskell'
+
+Plug 'tpope/vim-sensible'
+Plug 'reedes/vim-lexical'
+Plug 'niklasl/vim-rdf'
+Plug 'tpope/vim-surround'
+Plug 'tomtom/tlib_vim'
+Plug 'vim-scripts/vim-addon-mw-utils'
 Plug 'dag/vim-fish'
-Plug 'int3/vim-extradite'
-Plug 'tpope/vim-fugitive'
 Plug 'b4b4r07/vim-hcl'
 Plug 'honza/vim-snippets'
-Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim'
+Plug 'vim-syntastic/syntastic'
+Plug 'shougo/vimproc.vim', {'do' : 'make'}
 call plug#end()
 " }}}
 
@@ -91,6 +119,7 @@ set so=7
 
 " Turn on the WiLd menu
 set wildmenu
+
 " Tab-complete files up to longest unambiguous prefix
 set wildmode=list:longest,full
 
@@ -100,6 +129,7 @@ set number
 
 " Show trailing whitespace
 set list
+
 " But only interesting whitespace
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
@@ -124,7 +154,6 @@ set hlsearch
 " Makes search act like search in modern browsers
 set incsearch
 
-
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
@@ -133,6 +162,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -168,28 +198,41 @@ endif
 " }}}
 
 " Colors and Fonts {{{
-" Use 256 colors
-let base16colorspace=256
-set t_Co=256
+" 16-color mode is the preferred option, since its colors are more accurate than those of 256-color mode. 
+let g:onedark_termcolors=16
+let g:onedark_terminal_italics=1
 
-" Dark background
-set background=dark
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 " Colorscheme
-colorscheme base16-3024
+colorscheme onedark
 
-" Color SignColumn and Linenr the same as background.
-highlight clear SignColumn
-highlight clear LineNr
-highlight LineNr ctermfg=grey
-highlight LineNr ctermfg=8
+" Highlight colors
+if (has("autocmd"))
+  augroup colorextend
+    autocmd!
+    " Make `Function`s bold in GUI mode
+    autocmd ColorScheme * call onedark#extend_highlight("Function", { "gui": "bold" })
+    " Override the `Statement` foreground color in 256-color mode
+    autocmd ColorScheme * call onedark#extend_highlight("Statement", { "fg": { "cterm": 128 } })
+    " Override the `Identifier` background color in GUI mode
+    autocmd ColorScheme * call onedark#extend_highlight("Identifier", { "bg": { "gui": "#333333" } })
+  augroup END
+endif
 
-" Use pleasant but very visible search hilighting
-hi Search ctermfg=white ctermbg=173 cterm=none guifg=#ffffff guibg=#e5786d gui=none
-hi! link Visual Search
-
-" Searing red very visible cursor
-hi Cursor guibg=red
 " }}}
 
 " Files, backups and undo {{{
@@ -197,6 +240,16 @@ hi Cursor guibg=red
 set nobackup
 set nowb
 set noswapfile
+
+" Source the vimrc file after saving it
+augroup sourcing
+  autocmd!
+  if has('nvim')
+    autocmd bufwritepost init.vim source $MYVIMRC
+  else
+    autocmd bufwritepost .vimrc source $MYVIMRC
+  endif
+augroup END
 
 " Open file prompt with current path
 nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
@@ -209,7 +262,7 @@ nnoremap <silent> <Leader><space> :CtrlP<CR>
 let g:ctrlp_max_files=0
 let g:ctrlp_show_hidden=1
 let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
-" }}}
+"}}}
 
 " Text, tab and indent related {{{
 " Use spaces instead of tabs
@@ -227,7 +280,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-"set wrap "Wrap lines
+set wrap "Wrap lines
 
 " Copy and paste to os clipboard
 nmap <leader>y "*y
@@ -298,17 +351,19 @@ noremap <leader>b<space> :CtrlPBuffer<cr>
 
 " Neovim terminal configurations
 " Use <Esc> to escape terminal insert mode
-tnoremap <Esc> <C-\><C-n>
-
-" Make terminal buffers start in insertmode
-autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
-
-" Make terminal split moving behave like normal neovim
-tnoremap <c-h> <C-\><C-n><C-w>h
-tnoremap <c-j> <C-\><C-n><C-w>j
-tnoremap <c-k> <C-\><C-n><C-w>k
-tnoremap <c-l> <C-\><C-n><C-w>l
+"
+if has('nvim')
+  " Use <Esc> to escape terminal insert mode
+  tnoremap <Esc> <C-\><C-n>
+  " Make terminal split moving behave like normal neovim
+  tnoremap <c-h> <C-\><C-n><C-w>h
+  tnoremap <c-j> <C-\><C-n><C-w>j
+  tnoremap <c-k> <C-\><C-n><C-w>k
+  tnoremap <c-l> <C-\><C-n><C-w>l
+  " Make terminal buffers start in insertmode
+  autocmd BufWinEnter,WinEnter term://* startinsert
+  autocmd BufLeave term://* stopinsert
+endif
 " }}}
 
 " Status line {{{
@@ -448,14 +503,6 @@ autocmd BufNewFile,BufRead *.scala set filetype=scala
 autocmd BufNewFile,BufRead *.c set filetype=c
 " }}}
 
-" Tabularize {{{
-let g:haskell_tabular = 1
-
-vmap a= :Tabularize /=<CR>
-vmap a; :Tabularize /::<CR>
-vmap a, :Tabularize /,<CR>
-" }}}
-
 " Fast Navigation {{{
 " Go to last edited line one keystroke 
 map ` g;
@@ -468,36 +515,10 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 :hi SpellBad cterm=underline ctermfg=red
 
-" function SetMarkdownOptions()
-"  Goyo
-" endfunction
-
-" Autogroup Pencil.
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd,md call pencil#init()
-  autocmd FileType text            call pencil#init()
-augroup END
-
-" Autogroup lexical
-augroup lexical
-  autocmd!
-  autocmd FileType markdown,mkd call lexical#init()
-  autocmd FileType textile      call lexical#init()
-  autocmd FileType text         call lexical#init({ 'spell': 0 })
-augroup END
-
-" Limelight / Goyo
-" autocmd! User GoyoEnter Limelight
-" autocmd! User GoyoLeave Limelight!
-
 " Lexical settings
 let g:lexical#spelllang = ["en_gb","nl",]
 let g:lexical#thesaurus = ['~/.config/nvim/thesaurus/mthesaur.txt',]
 let g:lexical#dictionary_key = '<leader>k'
-
-"autocmd BufNewFi,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal spell
-"autocmd BufNewFile,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal nonumber
 " }}}
 
 " Motion {{{
@@ -507,7 +528,7 @@ let g:EasyMotion_smartcase = 1
 
 " Airline {{{
 let g:airline_powerline_fonts = 1
-let g:airline_theme='base16_3024'
+let g:airline_theme='onedark'
 " }}}
 
 " Deoplete {{{

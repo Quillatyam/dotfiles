@@ -1,9 +1,9 @@
 set -U EDITOR nvim
 
 # Base16 Shell
-if status --is-interactive
-    eval sh $HOME/.config/base16-shell/scripts/base16-3024.sh
-end
+#if status --is-interactive
+#    eval sh $HOME/.config/base16-shell/scripts/base16-3024.sh
+#end
 
 # Paths etc.
 set -x GOPATH $HOME/source/workspaces/go
