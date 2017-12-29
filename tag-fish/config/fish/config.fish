@@ -15,6 +15,7 @@ set -x PATH $HOME/.cabal/bin $PATH
 alias e "$EDITOR"
 alias passgen "pass generate --no-symbols --clip"
 alias tm "tmux -2 new -A -s base"
+alias nvimdiff "nvim -d"
 
 # Git aliasses
 alias gs "git status -sb"

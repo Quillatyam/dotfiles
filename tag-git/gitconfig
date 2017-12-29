@@ -30,8 +30,8 @@
     # git staash  -> stash untracked and tracked files
     # git staaash -> stash ignored, untracked, and tracked files 
     stsh = stash --keep-index
-	staash = stash --include-untracked
-	staaash = stash --all
+    staash = stash --include-untracked
+    staaash = stash --all
 	
     # git merc uses the --no-ff strategy, to always create a merge commit.
     merc = merge --no-ff
@@ -60,10 +60,19 @@
 [user]
 	name = Robert den Harink
 	email = robert@robhar.com
-	signingkey = 79C6AEED
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Users/robert/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+	signingkey = B1F44296
+[commit]
+	gpgsign = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[difftool]
+	prompt = true
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+  cmd = "nvim -d -u ~/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\""
+
+
