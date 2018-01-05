@@ -1,3 +1,10 @@
+" File              : init.vim
+" Author            : Robert den Harink <robert@robhar.com>
+" Date              : 03.01.2018
+" Last Modified Date: 03.01.2018
+" File              : init.vim
+" Date              : 29.12.2017
+" Last Modified Date: 03.01.2018
 " Robert den Harink .vimrc
 " Most aimed at Haskell / Golang / C / LaTeX
 "
@@ -98,6 +105,10 @@ Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
 Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
 Plug 'nbouscal/vim-stylish-haskell'
 
+" PHP
+Plug 'joonty/vim-taggatron'
+
+Plug 'alpertuna/vim-header'
 Plug 'tpope/vim-sensible'
 Plug 'reedes/vim-lexical'
 Plug 'niklasl/vim-rdf'
@@ -580,5 +591,23 @@ endfunction
 " Default highlighting (see help :highlight and help :highlight-link)
 highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
 highlight link multiple_cursors_visual Visual
+
+"}}}
+
+"{{{ Vim header
+let g:header_alignment = 1
+let g:header_field_author = 'Robert den Harink'
+let g:header_field_author_email = 'robert@robhar.com'
+let g:header_field_modified_by = 0
+"}}}
+
+"{{{ Tags
+let g:tagcommands = {
+\    "php" : {"tagfile":".php.tags", "args":"-R"},
+\    "javascript" : {"tagfile":".js.tags", "args":"-R"} 
+\}
+"}}}
+
+"{{{ PHP Specific
 
 "}}}
