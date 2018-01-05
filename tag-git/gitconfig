@@ -63,6 +63,7 @@
 	signingkey = B1F44296
 [commit]
 	gpgsign = true
+  template = ~/.gitmessage
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
