@@ -37,7 +37,7 @@ let $PARINIT = 'rTbgqR B=.,?_A_a Q=_s>|'
 
 " Set a leader key
 let mapleader = ","
-  
+
 " Leader key timeout
 set tm=2000 "Leader key timeout
 
@@ -64,7 +64,7 @@ Plug 'jgdavey/tslime.vim'
 Plug 'ervandew/supertab'
 Plug 'moll/vim-bbye'
 Plug 'vim-scripts/gitignore'
-Plug 'neomake/neomake'
+"Plug 'neomake/neomake'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -91,6 +91,10 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'terryma/vim-multiple-cursors'
 
+" Writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 " Allow pane movement to jump out of vim into tmux
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -108,7 +112,14 @@ Plug 'purescript-contrib/purescript-vim'
 Plug 'FrigoEU/psc-ide-vim'
 
 " PHP
-Plug 'joonty/vim-taggatron'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'w0rp/ale'
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'tobyS/pdv'
+Plug 'tobyS/vmustache'
+Plug 'SirVer/ultisnips'
+" Plug 'joonty/vim-taggatron'
 
 " Other
 Plug 'alpertuna/vim-header'
@@ -121,9 +132,16 @@ Plug 'vim-scripts/vim-addon-mw-utils'
 Plug 'dag/vim-fish'
 Plug 'b4b4r07/vim-hcl'
 Plug 'honza/vim-snippets'
-Plug 'Shougo/deoplete.nvim'
-Plug 'vim-syntastic/syntastic'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'shougo/vimproc.vim', {'do' : 'make'}
+
 call plug#end()
 " }}}
 
@@ -288,9 +306,9 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
-" Linebreak on 500 characters
+" Linebreak on 80 characters
 set lbr
-set tw=500
+set tw=80
 
 set ai "Auto indent
 set si "Smart indent
@@ -489,16 +507,17 @@ endif
 " }}}
 
 " Syntastic {{{
-map <Leader>s :SyntasticToggleMode<CR>
+" map <Leader>s :SyntasticToggleMode<CR>
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set statusline+=%#
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
 
 "let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['haskell'] }
 " }}}
@@ -550,6 +569,8 @@ let g:airline_theme='onedark'
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+let g:deoplete#ignore_sources.php = ['omni']
 " }}}
 
 " Slime {{{
@@ -606,12 +627,61 @@ let g:header_auto_add_header = 0
 "}}}
 
 "{{{ Tags
-let g:tagcommands = {
-\    "php" : {"tagfile":".php.tags", "args":"-R"},
-\    "javascript" : {"tagfile":".js.tags", "args":"-R"} 
+
+" Gutentags
+let g:gutentags_cache_dir = '~/.config/gutentags'
+
+let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js', '*.json', '*.xml',
+                                \ '*.phar', '*.ini', '*.rst', '*.md',
+                                \ '*vendor/*/test*', '*vendor/*/Test*',
+                                \ '*vendor/*/fixture*', '*vendor/*/Fixture*',
+                                \ '*var/cache*', '*var/log*']
+
+"}}}
+
+"{{{ ALE (Linting)
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'php': ['php'],
+\   'haskell': ['haskell']
 \}
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:airline#extensions#ale#enabled = 1
 "}}}
 
 "{{{ PHP Specific
 
+" Expand namespaces
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>pnu <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>pnu :call PhpInsertUse()<CR><Paste>
+
+" Expand fully qualified namespaces
+function! IPhpExpandClass()
+      call PhpExpandClass()
+          call feedkeys('a', 'n')
+        endfunction
+        autocmd FileType php inoremap <Leader>pne <Esc>:call IPhpExpandClass()<CR>
+        autocmd FileType php noremap <Leader>pne :call PhpExpandClass()<CR>
+
+" Namespace sort
+autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
+autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
+
+" PHP documenter script bound to Control-P
+autocmd FileType php inoremap <C-d> <ESC>:call PhpDocSingle()<CR>i
+autocmd FileType php nnoremap <C-d> :call PhpDocSingle()<CR>
+autocmd FileType php vnoremap <C-d> :call PhpDocRange()<CR> 
+
+" Auto sort namespaces
+let g:php_namespace_sort_after_insert=1
+
+"}}}
+
+"{{{ CtrlP
+map <silent> <leader>jd :CtrlPTag<cr><C-\>w
 "}}}
