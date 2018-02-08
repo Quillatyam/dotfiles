@@ -6,10 +6,12 @@ set -U EDITOR nvim
 #end
 
 # Paths etc.
-set -x GOPATH $HOME/source/workspaces/go
-set -x PATH $HOME/source/workspaces/go/bin $PATH
 set -x PATH $HOME/.local/bin $PATH
 set -x PATH $HOME/.cabal/bin $PATH
+set -x PATH $HOME/Library/Python/3.6/bin $PATH
+set -x PATH $HOME/.cargo/bin $PATH
+set -x PATH $HOME/source/workspaces/go/bin $PATH
+set -x GOPATH $HOME/source/workspaces/go
 
 # Aliasses.
 alias e "$EDITOR"
@@ -37,3 +39,4 @@ set -U DARCS_EDITOR vim
 #source local stuff.
 source ~/.localrc
 set -g fish_user_paths "/usr/local/bin" $fish_user_paths
+
