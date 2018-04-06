@@ -1,4 +1,6 @@
-set -U EDITOR nvim
+set -u EDITOR "nvim"
+set -u ALTERNATE_EDITOR "emcas"
+set -u VISUAL "emacsclient -c -a $EDITOR"
 
 # Base16 Shell
 #if status --is-interactive
@@ -10,14 +12,16 @@ set -x PATH $HOME/.local/bin $PATH
 set -x PATH $HOME/.cabal/bin $PATH
 set -x PATH $HOME/Library/Python/3.6/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
-set -x PATH $HOME/source/workspaces/go/bin $PATH
-set -x GOPATH $HOME/source/workspaces/go
+set -x PATH $HOME/source/go/bin $PATH
+set -x GOPATH $HOME/source/go
 
 # Aliasses.
-alias e "$EDITOR"
+alias e "$VISUAL"
+alias se "sudo $VISUAL"
 alias passgen "pass generate --no-symbols --clip"
 alias tm "tmux -2 new -A -s base"
 alias nvimdiff "nvim -d"
+alias t "todo.sh"
 
 # Git aliasses
 alias gs "git status -sb"
@@ -39,4 +43,5 @@ set -U DARCS_EDITOR vim
 #source local stuff.
 source ~/.localrc
 set -g fish_user_paths "/usr/local/bin" $fish_user_paths
-
+set -g fish_user_paths "/usr/local/opt/php@7.1/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/php@7.1/sbin" $fish_user_paths

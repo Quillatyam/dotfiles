@@ -60,11 +60,12 @@ set colorcolumn=80
 
 " Plug Manager {{{
 call plug#begin()
-Plug 'jgdavey/tslime.vim'
-Plug 'ervandew/supertab'
-Plug 'moll/vim-bbye'
-Plug 'vim-scripts/gitignore'
-"Plug 'neomake/neomake'
+
+" Senible defaults
+Plug 'tpope/vim-sensible'
+
+" Delete buffers without messing up layout.
+Plug 'moll/vim-bbye' 
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -89,14 +90,42 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'easymotion/vim-easymotion'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'terryma/vim-multiple-cursors'
+
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
+
+" Linting
+Plug 'w0rp/ale'
+
+" Snippets
+Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'
 
 " Writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'reedes/vim-lexical' "spellchecker
 
-" Allow pane movement to jump out of vim into tmux
-Plug 'christoomey/vim-tmux-navigator'
+" Autocomplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'ervandew/supertab'
+" Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+" Plug 'roxma/nvim-completion-manager'
+
+" Linked data
+Plug 'niklasl/vim-rdf'
+
+" Fish shell
+Plug 'dag/vim-fish'
+
+" Golang
+Plug 'fatih/vim-go'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -112,34 +141,19 @@ Plug 'purescript-contrib/purescript-vim'
 Plug 'FrigoEU/psc-ide-vim'
 
 " PHP
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'arnaud-lb/vim-php-namespace'
-Plug 'w0rp/ale'
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'tobyS/pdv'
 Plug 'tobyS/vmustache'
-Plug 'SirVer/ultisnips'
-" Plug 'joonty/vim-taggatron'
+Plug 'evidens/vim-twig'
 
-" Other
+" Add header in a file
 Plug 'alpertuna/vim-header'
-Plug 'tpope/vim-sensible'
-Plug 'reedes/vim-lexical'
-Plug 'niklasl/vim-rdf'
+
+" Utilities
 Plug 'tpope/vim-surround'
 Plug 'tomtom/tlib_vim'
 Plug 'vim-scripts/vim-addon-mw-utils'
-Plug 'dag/vim-fish'
-Plug 'b4b4r07/vim-hcl'
-Plug 'honza/vim-snippets'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-
 Plug 'shougo/vimproc.vim', {'do' : 'make'}
 
 call plug#end()
@@ -230,20 +244,24 @@ endif
 " }}}
 
 " Colors and Fonts {{{
-" 16-color mode is the preferred option, since its colors are more accurate than those of 256-color mode. 
+" 16-color mode is the preferred option, since its colors are more accurate 
+" than those of 256-color mode. 
 let g:onedark_termcolors=16
 let g:onedark_terminal_italics=1
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+" Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+" If you're using tmux version 2.2 or later, you can remove the outermost 
+" $TMUX check and use tmux's 24-bit color support
+" (see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (has("nvim"))
   "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 
+" < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+" Based on Vim patch 7.4.1770 (`guicolors` option) 
+" < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
 " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
@@ -488,28 +506,26 @@ function! CommittedFiles()
   call setqflist(qf_list)
 endfunction
 
-" Show list of last-committed files
-nnoremap <silent> <leader>g? :call CommittedFiles()<CR>:copen<CR>
-" }}}
-
 " Completion {{{
 set completeopt+=longest
 
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
 " Use buffer words as default tab completion
-let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  endif
-endif
+" let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
+" if has("gui_running")
+"   imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+" else " no gui
+"   if has("unix")
+"     inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+"   endif
+" endif
 " }}}
 
 " Syntastic {{{
 " map <Leader>s :SyntasticToggleMode<CR>
 
-set statusline+=%#
+" set statusline+=%#
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
@@ -555,6 +571,14 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 let g:lexical#spelllang = ["en_gb","nl",]
 let g:lexical#thesaurus = ['~/.config/nvim/thesaurus/mthesaur.txt',]
 let g:lexical#dictionary_key = '<leader>k'
+
+augroup lexical
+  autocmd!
+  autocmd FileType markdownwn,mkd call lexical#init()
+  autocmd FileType textile call lexical#init()
+  autocmd FileType text call lexical#init({ 'spell': 0 })
+augroup END
+
 " }}}
 
 " Motion {{{
@@ -568,18 +592,10 @@ let g:airline_theme='onedark'
 " }}}
 
 " Deoplete {{{
+" Use deoplete.
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
-let g:deoplete#ignore_sources.php = ['omni']
-" }}}
-
-" Slime {{{
-let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": ":.1"}
-
-vmap <silent> <Leader>rs <Plug>SendSelectionToTmux
-nmap <silent> <Leader>rs <Plug>NormalModeSendToTmux
-nmap <silent> <Leader>rv <Plug>SetTmuxVars
+" Use smartcase.
+let g:deoplete#enable_smart_case = 1
 " }}}
 
 " Haskell {{{
