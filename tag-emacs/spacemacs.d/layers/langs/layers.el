@@ -2,7 +2,9 @@
  '(
    ;; Personal layers
    macros
+   my-go
 
    ;; Spacemacs layers
    python
+   go
    ))

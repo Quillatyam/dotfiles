@@ -7,7 +7,7 @@
 (defvar pretty-eshell-funcs nil
   "List of `pretty-eshell-section' to enable.")
 
-(defvar pretty-eshell-sep "  "
+(defvar pretty-eshell-sep " "
   "String delimits each `pretty-eshell-section'")
 
 (defvar pretty-eshell-section-delim " "
@@ -16,7 +16,7 @@
 (defvar pretty-eshell-header ""
   "Initial string composing the eshell prompt.")
 
-(defvar pretty-eshell-prompt-string " "
+(defvar pretty-eshell-prompt-string ">"
   "Prompt string, must match builtin `eshell-prompt-regexp'")
 
 (defvar pretty-eshell-prompt-num 0

@@ -4,11 +4,13 @@
 (require 'ox-bibtex)
 (require 'ox-extra)
 (require 'bibtex)
+(require 'auth-source-pass)
+(require 'password-store)
+(require 'org-gcal)
 
 (provide 'org-config)
 
 ;;; Bindings and Hooks
-
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode 1)))
 (add-hook 'org-mode-hook 'flyspell-mode)
 (add-hook 'org-mode-hook 'org-toggle-blocks)
@@ -31,16 +33,13 @@
 
 ;;; Theming
 
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
+
 ;; Colors of types
 (setq org-todo-keyword-faces
-      '(("READ" . "white")
-        ("BACKLOG" . "gray40")
-        ("TODO" . "LightPink1")
-        ("BUG" . "red")
+      '(("TODO" . "SpringGreen2")
         ("WAITING" . "goldenrod1")
-        ("IN-PROGRESS" . "SpringGreen2")
-        ("TEST" . "turquoise1")
-        ("DONE" . "DarkSeaGreen4")
+        ("DONE" . "gray40")
         ("CANCELLED"  . "gray30")
         ))
 
@@ -48,13 +47,13 @@
 (setq org-priority-faces
       '((?A . (:foreground "red1" :weight 'bold))
         (?B . (:foreground "VioletRed1"))
-        (?C . (:foreground "DeepSkyBlue3"))
-        (?D . (:foreground "DeepSkyBlue4"))
-        (?E . (:foreground "gray40"))))
+        (?C . (:foreground "orange"))
+        (?D . (:foreground "goldenrod1"))
+        (?E . (:foreground "gray50"))))
 
 
-(setq org-ellipsis "⋮")
-(setq org-bullets-bullet-list '("" "" "" ""))
+;;(setq org-ellipsis "...")
+;;(setq org-bullets-bullet-list '("" "" "" ""))
 
 ;;; Templates
 
@@ -92,10 +91,13 @@
 
 (ox-extras-activate '(ignore-headlines))
 
-(setq org-directory '("~/org/"))
-(setq org-contacts-files (list (os-path "~/org/contacts.org")))
-(setq org-agenda-files (list (os-path "~/org/")))
-(setq org-archive-location '("~/org/archive.org"))
+(setq org-directory '("~/org"))
+(setq org-contacts-files '("~/org/contacts.org"))
+(setq org-agenda-files '("~/org/inbox.org"
+                         "~/org/trello"
+                         "~/org/calendar"
+                         "~/org/projects.org"))
+;;(setq org-archive-location '("~/org/archive.org"))
 
 ;; Meta return behavior as it should be
 (org-defkey org-mode-map [(meta return)] 'org-meta-return)
@@ -114,8 +116,8 @@
 (setq org-agenda-skip-deadline-if-done t)
 (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
 (setq org-complete-tags-always-offer-all-agenda-tags t)
-(setq org-columns-default-format
-      "%14DEADLINE %Effort{:} %1PRIORITY %TODO %50ITEM %TAGS")
+;;(setq org-columns-default-format
+;;      "%14DEADLINE %Effort{:} %1PRIORITY %TODO %50ITEM %TAGS")
 
 ;; Refile max level
 (setq org-refile-targets '((nil :maxlevel . 2)
@@ -127,11 +129,20 @@
 ;; Refile show full paths
 (setq org-refile-use-outline-path 'file)
 
+;; Smartparens
+;;(sp-with-modes '(org-mode)
+;;  (sp-local-pair "*" "*"))
+
 ;; Capture templates
 (setq org-capture-templates
-      '(("a" "My TODO task format." entry
-         (file "~/org/todo.trello.org")
-         "* TODO %?")))
+      '(("t" "TODO" entry (file+headline "~/org/inbox.org" "Inbox")
+         "* TODO %?")
+        ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
+	       "* %?\n%u" :prepend t)
+        ("a" "Appointment" entry (file  "~/org/calendar/tacitic.org")
+	       "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
+        ("w" "Review: Weekly Review" entry (file+datetree "~/org/reviews.org")
+         (file "~/org/templates/weeklyreviewtemplate.org"))))
 
 ;; Search through archives
 (setq org-agenda-text-search-extra-files '(agenda-archives))
@@ -145,6 +156,16 @@
 ;; Log state changes
 (setq org-log-done (quote time))
 (setq org-log-reschedule (quote time))
+
+(auth-source-pass-enable)
+
+;; Gcal
+(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+;;(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+(eval-after-load 'password-store
+  '(progn (setq org-gcal-client-id (password-store-get "tacitic/google/calendar-client-id")
+                org-gcal-client-secret (password-store-get "tacitic/google/calendar-client-secret")
+                org-gcal-file-alist '(("robert@tacitic.com" .  "~/org/calendar/gcal.org")))))
 
 ;; Adding yet further auditing, this option causes Org to insert annotations
 ;; when you change the deadline of a task, which will note the previous
@@ -177,7 +198,7 @@
                 ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
           (agenda "" ((org-agenda-ndays 1)))
-          (todo "BUG|TODO|IN-PROGRESS|WAITING|TEST"
+          (todo "BUG|TODO|IN-PROGRESS|WAITING"
                   ((org-agenda-skip-function '(or (air-org-skip-subtree-if-habit)
                                                   (air-org-skip-subtree-if-priority ?A)
                                                   (org-agenda-skip-if nil '(scheduled deadline))))
@@ -196,6 +217,8 @@
                                  ("fontsize" "\\scriptsize")
                                  ("xleftmargin" "\\parindent")
                                  ("linenos" "")))
+
+
 ;; (setq
 ;;  org-latex-pdf-process
 ;;  '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"

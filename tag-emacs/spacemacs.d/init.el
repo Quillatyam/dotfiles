@@ -24,7 +24,7 @@
 
 (defun dotspacemacs/init ()
   "Instantiate Spacemacs core settings."
-  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator 'slant))
+  (setq dotspacemacs-mode-line-theme '(all-the-icons :separator 'none))
   (dotspacemacs/init/coding)
   (dotspacemacs/init/display)
   (dotspacemacs/init/evil)
@@ -46,10 +46,16 @@
 
 (defun dotspacemacs/user-config ()
   "Configuration that cannot be delegated to layers."
+  ;; Start server
+  ;;(server-start)
+
+  ;; Path variables
+  (setenv "GOPATH" (os-path "/Users/robert/source/go"))
+  (setenv "RUST_SRC_PATH" (os-path "/Users/robert/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
+
   ;; Doom theme settings
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
-  (doom-themes-org-config)
 
   ;; Olivetti
   (setq-default olivetti-body-width 80)
@@ -62,10 +68,63 @@
   (setq shell-default-full-span nil)
 
   ;; Dark titlebar on osx
+  (setq frame-resize-pixelwise t)
   (when (memq window-system '(mac ns))
     (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
 
+  ;; Evil mode quit makes me restart emacs alot...
+  (evil-ex-define-cmd "q[uit]" 'evil-window-delete )
+
+  ;; Disable linum mode for pdf viewer
+  (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
+
+  ;; Start TeX lookahead server
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+  (add-hook 'TeX-after-TeX-LaTeX-command-finished-hook
+            #'TeX-revert-document-buffer)
+
+  ;; GPG
+  (epa-file-enable)
+  (setq
+   epa-file-select-keys nil ; If non-nil, always asks user to select recipients.
+   epa-file-cache-passphrase-for-symmetric-encryption t   ;cache passphrase
+   epg-gpg-program (case system-type
+                     ('darwin "/usr/local/bin/gpg")))
+
+  ;; Password store
+  (auth-source-pass-enable)
+  (spacemacs/set-leader-keys "op" 'password-store-copy)
+
+  ;; Rust
+  (setq rust-format-on-save t)
+
+  ;; Auto switch light / dark themes
+  (setq current-theme "dark")
+  (defconst light-theme 'doom-one-light)
+  (defconst dark-theme 'doom-one)
+  ;; function for changing theme
+  (defun change-theme-for-lighting ()
+    (let* ((current-light-sensor-reading
+            (string-to-number
+             (shell-command-to-string "lmutracker"))))
+      (if (< current-light-sensor-reading 100000)
+          (when (not (string-equal current-theme "dark"))
+            (load-theme dark-theme 1)
+            (setq current-theme "dark"))
+        (when (not (string-equal current-theme "light"))
+          (load-theme light-theme 1)
+          (setq current-theme "light")))))
+  ;; check every 5 seconds
+  (run-with-timer 0 5 #'change-theme-for-lighting)
+
+  ;; Activate column indicator in prog-mode and text-mode, except for org-mode
+  (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+  (add-hook 'text-mode-hook 'turn-on-fci-mode)
+  (add-hook 'org-mode-hook 'turn-off-fci-mode 'append)
+
+  ;; Other
   (dotspacemacs/user-config/toggles)
   (dotspacemacs/user-config/experiments))
 
@@ -74,7 +133,6 @@
 
 (defvar dotspacemacs/layers/local
   '((macros :location local)    ; All local layers inherit these macros
-
     (config :location local)    ; Org, Avy, Evil, Misc... config
     (display :location local)   ; Pretty-eshell/code/outlines... pkgs
     (langs :location local)     ; Language config
@@ -98,7 +156,7 @@
     (org :variables
          org-want-todo-bindings t)
     (shell :variables
-           shell-default-shell 'eshell)
+           shell-default-shell 'multi-term)
     (version-control :variables
                      version-control-global-margin t
                      version-control-diff-tool 'git-gutter+)
@@ -119,25 +177,24 @@
     markdown
     yaml
 
-    (clojure :variables
-             clojure-enable-fancify-symbols t)
+    ;;(clojure :variables
+    ;;         clojure-enable-fancify-symbols t)
     (haskell :variables
              haskell-completion-backend 'intero)
-    (python :variables
-            python-sort-imports-on-save t
-            python-test-runner 'pytest
-            :packages
-            (not hy-mode)  ; I maintain `hy-mode', using local branch
-            (not importmagic)
-            )
+    ;;(python :variables
+    ;;        python-sort-imports-on-save t
+    ;;        python-test-runner 'pytest
+    ;;        :packages
+    ;;        (not hy-mode)  ; I maintain `hy-mode', using local branch
+    ;;        (not importmagic)
+    ;;        )
     )
   "Programming and markup language layers.")
 
 ;;;; Extra
 
 (defvar dotspacemacs/layers/extra
-  '(gnus
-    graphviz
+  '(graphviz
     pdf-tools
     ranger
     treemacs
@@ -184,6 +241,11 @@
      doom-themes
      olivetti
      faceup
+     wrap-region
+     auctex
+     interleave
+     password-store
+     org-gcal
      )
 
    dotspacemacs-excluded-packages
@@ -251,7 +313,7 @@
      )
 
    dotspacemacs-fullscreen-at-startup
-   (if linux? nil nil)
+   nil
 
    dotspacemacs-fullscreen-use-non-native
    nil
@@ -260,10 +322,10 @@
    nil
 
    dotspacemacs-active-transparency
-   90
+   100
 
    dotspacemacs-inactive-transparency
-   90
+   50
 
    dotspacemacs-mode-line-unicode-symbols
    t
@@ -341,7 +403,7 @@
    0.4
 
    dotspacemacs-which-key-position
-   'bottom
+   'top
 
    dotspacemacs-distinguish-gui-tab
    nil
@@ -386,13 +448,18 @@
    5
 
    dotspacemacs-persistent-server
-   nil
+   t
 
    dotspacemacs-helm-resize
    nil
 
    dotspacemacs-helm-no-header
    nil
+
+   dotspacemacs-line-numbers '(:disabled-for-modes
+                               text-mode
+                               org-mode
+                               :relative t)
 
    dotspacemacs-helm-position
    'bottom
@@ -445,7 +512,7 @@
 
 (defun dotspacemacs/user-config/toggles ()
   "Spacemacs toggles not intended to be put into layers."
-  (spacemacs/toggle-highlight-long-lines-globally-on)
+  (spacemacs/toggle-highlight-long-lines-globally-off)
   (spacemacs/toggle-mode-line-minor-modes-off)
   (spacemacs/toggle-aggressive-indent-globally-on)
   (global-highlight-parentheses-mode 1)
@@ -456,8 +523,8 @@
 
 (defun dotspacemacs/user-config/experiments ()
   "Space for trying out configuration updates."
-  (setq nord-comment-brightness 15)
-  (setq nord-uniform-mode-lines t)
+  ;;(setq nord-comment-brightness 15)
+  ;;(setq nord-uniform-mode-lines t)
 
   (when ROBERT-ONLY?
     ;;(load-file (os-path "~/dev/hy-mode/hy-mode.el"))

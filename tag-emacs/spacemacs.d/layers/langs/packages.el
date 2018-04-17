@@ -5,8 +5,7 @@
         python
         virtualenvwrapper
 
-        ;; (mypy-flycheck :location local)  ; Currently not using mypy
-        (windows-pytest :location local)
+        (my-go :location local)
         ))
 
 ;;; Virtualenvwrapper
@@ -45,9 +44,10 @@
   ;; Disable printing logs within pytest
   (setq pytest-cmd-flags "-x --no-print-logs"))
 
-;;; Windows-pytest
+;;; Golang
 
-(defun langs/init-windows-pytest ()
-  (use-package windows-pytest
-    :after python
-    :if (not linux?)))
+(defun langs/init-my-go ()
+  (add-hook 'go-mode-hook (lambda ()
+                            (setq go-tab-width 4)
+                            (setq indent-tabs-mode 1)
+                            (setq gofmt-command "goimports"))))

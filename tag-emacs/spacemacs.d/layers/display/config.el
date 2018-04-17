@@ -72,6 +72,7 @@
    (org-block-end-line :height 1.05 :foreground "#576e75"
                        :box t :weight bold)))
 
+
 ;;; Solarized-dark
 
 (setq
@@ -146,6 +147,7 @@
    (org-block-end-line :height 1.05 :foreground "#576e75"
                        :box t :weight bold)))
 
+
 ;;; Nord
 
 (setq
@@ -219,6 +221,7 @@
                          :box t :weight bold)
    (org-block-end-line :height 1.05 :foreground "#576e75"
                        :box t :weight bold)))
+
 
 ;;; Zenburn
 
@@ -308,9 +311,79 @@
    (font-lock-doc-face :italic t :weight normal :foreground "gray65")
    ))
 
+
+;;; Doom-one
+
+(setq
+ display/doom-one-theming
+ `(doom-one
+   (company-tooltip-common
+    :inherit company-tooltip :weight bold :underline nil)
+   (company-tooltip-common-selection
+    :inherit company-tooltip-selection :weight bold :underline nil)
+
+   (avy-background-face :foreground "#586e75" :italic nil)
+
+   ;; Makes matching parens obvious
+   (sp-show-pair-match-face :underline t)
+
+   ;; active modeline has no colors
+   (mode-line :inherit mode-line :background "#3F3F3F"
+              :box nil :underline nil :overline nil)
+   (mode-line-inactive :inherit mode-line :background "#3F3F3F"
+                       :box nil :underline nil :overline nil)
+   (spaceline-highlight-face :inherit mode-line :background "#3F3F3F")
+   (powerline-active1 :inherit mode-line :background "#3F3F3F")
+   (powerline-active2 :inherit mode-line :background "#3F3F3F")
+   (powerline-inactive2 :inherit powerline-inactive1 :background nil)
+
+   (set-face-attribute 'whitespace-space nil
+                       :background nil
+                       :foreground "gray30")
+
+   (fringe :background nil)))
+
+;;; Doom-one-light
+(setq
+ display/doom-one-light-theming
+ `(doom-one-light
+   ;;(company-tooltip-common
+   ;; :inherit company-tooltip :weight bold :underline nil)
+   ;;(company-tooltip-common-selection
+   ;; :inherit company-tooltip-selection :weight bold :underline nil)
+
+   ;;(font-lock-comment-face :foreground "#586e75" :italic t :weight normal)
+   ;;(avy-background-face :foreground "#586e75" :italic nil)
+   ;;(font-lock-doc-face :foreground "#2aa198" :italic t :weight normal)
+
+   ;; Makes matching parens obvious
+   (sp-show-pair-match-face :inherit sp-show-pair-match-face
+                            :background "#eee8d5")
+
+   ;; active modeline has no colors
+   (mode-line :inherit mode-line :background "#eee8d5"
+              :box nil :underline nil :overline "#eee8d5")
+   (mode-line-inactive :inherit mode-line :background "#eee8d5"
+                       :box nil :underline nil :overline nil)
+   (spaceline-highlight-face :inherit mode-line :background "#eee8d5")
+   (powerline-active1 :inherit mode-line :background "#eee8d5")
+   (powerline-active2 :inherit mode-line :background "#eee8d5")
+
+   (set-face-attribute 'whitespace-space nil
+                       :background nil
+                       :foreground "#eee8d5")
+
+
+   ;; Inactive modeline has tint
+   (powerline-inactive2 :inherit powerline-inactive1 :background "#eee8d5")
+   (powerline-inactive1 :inherit powerline-inactive1 :background "#eee8d5")))
+
+
 ;;; Set Theme Changes
 
 (setq theming-modifications (list display/solarized-dark-theming
                                   display/solarized-light-theming
                                   display/nord-theming
-                                  display/zenburn))
+                                  display/zenburn
+                                  display/doom-one-theming
+                                  display/doom-one-light-theming))

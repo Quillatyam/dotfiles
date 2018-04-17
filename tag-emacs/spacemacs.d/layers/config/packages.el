@@ -9,6 +9,9 @@
         ispell
         projectile
         yasnippet
+        auth-source-pass
+        password-store
+        org-gcal
 
         ;; Elsehwere-owned packages
         (avy-config      :location local)

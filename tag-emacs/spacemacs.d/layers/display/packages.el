@@ -220,8 +220,8 @@
     (progn
       (setq pretty-outlines-bullets-bullet-list
             '("" "" "" ""))
-      (setq pretty-outlines-ellipsis
-            "")
+      ;;(setq pretty-outlines-ellipsis
+      ;;      "‎...")
 
       (spacemacs/add-to-hooks 'pretty-outlines-set-display-table
                               '(outline-mode-hook
@@ -317,21 +317,23 @@
         'square)
 
   (setq spaceline-all-the-icons-separator-type
-        'none)
+        'slant)
 
   (setq spaceline-all-the-icons-primary-separator
-        "")
+        " ")
 
   ;; Buffer Segments
   (spaceline-toggle-all-the-icons-buffer-size-off)
   (spaceline-toggle-all-the-icons-buffer-position-off)
 
   ;; Git Segments
-  (spaceline-toggle-all-the-icons-git-status-off)
-  (spaceline-toggle-all-the-icons-vc-icon-off)
+  (spaceline-toggle-all-the-icons-git-status-on)
+  (spaceline-toggle-all-the-icons-vc-icon-on)
   (spaceline-toggle-all-the-icons-vc-status-off)
 
   ;; Misc Segments
-  (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
-  (spaceline-toggle-all-the-icons-flycheck-status-off)
-  (spaceline-toggle-all-the-icons-time-off))
+  (spaceline-toggle-all-the-icons-eyebrowse-workspace-on)
+  (spaceline-toggle-all-the-icons-flycheck-status-on)
+  (spaceline-toggle-all-the-icons-time-on)
+  (spaceline-toggle-all-the-icons-battery-status-on)
+  (spaceline-toggle-all-the-icons-nyan-cat-on))
