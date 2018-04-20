@@ -347,14 +347,14 @@
 (setq
  display/doom-one-light-theming
  `(doom-one-light
-   ;;(company-tooltip-common
-   ;; :inherit company-tooltip :weight bold :underline nil)
-   ;;(company-tooltip-common-selection
-   ;; :inherit company-tooltip-selection :weight bold :underline nil)
+   (company-tooltip-common
+   :inherit company-tooltip :weight bold :underline nil)
+   (company-tooltip-common-selection
+   :inherit company-tooltip-selection :weight bold :underline nil)
 
-   ;;(font-lock-comment-face :foreground "#586e75" :italic t :weight normal)
-   ;;(avy-background-face :foreground "#586e75" :italic nil)
-   ;;(font-lock-doc-face :foreground "#2aa198" :italic t :weight normal)
+   (font-lock-comment-face :foreground "#586e75" :italic t :weight normal)
+   (avy-background-face :foreground "#586e75" :italic nil)
+   (font-lock-doc-face :foreground "#2aa198" :italic t :weight normal)
 
    ;; Makes matching parens obvious
    (sp-show-pair-match-face :inherit sp-show-pair-match-face
@@ -373,6 +373,38 @@
                        :background nil
                        :foreground "#eee8d5")
 
+   ;; Org and outline header updates
+   (outline-1 :height 1.15
+              :foreground "#222222"
+              :background nil
+              :italic t
+              :underline t)
+
+   (outline-2 :height 1.15
+              :foreground "#515151"
+              :italic t
+              :underline t)
+
+   (outline-3 :height 1.15
+              :foreground "#515151"
+              :italic t
+              :underline t)
+
+   (org-level-1 :height 1.50
+                :foreground "#222222"
+                :background nil
+                :italic t
+                :underline nil)
+
+   (org-level-2 :height 1.30
+                :foreground "#515151"
+                :italic nil
+                :underline t)
+
+   (org-level-3 :height 1.15
+                :foreground "#515151"
+                :italic nil
+                :underline nil)
 
    ;; Inactive modeline has tint
    (powerline-inactive2 :inherit powerline-inactive1 :background "#eee8d5")
@@ -380,10 +412,5 @@
 
 
 ;;; Set Theme Changes
-
-(setq theming-modifications (list display/solarized-dark-theming
-                                  display/solarized-light-theming
-                                  display/nord-theming
-                                  display/zenburn
-                                  display/doom-one-theming
+(setq theming-modifications (list display/doom-one-theming
                                   display/doom-one-light-theming))

@@ -3,11 +3,34 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default))
+ '(evil-want-Y-yank-to-eol t)
  '(package-selected-packages
-   '(org-gcal yasnippet-snippets yapfify yaml-mode xterm-color ws-butler wrap-region winum which-key wgrep web-mode web-beautify volatile-highlights virtualenvwrapper vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tagedit symon string-inflection spaceline-all-the-icons smex smeargle slim-mode shell-pop scss-mode sayid sass-mode reveal-in-osx-finder restart-emacs realgud ranger rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode pretty-mode prettify-utils popwin pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pdf-tools pcre2el pbcopy password-store password-generator paradox overseer outshine osx-trash osx-dictionary orgit org-trello org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file olivetti neotree nameless mwim multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint launchctl json-mode js2-refactor js-doc ivy-xref ivy-rtags ivy-purpose ivy-hydra intero interleave indent-guide impatient-mode ibuffer-projectile hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag haskell-snippets graphviz-dot-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump drupal-mode doom-themes disaster diminish diff-hl define-word dante cython-mode csv-mode counsel-projectile counsel-css company-web company-tern company-statistics company-rtags company-php company-go company-ghci company-ghc company-cabal company-c-headers company-anaconda column-enforce-mode coffee-mode cmm-mode clojure-snippets clojure-cheatsheet clj-refactor clean-aindent-mode clang-format cider-eval-sexp-fu centered-cursor-mode cargo browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile auctex all-the-icons-ivy all-the-icons-dired aggressive-indent adaptive-wrap ace-link ace-jump-helm-line ac-ispell)))
+   '(ws-butler winum volatile-highlights vi-tilde-fringe uuidgen toc-org symon string-inflection spaceline-all-the-icons all-the-icons memoize spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el password-generator paradox spinner overseer org-bullets open-junk-file neotree nameless move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu highlight elisp-slime-nav editorconfig dumb-jump f dash s define-word counsel-projectile projectile counsel swiper ivy pkg-info epl column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup which-key use-package org-plus-contrib hydra font-lock+ exec-path-from-shell evil goto-chg undo-tree diminish bind-map bind-key async)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(avy-background-face ((t (:foreground "#586e75" :italic nil))))
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(fringe ((t (:background nil))))
+ '(mode-line ((t (:inherit mode-line :background "#3F3F3F" :box nil :underline nil :overline nil))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "#3F3F3F" :box nil :underline nil :overline nil))))
+ '(org-block-begin-line ((t (:height 1.05 :foreground "#576e75" :box t :weight bold))))
+ '(org-block-end-line ((t (:height 1.05 :foreground "#576e75" :box t :weight bold))))
+ '(org-level-1 ((t (:height 1.25 :foreground "#C3A29E" :underline t))))
+ '(org-level-2 ((t (:height 1.15 :foreground "#8D6B94" :underline t))))
+ '(org-level-3 ((t (:height 1.15 :foreground "#8C5F66"))))
+ '(outline-1 ((t (:height 1.25 :foreground "#C3A29E" :italic t :underline t))))
+ '(outline-2 ((t (:height 1.15 :foreground "#8D6B94" :italic t :underline t))))
+ '(outline-3 ((t (:height 1.15 :foreground "#8C5F66" :weight ultra-bold :italic t :underline t))))
+ '(powerline-active1 ((t (:inherit mode-line :background "#3F3F3F"))))
+ '(powerline-active2 ((t (:inherit mode-line :background "#3F3F3F"))))
+ '(powerline-inactive1 ((t (:inherit powerline-inactive1 :background "#eee8d5"))))
+ '(powerline-inactive2 ((t (:inherit powerline-inactive1 :background nil))))
+ '(set-face-attribute ((t ('whitespace-space nil :background nil :foreground "gray30"))))
+ '(sp-show-pair-match-face ((t (:underline t))))
+ '(spaceline-highlight-face ((t (:inherit mode-line :background "#3F3F3F")))))

@@ -1,5 +1,5 @@
+(require 'f)
 (require 'org)
-(require 'org-contacts)
 (require 'org-bullets)
 (require 'ox-bibtex)
 (require 'ox-extra)
@@ -53,8 +53,8 @@
 
 
 ;;(setq org-ellipsis "...")
-;;(setq org-bullets-bullet-list '("" "" "" ""))
-
+;;(setq org-bullets-bullet-list '("1" "2" "3" "4"))
+(setq org-bullets-bullet-list '("" "" "" ""))
 ;;; Templates
 
 (setq
@@ -92,9 +92,7 @@
 (ox-extras-activate '(ignore-headlines))
 
 (setq org-directory '("~/org"))
-(setq org-contacts-files '("~/org/contacts.org"))
 (setq org-agenda-files '("~/org/inbox.org"
-                         "~/org/trello"
                          "~/org/calendar"
                          "~/org/projects.org"))
 ;;(setq org-archive-location '("~/org/archive.org"))
