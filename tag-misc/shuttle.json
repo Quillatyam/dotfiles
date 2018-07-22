@@ -10,11 +10,9 @@
   "terminal": "iTerm.app",
   "iTerm_version": "nightly",
   "default_theme": "Bash",
-  "open_in": "tab",  
+  "open_in": "tab",
   "show_ssh_config_hosts": true,
   "ssh_config_ignore_hosts": [  ],
   "ssh_config_ignore_keywords": [  ],
   "hosts": []
 }
-
-        

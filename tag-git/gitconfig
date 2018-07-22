@@ -45,7 +45,7 @@
     branch = auto
     ui = true
 [core]
-	excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
     editor = vim
 [apply]
     whitespace = nowarn
@@ -58,22 +58,26 @@
 [push]
     default = simple
 [user]
-	name = Robert den Harink
-	email = robert@robhar.com
-	signingkey = B1F44296
+    name = Robert den Harink
+    email = robert@robhar.com
+    signingkey = B1F44296
 [commit]
-	gpgsign = true
-  template = ~/.gitmessage
+    gpgsign = true
+    template = ~/.gitmessage
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [difftool]
-	prompt = true
+    prompt = true
 [diff]
-  tool = nvimdiff
-[difftool "nvimdiff"]
-  cmd = "nvim -d -u ~/.config/nvim/init.vim \"$LOCAL\" \"$REMOTE\""
-
-
+    tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool]
+    prompt = false
+[merge]
+    tool = Kaleidoscope
