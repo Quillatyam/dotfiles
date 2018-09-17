@@ -11,6 +11,7 @@ set -x PATH $HOME/.cabal/bin $PATH
 set -x PATH $HOME/Library/Python/3.6/bin $PATH
 set -x PATH $HOME/.cargo/bin $PATH
 set -x PATH $HOME/source/go/bin $PATH
+set -x PATH $HOME/.composer/vendor/bin $PATH
 set -x GOPATH $HOME/source/go
 
 # HLA
@@ -43,6 +44,19 @@ alias da "darcs add"
 alias dr "darcs record"
 set -U DARCS_EDITOR vim
 
-#source local stuff.
-source ~/.localrc
+# GPG 
+#gpgconf --launch gpg-agent
+# Ensure that GPG Agent is used as the SSH agent
+set -e SSH_AUTH_SOCK
+set -U -x SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
+
+# Brew
 set -g fish_user_paths "/usr/local/bin" $fish_user_paths
+
+# Nix
+source ~/.config/fish/nix-daemon.fish
+
+# Source local stuff.
+source ~/.localrc
+
+set -g fish_user_paths "/usr/local/opt/php@7.1/bin" $fish_user_paths

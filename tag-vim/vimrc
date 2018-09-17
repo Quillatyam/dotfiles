@@ -2,12 +2,24 @@
 call plug#begin('~/.vim/plugged')
 
 " Color theme
+" ============================================================================ "
 Plug 'dracula/vim', { 'as': 'dracula' }
 
+" Airline
+" ============================================================================ "
+Plug 'vim-airline/vim-airline'
+let g:airline#extensions#ale#enabled = 1
+
+" Supertab. Use <tab> for autocomplete
+" ============================================================================ "
+Plug 'ervandew/supertab'
+
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" ============================================================================ "
 Plug 'junegunn/vim-easy-align'
 
 " Easymotion
+" ============================================================================ "
 Plug 'easymotion/vim-easymotion'
 
 " <Leader>f{char} to move to {char}
@@ -22,21 +34,22 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " Enhanced netrw
+" ============================================================================ "
 Plug 'tpope/vim-vinegar'
 
 " Gundo
+" ============================================================================ "
 Plug 'sjl/gundo.vim'
 
 " Linter 
+" ============================================================================ "
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 0
 
-" Autotag: automatically regenerate tags for a file when written.
-" Plug 'craigemery/vim-autotag'
-
 " Fuzzy search
+" ============================================================================ "
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Use the correct file source, based on context
 function! ContextualFZF()
@@ -62,8 +75,13 @@ endfunction
 " map <C-p> :call ContextualFZF()<CR>
 map <C-p> :FZF<CR>
 
-" Tagbar: List of tags in current file, bird's eye view.
-Plug 'majutsushi/tagbar'
+" Typescript / Javascript
+" ============================================================================ "
+Plug 'pangloss/vim-javascript'
+Plug 'Quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim'
+set ballooneval
+autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
 let g:tagbar_type_typescript = {
   \ 'ctagstype': 'typescript',
   \ 'kinds': [
@@ -78,32 +96,75 @@ let g:tagbar_type_typescript = {
   \ ]
 \ }
 
-" Javascript
-Plug 'pangloss/vim-javascript'
 
 " Rust
+" ============================================================================ "
 Plug 'rust-lang/rust.vim'
 
+" Golang
+" ============================================================================ "
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+
+" Haskell
+" ============================================================================ "
+Plug 'eagletmt/ghcmod-vim'
+nnoremap <Leader>ht :GhcModType<cr>
+nnoremap <Leader>htc :GhcModTypeClear<cr>
+autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
+
+" PHP (God forbid...)
+" ============================================================================ "
+Plug 'arnaud-lb/vim-php-namespace'
+let g:php_namespace_sort_after_insert=1
+
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>pnu <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>pnu :call PhpInsertUse()<CR>
+
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>pne <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>pne :call PhpExpandClass()<CR>
+
+Plug 'phpstan/vim-phpstan'
+let g:phpstan_analyse_level = 4
+
 " Initialize plugin system
+" ============================================================================ "
 call plug#end()
 
 "}}}
 " Defaults {{{
-syntax on               " enable syntax highlighting
-filetype indent on      " load filetype-specific indent files
-set wildmenu            " visual autocomplete for command menu
-set lazyredraw          " redraw only when we need to
-set showmatch           " highlight matching [{()}]
-set expandtab           " tabs are spaces
-set softtabstop=4       " number of spaces in tab when editing
-set tabstop=4           " number of visual spaces per TAB
-set termguicolors       " better terminal colors
-set number              " Enable line numbers
-set showcmd             " show command in bottom bar
-set cursorline          " highlight current line
-set incsearch           " search as characters are entered
-set hlsearch            " highlight matches
-set mouse=a             " enable mouse mode
+syntax on                 " enable syntax highlighting
+filetype indent on        " load filetype-specific indent files
+filetype plugin on        " load filetype-specific plugins
+set wildmenu              " visual autocomplete for command menu
+set autowrite             " Write file on make, build etc.
+"set lazyredraw           " redraw only when we need to
+set showmatch             " highlight matching [{()}]
+set expandtab             " tabs are spaces
+set softtabstop=2         " number of spaces in tab when editing
+set tabstop=2             " number of visual spaces per TAB
+set termguicolors         " better terminal colors
+set number                " Enable line numbers
+set showcmd               " show command in bottom bar
+set cursorline            " highlight current line
+set incsearch             " search as characters are entered
+set hlsearch              " highlight matches
+set mouse=a               " enable mouse mode
+set colorcolumn=80        " Draw 80 column limit
+set tw=79                 " Textwidth 80 columns
+set wrap                  " Softwrap
+set number relativenumber " Relative line numbers
+set omnifunc=syntaxcomplete#Complete
+set completeopt=longest,menuone
+
 "}}}
 " Folds {{{
 set foldenable          " enable folding
@@ -117,13 +178,20 @@ set backspace=indent,eol,start
 "}}}
 " Theming & Colors {{{
 color dracula
-"}}}
+set guifont=Operator\ Mono\ Lig:h14
+:set fillchars+=vert:\  "vertical split character = space
+"}}} 
 " Filebrowser {{{
 let g:netrw_liststyle = 3           " Layout (Use 'i' to cycle layouts)
 let g:netrw_banner = 0              " Don't show the banner ('I' to toggle)
 let g:netrw_browse_split = 4        " Open files in hotizontal split
 let g:netrw_winsize = 25            " Width of the file browser
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+"let g:netrw_list_hide = &wildignore
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
 "}}}
 " Mappings {{{
 
@@ -165,18 +233,18 @@ nnoremap <leader>s :mksession<CR>
 augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.go
-                \:call <SID>StripTrailingWhitespaces()
-    autocmd FileType php setlocal expandtab
-    autocmd FileType php setlocal list
-    autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-    autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-    autocmd FileType python setlocal commentstring=#\ %s
-    autocmd BufEnter *.cls setlocal filetype=java
-    autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh setlocal tabstop=2
-    autocmd BufEnter *.sh setlocal shiftwidth=2
-    autocmd BufEnter *.sh setlocal softtabstop=2
+    "autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.go
+    "            \:call <SID>StripTrailingWhitespaces()
+    "autocmd FileType php setlocal expandtab
+    "autocmd FileType php setlocal list
+    "autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+    "autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+    "autocmd FileType python setlocal commentstring=#\ %s
+    "autocmd BufEnter *.cls setlocal filetype=java
+    "autocmd BufEnter Makefile setlocal noexpandtab
+    "autocmd BufEnter *.sh setlocal tabstop=2
+    "autocmd BufEnter *.sh setlocal shiftwidth=2
+    "autocmd BufEnter *.sh setlocal softtabstop=2
 augroup END
 "}}}
 " Backups {{{
@@ -198,5 +266,22 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
+ " }}}
+" Languages {{{
+" Rust
+let g:tagbar_type_rust = {
+    \ 'ctagstype' : 'rust',
+    \ 'kinds' : [
+        \'T:types,type definitions',
+        \'f:functions,function definitions',
+        \'g:enum,enumeration names',
+        \'s:structure names',
+        \'m:modules,module names',
+        \'c:consts,static constants',
+        \'t:traits',
+        \'i:impls,trait implementations',
+    \]
+    \}
 " }}}
 " vim:foldmethod=marker:foldlevel=0
+
