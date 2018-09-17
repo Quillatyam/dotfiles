@@ -24,8 +24,8 @@ window:
   # Units are physical pixels; this is not DPI aware.
   # (change requires restart)
   padding:
-    x: 10
-    y: 10
+    x: 0
+    y: 0
 
   # Window decorations
   # Setting this to false will result in window without borders and title bar.
@@ -116,7 +116,7 @@ custom_cursor_colors: false
 colors:
   # Default colors
   primary:
-    background: '0x000000'
+    background: '0x111111'
     foreground: '0xeaeaea'
 
     # (Optional) Bright and Dim foreground colors
@@ -190,8 +190,8 @@ colors:
 # To completely disable the visual bell, set its duration to 0.
 #
 visual_bell:
-  animation: EaseOutExpo
-  duration: 0
+  animation: EaseOutCirc
+  duration: 100
 
 # Background opacity
 background_opacity: 1.0
