@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+export EDITOR='vim';
+export SSH_AUTH_SOCK='~/.gnupg/S.gpg-agent.ssh';
+export HISTSIZE='32768';
+export HISTFILESIZE="${HISTSIZE}";
+export HISTCONTROL='ignoreboth';
+export HISTTIMEFORMAT='%F %T '
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+export LESS_TERMCAP_md="${yellow}";
+export MANPAGER='less -X';
+export HOMEBREW_NO_ANALYTICS=1
+export GPG_TTY=$(tty);
+export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
+export GOPATH="~/source/go"
+
+# Load the shell dotfiles, and then some:
+# * ~/.localrc can be used for other settings you don’t want to commit.
+for file in ~/.{bash_prompt,bash_path,bash_functions,bash_aliases,localrc}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend;
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+  shopt -s "$option" 2> /dev/null;
+done;
+
+# Add tab completion for bash completion 2
+if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+  source "$(brew --prefix)/share/bash-completion/bash_completion";
+elif [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion;
+fi;
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
+
+# Add tab completion for `defaults read|write NSGlobalDomain`
+# You could just use `-g` instead, but I like being explicit
+complete -W "NSGlobalDomain" defaults;
+
+# Add `killall` tab completion for common apps
+complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
+
+#iterm2 shell integration https://iterm2.com/shell_integration.html
+test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
+
+#autojump
+if which autojump > /dev/null; then [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh; fi
+
+# https://github.com/rupa/z
+if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
+  . `brew --prefix`/etc/profile.d/z.sh
+fi
+
+#nvm because node is just as fucked as ruby
+if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  . "$(brew --prefix nvm)/nvm.sh"
+  #alias builtin cd function to call nvm_auto_switch everytime
+  #function cd() { builtin cd "$@"; nvm_auto_switch; }
+fi
+
+# ASDF
+if [ -f "$(brew --prefix asdf)/asdf.sh" ]; then
+  . "$(brew --prefix asdf)/asdf.sh"
+fi
+
+# FASD
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+    fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+# FZF
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export FZF_COMPLETION_TRIGGER='**'
+
+# Options to fzf command
+export FZF_COMPLETION_OPTS='+c -x'
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+}

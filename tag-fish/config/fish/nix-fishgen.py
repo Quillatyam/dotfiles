@@ -104,7 +104,8 @@ def process( text, origin ):
 	return "\n".join(res)
 
 if __name__ == "__main__":
-	src = "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+	#src = "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+	src = "/Users/robert/.nix-profile/etc/profile.d/nix.sh"
 	dst = "~/.config/fish/nix-daemon.fish"
 	if not os.path.exists(os.path.expanduser(src)):
 		sys.stderr.write("Nix does not seem to be installed, expecting {0}".format(src))

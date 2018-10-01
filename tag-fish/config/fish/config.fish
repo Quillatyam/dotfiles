@@ -1,21 +1,19 @@
-set -u EDITOR "vim"
-
-# Base16 Shell
-#if status --is-interactive
-#    eval sh $HOME/.config/base16-shell/scripts/base16-3024.sh
-#end
+set -x EDITOR "vim"
 
 # Paths etc.
-set -x PATH $HOME/.local/bin $PATH
-set -x PATH $HOME/.cabal/bin $PATH
-set -x PATH $HOME/Library/Python/3.6/bin $PATH
-set -x PATH $HOME/.cargo/bin $PATH
-set -x PATH $HOME/source/go/bin $PATH
-set -x PATH $HOME/.composer/vendor/bin $PATH
+#set -gx fish_user_paths $HOME/.local/bin $fish_user_paths
+#set -gx fish_user_paths $HOME/.cabal/bin $fish_user_paths
+#set -gx fish_user_paths $HOME/Library/Python/3.6/bin $fish_user_paths
+set -gx fish_user_paths $HOME/.cargo/bin $fish_user_paths
+set -gx fish_user_paths $HOME/source/go/bin $fish_user_paths
+#set -gx fish_user_paths $HOME/.composer/vendor/bin $fish_user_paths
+set -gx fish_user_paths "/usr/local/bin" $fish_user_paths
+
+# Golang
 set -x GOPATH $HOME/source/go
 
 # HLA
-set -x PATH $HOME/Applications/hla $PATH
+set -gx fish_user_paths $HOME/Applications/hla $fish_user_paths
 set -gx hlalib $HOME/Applications/hla/hlalib
 set -gx hlainc $HOME/Applications/hla/include
 alias hla='hla -main:_main -l"macosx_version_min 10.9" -l"lSystem" -l"no_pie"'
@@ -24,8 +22,12 @@ alias hla='hla -main:_main -l"macosx_version_min 10.9" -l"lSystem" -l"no_pie"'
 alias e "$EDITOR"
 alias passgen "pass generate --no-symbols --clip"
 alias tm "tmux -2 new -A -s base"
-alias nvimdiff "nvim -d"
-alias t "todo.sh"
+alias vd "vimdiff"
+
+# Emacs aliasses
+alias emd  '/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
+alias em  '/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait'
+alias emn  '/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c --no-wait'
 
 # Git aliasses
 alias gs "git status -sb"
@@ -50,13 +52,11 @@ set -U DARCS_EDITOR vim
 set -e SSH_AUTH_SOCK
 set -U -x SSH_AUTH_SOCK ~/.gnupg/S.gpg-agent.ssh
 
-# Brew
-set -g fish_user_paths "/usr/local/bin" $fish_user_paths
-
-# Nix
-source ~/.config/fish/nix-daemon.fish
+# PHP
+set -g fish_user_paths "/usr/local/opt/php@7.1/bin" $fish_user_paths
 
 # Source local stuff.
 source ~/.localrc
 
-set -g fish_user_paths "/usr/local/opt/php@7.1/bin" $fish_user_paths
+# Source Nix last
+source ~/.config/fish/nix-daemon.fish
