@@ -98,6 +98,10 @@ brew install phpmd
 brew install php-code-sniffer
 brew install php-cs-fixer
 
+#install infrastructure tools
+brew install consul
+brew install awscli
+
 #install some http benchmarking tools
 brew install wrk
 brew install siege
@@ -201,6 +205,9 @@ brew install python
 brew linkapps python
 pip install Pygments
 pip install requests
+
+# R
+brew install r
 
 #gowithit
 brew install go

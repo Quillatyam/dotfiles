@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Trace loading of the .bash_profile
+#PS4='+ $(gdate "+%s.%N")\011 '
+#exec 3>&2 2>$HOME/bashstart.$$.log
+#set -x
+
 export EDITOR='vim';
 export SSH_AUTH_SOCK='~/.gnupg/S.gpg-agent.ssh';
 export HISTSIZE='32768';
@@ -14,6 +19,8 @@ export HOMEBREW_NO_ANALYTICS=1
 export GPG_TTY=$(tty);
 export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 export GOPATH="~/source/go"
+export MAILCHECK=0
+export KEYFILE="$HOME/.void.keys"
 
 # Load the shell dotfiles, and then some:
 # * ~/.localrc can be used for other settings you don’t want to commit.
@@ -21,6 +28,12 @@ for file in ~/.{bash_prompt,bash_path,bash_functions,bash_aliases,localrc}; do
   [ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
+
+# Pinentry for Yubikey
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye
+unset SSH_AGENT_PID
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
@@ -66,17 +79,17 @@ if [ -f `brew --prefix`/etc/profile.d/z.sh ]; then
   . `brew --prefix`/etc/profile.d/z.sh
 fi
 
-#nvm because node is just as fucked as ruby
-if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  . "$(brew --prefix nvm)/nvm.sh"
+# nvm because node is just as fucked as ruby
+# if [ -f "$(brew --prefix nvm)/nvm.sh" ]; then
+#  export NVM_DIR="$HOME/.nvm"
+#  . "$(brew --prefix nvm)/nvm.sh"
   #alias builtin cd function to call nvm_auto_switch everytime
   #function cd() { builtin cd "$@"; nvm_auto_switch; }
-fi
+# fi
 
 # ASDF
-if [ -f "$(brew --prefix asdf)/asdf.sh" ]; then
-  . "$(brew --prefix asdf)/asdf.sh"
+if [ -f "/usr/local/opt/asdf/asdf.sh" ]; then
+    . "/usr/local/opt/asdf/asdf.sh"
 fi
 
 # FASD
@@ -107,3 +120,10 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
     fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+# Fuck
+eval $(thefuck --alias)
+
+# End tracing, comment the following lines for normal use.
+#set +x
+#exec 2>&3 3>&-

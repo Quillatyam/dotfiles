@@ -35,10 +35,6 @@
 	
     # git merc uses the --no-ff strategy, to always create a merge commit.
     merc = merge --no-ff
-	
-    # grog graphical log
-    grog = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
-
 [color]
     diff = auto
     status = auto
@@ -46,13 +42,9 @@
     ui = true
 [core]
     excludesfile = ~/.gitignore
-    editor = vim
+	  editor = emacs
 [apply]
     whitespace = nowarn
-[mergetool]
-    keepBackup = false
-[difftool]
-    prompt = false
 [help]
     autocorrect = 1
 [push]
@@ -69,17 +61,11 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
-[difftool]
-    prompt = true
-[diff]
-    tool = Kaleidoscope
-[difftool "Kaleidoscope"]
-    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[mergetool "Kaleidoscope"]
-    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" \"$REMOTE\"
-[mergetool]
-    prompt = false
-[merge]
-    tool = Kaleidoscope
 [credential]
 	helper = osxkeychain
+[transfer]
+	fsckObjects = true
+[merge]
+  tool = ediff
+[mergetool "ediff"]
+  cmd = emacsclient -c -a \"\"  --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
