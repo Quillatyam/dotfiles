@@ -42,7 +42,7 @@
     ui = true
 [core]
     excludesfile = ~/.gitignore
-	  editor = emacs
+	editor = vim
 [apply]
     whitespace = nowarn
 [help]

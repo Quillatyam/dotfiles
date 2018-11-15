@@ -256,6 +256,11 @@ function e() {
   fi
 }
 
+# `en` with no arguments opens a new frame in Emacs, otherwise opens the given location.
+function en() {
+    emacsclient -a '' -nqc "$@" &> /dev/null
+}
+
 # `o` with no arguments opens the current directory, otherwise opens the given
 # location
 function o() {
@@ -449,4 +454,10 @@ vmc() {
             done
         fi
     fi
+}
+
+# Compile and run a file, remove afterwards
+rustrun() {
+  name=$(basename $1 .rs)
+  rustc $@ && ./$name && rm $name
 }

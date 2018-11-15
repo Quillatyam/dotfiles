@@ -30,7 +30,8 @@ values."
    dotspacemacs-configuration-layer-path '("~/.spacemacs.d/layers/")
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(react
+     typescript
      javascript
      nginx
      ansible
@@ -74,7 +75,8 @@ values."
                                       writeroom-mode
                                       pinentry
                                       lsp-mode
-                                      lsp-rust)
+                                      lsp-rust
+                                      tide)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -343,14 +345,62 @@ you should place your code here."
   ;; Resize neo-tree
   (setq neo-window-fixed-size nil)
 
+  ;; No tilde fringe
+  (global-vi-tilde-fringe-mode nil)
+
   ;; Line spacing
   (setq-default line-spacing 0.24)
 
+  ;; Colorspace
   (setq ns-use-srgb-colorspace 1)
 
+  ;; Straight separator.
   (setq powerline-default-separator nil)
 
+  ;; Pretty symbols
   (global-prettify-symbols-mode +1)
+
+  ;; Turn on FCI for programming.
+  (defun my-prog-mode-hook ()
+    (when (derived-mode-p 'rust-mode)
+      (setq fci-rule-column 80))
+    (fci-mode 1))
+  (add-hook 'prog-mode-hook #'my-prog-mode-hook)
+
+  ;; every time when the neotree window is  opened, it will try to find current
+  ;; file and jump to node.
+  (setq-default neo-smart-open t)
+
+  ;; change NeoTree root automatically when running `projectile-switch-project`
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+
+  ;; NeoTree theme 'classic, 'nerd, 'ascii, 'arrow
+  (setq neo-theme (if window-system 'icons 'nerd)) 
+
+  (setq neo-vc-integration '(face char))
+
+  (setq neo-show-hidden-files t)
+
+  (setq neo-toggle-window-keep-p t)
+
+  (setq neo-force-change-root t)
+
+  (add-hook 'neotree-mode-hook
+            (lambda ()
+              (setq-local mode-line-format nil)
+              (setq-local display-line-numbers nil)
+              (local-set-key (kbd "C-s") 'isearch-forward)
+              (local-set-key (kbd "C-M-s") 'isearch-forward-regexp)
+              (local-set-key (kbd "C-r") 'isearch-backward)
+              (local-set-key (kbd "C-M-r") 'isearch-backward-regexp)))
+
+  (add-hook 'neo-after-create-hook
+            #'(lambda (_)
+                (with-current-buffer (get-buffer neo-buffer-name)
+                  (setq truncate-lines t)
+                  (setq word-wrap nil)
+                  (make-local-variable 'auto-hscroll-mode)
+                  (setq auto-hscroll-mode nil))))
 
   ;; Highlight important things.
   (volatile-highlights-mode 1)
@@ -362,9 +412,6 @@ you should place your code here."
   ;; Softwrap
   (global-visual-line-mode 1)
 
-  ;; Turn of tilde fringe
-  (setq vi-tilde-fringe-mode nil)
-
   ;; Key bindings
   (global-set-key (kbd "C-`") 'flyspell-correct-at-point)
 
@@ -373,16 +420,29 @@ you should place your code here."
   (add-hook 'shell-mode-hook
             (lambda ()
               (face-remap-set-base 'comint-highlight-prompt :inherit nil)))
+
   ;; Rust RLS
   (setq rust-format-on-save t)
   (add-hook 'prog-mode-hook 'lsp-mode)
 
-  ;; Dark titlebar
-  ;;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  ;;(add-to-list 'default-frame-alist '(ns-appearance . dark))
-
   ;; Interpret .tpl as php
   (add-to-list 'auto-mode-alist '("\\.tpl\\'" . php-mode))
+
+  ;; Typescript
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -419,7 +479,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (pinentry web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode nginx-mode jinja2-mode company-ansible ansible-doc ansible vimrc-mode dactyl-mode yaml-mode toml-mode racer flycheck-rust cargo rust-mode xterm-color unfill smeargle shell-pop orgit mwim multi-term magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-web web-completion-data company-statistics company auto-yasnippet auto-dictionary ac-ispell auto-complete php-extras php-auto-yasnippets drupal-mode phpunit phpcbf yasnippet php-mode vmd-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode beacon atom-one-dark-theme mmm-mode markdown-toc markdown-mode gh-md ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump popup diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree org-plus-contrib ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
+    (rjsx-mode add-node-modules-path web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode nginx-mode jinja2-mode company-ansible ansible-doc ansible vimrc-mode dactyl-mode yaml-mode toml-mode racer flycheck-rust cargo rust-mode xterm-color unfill smeargle shell-pop orgit mwim multi-term magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit ghub treepy graphql with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-web web-completion-data company-statistics company auto-yasnippet auto-dictionary ac-ispell auto-complete php-extras php-auto-yasnippets drupal-mode phpunit phpcbf yasnippet php-mode vmd-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode beacon atom-one-dark-theme mmm-mode markdown-toc markdown-mode gh-md ws-butler winum wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg eval-sexp-fu highlight elisp-slime-nav dumb-jump popup diminish define-word counsel-projectile projectile pkg-info epl counsel swiper column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed ace-link which-key undo-tree org-plus-contrib ivy hydra evil-unimpaired f s dash async aggressive-indent adaptive-wrap ace-window avy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
