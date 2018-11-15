@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+;;; Custom theme dir
+(add-to-list 'custom-theme-load-path (expand-file-name "preload/themes"
+                                                       user-emacs-directory))
 
 ;; Disable flyspell.
 (setq prelude-flyspell nil)
@@ -22,26 +25,7 @@
       kept-old-versions 5    ; and how many of the old
       )
 
-(setq-default whitespace-style ' (face tabs spaces trailing space-before-tab indentation empty space-after-tab space-mark tab-mark))
-(setq whitespace-mode 1)
-
-(set-face-attribute 'whitespace-line nil
-                    :foreground "OrangeRed"
-                    :background nil
-                    :weight 'bold)
-(set-face-attribute 'whitespace-space nil
-                    :foreground "gray25"
-                    :background nil
-                    :weight 'bold)
-(set-face-attribute 'whitespace-newline nil
-                    :foreground "gray25"
-                    :background nil
-                    :weight 'bold)
-(set-face-attribute 'whitespace-tab nil
-                    :foreground "gray25"
-                    :background nil
-                    :weight 'bold)
-
+(setq whitespace-mode -1)
 
 ;; I don't use tabs
 (setq-default indent-tabs-mode nil)

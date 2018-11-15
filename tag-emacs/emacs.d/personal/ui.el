@@ -12,7 +12,7 @@
 (setq-default line-spacing 0.12)
 
 ;; Golden ratio mode
-(golden-ratio-mode 1)
+;;(golden-ratio-mode 1)
 
 ;; Pretty mode (support for ligatures)
 (require 'pretty-mode)
@@ -23,12 +23,12 @@
 
 ;; PANDA POWER
 (use-package panda-theme
-  :ensure t
-  :config
-  (load-theme 'panda t))
+ :ensure t
+ :config
+ (load-theme 'panda t))
 
 ;; Smart mode line
-(setq sml/theme 'atom-one-dark)
+(setq sml/theme 'panda)
 (sml/setup)
 
 ;; Disable scrollbars
