@@ -2,12 +2,59 @@
 ;;; Commentary:
 ;;; Code:
 
-;;; Custom theme dir
-(add-to-list 'custom-theme-load-path (expand-file-name "preload/themes"
-                                                       user-emacs-directory))
+(prelude-require-packages '(use-package
+                            nlinum
+                            nlinum-hl
+                            nlinum-relative
+                            doom-themes
+                            smart-mode-line
+                            smart-mode-line-atom-one-dark-theme
+                            highlight-symbol
+                            rainbow-delimiters
+                            rainbow-mode
+                            dimmer
+                            color-identifiers-mode
+                            dired-k
+                            all-the-icons
+                            treemacs
+                            treemacs-evil
+                            treemacs-projectile
+                            cargo
+                            racer
+                            flycheck-rust
+                            company-racer
+                            lsp-mode
+                            lsp-rust
+                            company-lsp
+                            php-mode
+                            composer
+                            phpstan
+                            pretty-mode
+                            golden-ratio
+                            fill-column-indicator
+                            buffer-flip
+                            company-posframe
+                            delight
+                            evil-commentary))
 
-;; Disable flyspell.
-(setq prelude-flyspell nil)
+
+;; Relative line numbers
+(require 'nlinum-relative)
+(nlinum-relative-setup-evil)
+(add-hook 'prog-mode-hook 'nlinum-relative-mode)
+(setq nlinum-relative-redisplay-delay 0)
+(setq nlinum-relative-current-symbol "")
+(setq nlinum-relative-offset 0)
+
+;; Natural line numbers fix
+(require 'nlinum-hl)
+
+(linum-mode -1)
+
+;; Linum off nlinum on.
+(add-hook 'prog-mode-hook (lambda ()
+                            (linum-mode -1)
+                            (nlinum-relative-mode 1)))
 
 ;; Disable guru mode, I'm already a guru ;)
 (setq prelude-guru nil)

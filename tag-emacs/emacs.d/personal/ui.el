@@ -6,22 +6,20 @@
 ;;(set-default-font "Operator Mono Lig 14")
 (set-face-attribute 'default nil
                     :family "Operator Mono Lig"
-                    :height 125
+                    :height 140
                     :weight 'semi-bold
                     :width 'normal)
-(setq-default line-spacing 0.12)
+(setq-default line-spacing 0)
+
+
 
 ;; Golden ratio mode
 ;;(golden-ratio-mode 1)
-
-;; Linum
-;;(add-hook 'prog-mode-hook (lambda () (linum-mode 1)))
-
-;;(require 'doom-themes)
+(require 'doom-themes)
 
 ;; Global settings (defaults)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+(setq doom-themes-enable-bold 1    ; if nil, bold is universally disabled
+      doom-themes-enable-italic 1) ; if nil, italics is universally disabled
 
 ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
 ;; may have their own settings.
@@ -42,20 +40,6 @@
 (global-prettify-symbols-mode 1)
 (pretty-fonts-set-kwds
  '((pretty-fonts-fira-font prog-mode-hook org-mode-hook)))
-
-(let ((height (face-attribute 'default :height)))
-  ;; for all linum/nlinum users
-  (set-face-attribute 'linum nil :height height)
-  ;; only for `linum-relative' users:
-  (set-face-attribute 'linum-relative-current-face nil :height height)
-  ;; only for `nlinum-relative' users:
-  (set-face-attribute 'nlinum-relative-current-face nil :height height))
-
-;; PANDA POWER
-;; (use-package panda-theme
-;;  :ensure t
-;;  :config
-;;  (load-theme 'my-panda t))
 
 ;; Smart mode line
 (setq sml/theme 'atom-one-dark)
