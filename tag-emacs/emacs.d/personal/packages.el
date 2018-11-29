@@ -3,8 +3,8 @@
 ;;; Code:
 
 (prelude-require-packages '(use-package
+                            doom-themes
                             atom-one-dark-theme
-                            panda-theme
                             smart-mode-line
                             smart-mode-line-atom-one-dark-theme
                             highlight-symbol
@@ -21,6 +21,7 @@
                             cargo
                             racer
                             flycheck-rust
+                            company-racer
                             lsp-mode
                             lsp-rust
                             company-lsp
@@ -31,6 +32,8 @@
                             golden-ratio
                             fill-column-indicator
                             buffer-flip
+                            company-posframe
+                            delight
                             evil-commentary))
 
 (provide 'packages)

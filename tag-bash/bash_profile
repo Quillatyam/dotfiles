@@ -29,6 +29,9 @@ for file in ~/.{bash_prompt,bash_path,bash_functions,bash_aliases,localrc}; do
 done;
 unset file;
 
+# Rust path
+export RUST_SRC_PATH=$(echo `rustc --print sysroot`/lib/rustlib/src/rust/src)
+
 # Pinentry for Yubikey
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye
