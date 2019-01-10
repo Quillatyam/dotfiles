@@ -24,8 +24,5 @@ set __fish_git_prompt_char_upstream_behind '-'
 
 function fish_right_prompt
   set last_status $status
-  if [ $DOCKER_MACHINE_NAME ]
-    echo "("(set_color cyan)$DOCKER_MACHINE_NAME(set_color normal)")"
-  end
   printf '%s' (__fish_git_prompt)
 end

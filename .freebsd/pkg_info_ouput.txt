@@ -1,0 +1,650 @@
+1password-client-0.5.1         1Password CLI client
+ImageMagick6-6.9.10.22,1       Image processing tools (legacy version)
+ORBit2-2.14.19_2               High-performance CORBA ORB with support for the C language
+adwaita-icon-theme-3.28.0      GNOME Symbolic Icons
+aide-0.16                      Replacement and extension for Tripwire
+aircrack-ng-1.3_1              802.11 WEP and WPA-PSK keys cracking program
+alacritty-0.2.0_2              GPU-accelerated terminal emulator
+alsa-lib-1.1.2_2               ALSA compatibility library
+alsa-plugins-1.1.1_3           ALSA compatibility library plugins
+apache-jmeter-2.11_1           Functional behaviour load and performance test application
+appres-1.0.5                   Program to list application's resources
+argyllcms-1.9.2_4              ICC compatible color management system
+aspell-0.60.6.1_7              Spelling checker with better suggestion logic than ispell
+at-spi2-atk-2.26.2             Assisted Technology Provider module for GTK+
+at-spi2-core-2.28.0            Assistive Technology Service Provider Interface
+atk-2.28.1                     GNOME accessibility toolkit (ATK)
+avahi-app-0.7_2                Service discovery on a local network
+avalon-framework-4.2.0_2       Apache Avalon core framework for component programming
+bamf-0.5.3_2                   BAMF Application Matching Framework
+barnyard2-1.13_1               Interpreter for Snort unified2 binary output files
+base64-1.5_1                   Utility to encode and decode base64 files
+bash-4.4.23                    GNU Project's Bourne Again SHell
+bash-completion-2.8_1,1        Programmable completion library for Bash
+binutils-2.30_5,1              GNU binary tools
+bitmap-1.0.8_2                 Bitmap editor and converter utilities for X
+ca_root_nss-3.41               Root certificate bundle from the Mozilla Project
+cairo-1.15.12,2                Vector graphics library with cross-device output support
+chromium-68.0.3440.106_4       Google web browser based on WebKit
+colord-1.3.5                   Manage color profiles to accurately color input/output devices
+compton-20160907_4             Feature-rich compositing window manager for X11
+conky-1.10.8_2                 Advanced, highly configurable system monitor for X11
+consolekit2-1.2.1              Framework for defining and tracking users
+cscope-15.8b                   Interactive C program browser
+ctags-5.8                      Feature-filled tagfile generator for vi and emacs clones
+cups-2.2.10                    Common UNIX Printing System
+curl-7.62.0                    Command line tool and library for transferring data with URLs
+cvsps-2.1_2                    Create patchset information from CVS
+daq-2.2.2                      Data Acquisition abstraction library for snort 2.9+
+dbus-1.10.16_1                 Message bus system for inter-application communication
+dbus-glib-0.108                GLib bindings for the D-BUS messaging system
+dconf-0.28.0                   Configuration database system for GNOME
+dejavu-2.37                    Bitstream Vera Fonts clone with a wider range of characters
+desktop-file-utils-0.23        Couple of command line utilities for working with desktop entries
+dialog4ports-0.1.6             Console Interface to configure ports
+dmenu-4.8                      X11 menu application designed for the dwm window manager
+dmidecode-3.2                  Tool for dumping DMI (SMBIOS) contents in human-readable format
+dnsmasq-2.80,1                 Lightweight DNS forwarder, DHCP, and TFTP server
+doas-6.0p2                     Simple sudo alternative to run commands as another user
+dotconf-1.3_1                  Simple, powerful configuration-file parser
+drm-kmod-g20180930             Metaport of DRM modules for the linuxkpi-based KMS components
+drm-next-kmod-4.11.g20181027_1 DRM modules for the linuxkpi-based KMS components
+dunst-1.3.2                    Lightweight notification daemon
+dwm-6.1_3                      Dynamic, small, fast and simple window manager
+emacs-26.1_4,3                 GNU editing macros
+encodings-1.0.4_4,1            X.Org Encoding fonts
+espeak-1.48.04_5               Software speech synthesizer
+expat-2.2.6_1                  XML 1.0 parser written in C
+feh-2.27.1_1                   Image viewer that utilizes Imlib2
+ffmpeg-4.0.3,1                 Realtime audio/video encoder/converter and streaming server
+fftw3-3.3.8_3                  Fast C routines to compute the Discrete Fourier Transform
+firefox-64.0_3,1               Web browser based on the browser portion of Mozilla
+fish-2.7.0                     User friendly command line shell
+flac-1.3.2                     Free lossless audio codec
+font-adobe-100dpi-1.0.3_3      X.Org Adobe 100dpi font
+font-adobe-75dpi-1.0.3_3       X.Org Adobe 75dpi font
+font-adobe-utopia-100dpi-1.0.4_3 X.Org Adobe Utopia 100dpi font
+font-adobe-utopia-75dpi-1.0.4_3 X.Org Adobe Utopia 75dpi font
+font-adobe-utopia-type1-1.0.4_3 X.Org Adobe Utopia Type1 font
+font-alias-1.0.3_3             X.Org Font aliases
+font-arabic-misc-1.0.3_3       X.Org miscellaneous Arabic fonts
+font-bh-100dpi-1.0.3_3         X.Org Bigelow Holmes 100dpi font
+font-bh-75dpi-1.0.3_3          X.Org Bigelow Holmes 75dpi font
+font-bh-lucidatypewriter-100dpi-1.0.3_3 X.Org Bigelow Holmes Lucida TypeWriter 100dpi font
+font-bh-lucidatypewriter-75dpi-1.0.3_3 X.Org Bigelow Holmes Lucida TypeWriter 75dpi font
+font-bh-ttf-1.0.3_3            X.Org Bigelow & Holmes TTF font
+font-bh-type1-1.0.3_3          X.Org Bigelow Holmes Type1 font
+font-bitstream-100dpi-1.0.3_3  X.Org Bitstream Vera 100dpi font
+font-bitstream-75dpi-1.0.3_3   X.Org Bitstream Vera 75dpi font
+font-bitstream-type1-1.0.3_3   X.Org Bitstream Vera Type1 font
+font-cronyx-cyrillic-1.0.3_3   X.Org Cronyx Cyrillic font
+font-cursor-misc-1.0.3_3       X.Org miscellaneous Cursor fonts
+font-daewoo-misc-1.0.3_3       X.Org miscellaneous Daewoo fonts
+font-dec-misc-1.0.3_3          X.Org miscellaneous Dec fonts
+font-ibm-type1-1.0.3_3         X.Org IBM Type1 font
+font-isas-misc-1.0.3_3         X.Org miscellaneous ISAS fonts
+font-jis-misc-1.0.3_3          X.Org miscellaneous JIS fonts
+font-micro-misc-1.0.3_3        X.Org miscellaneous Micro fonts
+font-misc-cyrillic-1.0.3_3     X.Org miscellaneous Cyrillic font
+font-misc-ethiopic-1.0.3_3     X.Org miscellaneous Ethiopic font
+font-misc-meltho-1.0.3_3       X.Org miscellaneous Meltho font
+font-misc-misc-1.1.2_3         X.Org miscellaneous Misc fonts
+font-mutt-misc-1.0.3_3         X.Org miscellaneous Mutt fonts
+font-schumacher-misc-1.1.2_3   X.Org miscellaneous Schumacher fonts
+font-screen-cyrillic-1.0.4_3   X.Org Screen Cyrillic font
+font-sony-misc-1.0.3_3         X.Org miscellaneous Sony fonts
+font-sun-misc-1.0.3_3          X.Org miscellaneous Sun fonts
+font-util-1.3.1                Create an index of X font files in a directory
+font-winitzki-cyrillic-1.0.3_3 X.Org Winitzki Cyrillic font
+font-xfree86-type1-1.0.4_3     X.Org XFree86 Type1 font
+fontconfig-2.12.6,1            XML-based font configuration API for X Windows
+fprintd-0.6.0                  Daemon that provides fingerprint scanning functionality over D-Bus
+freeglut-3.0.0_1               open source implementation of the GLUT library
+freetype2-2.9.1                Free and portable TrueType font rendering engine
+fribidi-0.19.7                 Free Implementation of the Unicode Bidirectional Algorithm
+fzf-0.17.4                     Blazing fast command-line fuzzy finder
+gcc-7_1                        Meta-port for the default version of the GNU Compiler Collection
+gcc7-7.3.0_5                   GNU Compiler Collection 7
+gconf2-3.2.6_5                 Configuration database system for GNOME
+gdbm-1.18.1                    GNU database manager
+gdk-pixbuf2-2.36.12            Graphic library for GTK+
+geoclue-2.4.7                  D-Bus service that provides location information
+gettext-runtime-0.19.8.1_2     GNU gettext runtime libraries and programs
+ghc-8.4.4                      Compiler for the functional language Haskell
+ghostscript9-agpl-base-9.26    PostScript and PDF interpreter
+ghostscript9-agpl-x11-9.26     PostScript and PDF interpreter, X11 support
+giflib-5.1.4                   Tools and library routines for working with GIF images
+girara-0.3.2                   GTK3 Interface Library for Zathura PDF Viewer
+git-2.19.1                     Distributed source code management tool
+gle-3.1.0_7                    GL Tubing and Extrusion Library
+glib-2.56.3_2,1                Some useful routines of C programming (current stable version)
+glib-networking-2.56.1         Network-related giomodules for glib
+gmp-6.1.2_1                    Free library for arbitrary precision arithmetic
+gnome_subr-1.0                 Common startup and shutdown subroutines used by GNOME scripts
+gnupg-2.2.11_2                 Complete and free PGP implementation
+gnutls-3.6.5                   GNU Transport Layer Security library
+gobject-introspection-1.56.1,1 Generate interface introspection data for GObject libraries
+gpu-firmware-kmod-g20180825    Firmware modules for the linuxkpi-based KMS components
+graphite2-1.3.13               Rendering capabilities for complex non-Roman writing systems
+gsettings-desktop-schemas-3.28.0 Collection of globally shared GSetting schemas
+gtar-1.30                      GNU version of the traditional tape archiver
+gtk-update-icon-cache-2.24.32  Gtk-update-icon-cache utility from the Gtk+ toolkit
+gtk2-2.24.32                   Gimp Toolkit for X11 GUI (previous stable version)
+gtk3-3.22.30_4                 Gimp Toolkit for X11 GUI (current stable version)
+hal-0.5.14_34                  Hardware Abstraction Layer for simplifying device access
+hamcrest-1.3                   Library of matchers for building test expressions
+harfbuzz-2.3.0                 OpenType text shaping engine
+harfbuzz-icu-2.3.0             Harfbuzz ICU support
+hexchat-2.14.2                 IRC chat program with GTK and Text Frontend
+hicolor-icon-theme-0.15        High-color icon theme shell from the FreeDesktop project
+hidapi-0.8.0.r1_3              Library to access USB HID-class devices
+hs-HTTP-4000.3.11_1            Library for client-side HTTP
+hs-X11-1.8_4                   Binding to the X11 graphics library
+hs-X11-xft-0.3.1_18            Bindings to the Xft, Xrender and Freetype for Haskell programs
+hs-async-2.2.1_2               Run IO operations asynchronously and wait for their results
+hs-base16-bytestring-0.1.1.6_6 Fast base16 (hex) encoding and deconding for ByteStrings
+hs-base64-bytestring-1.0.0.1_12 Fast base64 encoding and decoding for ByteStrings
+hs-cabal-install-2.2.0.0_2     Command-line interface for Cabal and Hackage
+hs-cryptohash-sha256-0.11.101.0_1 A practical incremental and one-pass, pure API to the SHA-256 hash algorithm
+hs-data-default-0.7.1.1_3      Class for types with a default value
+hs-data-default-class-0.1.2.0_3 Class for types with a default value
+hs-data-default-instances-base-0.1.0.1_3 Default instances for types in base
+hs-data-default-instances-containers-0.0.1_11 Default instances for types in containers
+hs-data-default-instances-dlist-0.0.1_11 Default instances for types in dlist
+hs-data-default-instances-old-locale-0.0.1_12 Default instances for types in old-locale
+hs-dlist-0.8.0.3_3             Difference lists
+hs-echo-0.1.3_1                Cross-platform and cross-console library to handle echoing terminal input
+hs-ed25519-0.0.5.0_3           A simple, fast, self-contained copy of the Ed25519 public-key signature system
+hs-edit-distance-0.2.2.1_4     Levenshtein and restricted Damerau-Levenshtein edit distances
+hs-extensible-exceptions-0.1.1.4_11 Extensible exceptions
+hs-hackage-security-0.5.3.0_1  The hackage security library provides both server and client utilities for securing the Hackage package server
+hs-hashable-1.2.7.0_1,1        Class for types that can be converted to a hash value
+hs-mtl-2.2.1_4                 Monad classes, using functional dependencies
+hs-network-2.6.3.2_3           Low-level networking interface
+hs-network-uri-2.6.1.0_3       URI manipulation
+hs-old-locale-1.0.0.7_4        Locale library
+hs-old-time-1.1.0.3_4          Time library
+hs-random-1.1_4                Random number library
+hs-resolv-0.1.1.1_1            Domain Name Service (DNS) lookup via the libresolv standard library routines
+hs-semigroups-0.18.4_1         Anything that associates
+hs-setlocale-1.0.0.6_1         Haskell setlocale package
+hs-tar-0.5.1.0_1               Reading, writing, and manipulating ".tar" archive files
+hs-transformers-compat-0.5.1.4_3 Compatibility shim exposing the new types from transformers 0.3 and 0.4
+hs-unordered-containers-0.2.9.0_1 Efficient hashing-based container types
+hs-utf8-string-1.0.1.1_3       Support for reading and writing UTF-8 strings
+hs-xmonad-0.15                 Tiling window manager
+hs-xmonad-contrib-0.15         Third-party extensions for xmonad
+hs-zlib-0.6.1.2_3              Compression and decompression in the gzip and zlib formats
+htop-2.2.0                     Better top(1) - interactive process viewer
+httpclient-4.5.6               Java components implementing an advanced HTTP client
+httpcore-4.4.10                Java components implementing the base HTTP protocol
+hunspell-1.6.2_1               Improved spell-checker for Hungarian and other languages
+iceauth-1.0.8_2                ICE authority file utility for X
+icu-63.1_1,1                   International Components for Unicode (from IBM)
+imlib2-1.5.1,2                 The next generation graphics library for Enlightenment
+indexinfo-0.3.1                Utility to regenerate the GNU info page index
+intel-backlight-20180303       Control backlight on various modern Intel(R) GPUs
+iso-codes-3.76                 Lists of the country, language, and currency iso names
+jakarta-commons-cli-1.4,1      Java library for command line arguments and options
+jakarta-commons-codec-1.10     Implementations of common encoders and decoders
+jakarta-commons-collections-3.2.1 Classes that extend/augment the Java Collections Framework
+jakarta-commons-httpclient-3.1_1 Package implementing the client side of the HTTP standard
+jakarta-commons-io-2.4         Collection of I/O utilities for Java
+jakarta-commons-lang-2.6       Jakarta library with helper utilities for the java.lang API
+jakarta-commons-logging-1.2    Generic logging wrapper library
+jakarta-commons-net-3.6        Collection of network protocol implementations for Java
+jakarta-oro-2.0.8_2            Perl/awk/sh regular expressions for Java
+jansson-2.12                   C library for encoding, decoding, and manipulating JSON data
+jasper-1.900.1_17              Implementation of the codec specified in the JPEG-2000 standard
+java-zoneinfo-2018.g           Updated Java timezone definitions
+javamail-1.5.6                 Reference Implementation of JSR 919
+javavmwrapper-2.6              Wrapper script for various Java Virtual Machines
+jaxen-1.0_4                    Java XPath Engine
+jbig2dec-0.15                  Decoder implementation of the JBIG2 image compression format
+jbigkit-2.1_1                  Lossless compression for bi-level images such as scanned pages, faxes
+jdom-1.1.1,1                   Java library for accessing and manipulating XML documents
+jline-0.9.94                   Java library for handling console input
+jpeg-turbo-2.0.1               SIMD-accelerated JPEG codec which replaces libjpeg
+json-c-0.13.1                  JSON (JavaScript Object Notation) implementation in C
+json-glib-1.4.2                JSON (RFC 4627) interface for Glib
+jsoncpp-1.8.1_4                JSON reader and writer library for C++
+junit-4.12                     Regression testing utility for use with the Java(TM) Language
+lcms2-2.9                      Accurate, fast, and small-footprint color management engine
+libFS-1.0.7_2                  The FS library
+libGLU-9.0.0_3                 OpenGL utility library
+libICE-1.0.9_3,1               Inter Client Exchange library for X11
+libIDL-0.8.14_4                Library for creating trees of CORBA IDL files
+libSM-1.2.3,1                  Session Management library for X11
+libX11-1.6.7,1                 X11 library
+libXScrnSaver-1.2.3_2          The XScrnSaver library
+libXTrap-1.0.1_5               The XTrap library
+libXau-1.0.8_5                 Authentication Protocol library for X11
+libXaw-1.0.13_2,2              X Athena Widgets library
+libXcomposite-0.4.4_5,1        X Composite extension library
+libXcursor-1.1.15_2            X client-side cursor loading library
+libXdamage-1.1.4_5             X Damage extension library
+libXdmcp-1.1.2_2               X Display Manager Control Protocol library
+libXevie-1.0.3_5               The Xevie library
+libXext-1.3.3_3,1              X11 Extension library
+libXfixes-5.0.3_2              X Fixes extension library
+libXfont-1.5.4_2,2             X font library
+libXfontcache-1.0.5_5          The Xfontcache library
+libXft-2.3.2_3                 Client-sided font API for X applications
+libXi-1.7.9_2,1                X Input extension library
+libXinerama-1.1.4_2,1          X11 Xinerama library
+libXmu-1.1.2_5,1               X Miscellaneous Utilities libraries
+libXp-1.0.3_2,1                X print library
+libXpm-3.5.12_2                X Pixmap library
+libXrandr-1.5.1_2              X Resize and Rotate extension library
+libXrender-0.9.10_2            X Render extension library
+libXres-1.2.0_2                X Resource usage library
+libXt-1.1.5_2,1                X Toolkit library
+libXtst-1.2.3_2                X Test extension
+libXv-1.0.11_2,1               X Video Extension library
+libXvMC-1.0.10_2               X Video Extension Motion Compensation library
+libXxf86dga-1.1.4_5            X DGA Extension
+libXxf86misc-1.0.4_2           X XF86-Misc Extension
+libXxf86vm-1.1.4_3             X Vidmode Extension
+libargon2-20171227_1           Memory hard password hashing program and library
+libassuan-2.5.1                IPC library used by GnuPG and gpgme
+libcanberra-0.30_4             Implementation of the Freedesktop sound theme spec
+libconfig-1.7.2                Simple library for manipulating structured configuration files
+libcroco-0.6.12                CSS2 parsing library
+libdaemon-0.14_1               Lightweight C library that eases the writing of UNIX daemons
+libdmx-1.1.4_2                 DMX extension library
+libdnet-1.12_1                 Simple interface to low level networking routines
+libdrm-2.4.96,1                Userspace interface to kernel Direct Rendering Module services
+libedit-3.1.20170329_2,1       Command line editor library
+libepoll-shim-0.0.20181229     epoll shim implemented using kevent
+libepoxy-1.5.2                 Library to handle OpenGL function pointer management
+libevdev-1.4.4_1               Linux Event Device library
+libevent-2.1.8_2               API for executing callback functions on events or timeouts
+libexif-0.6.21_4               Library to read digital camera file meta-data
+libffi-3.2.1_3                 Foreign Function Interface
+libfontenc-1.1.3_3             The fontenc Library
+libfprint-0.7.0_1              Library for fingerprint reader devices
+libgcrypt-1.8.3                General purpose cryptographic library based on the code from GnuPG
+libgd-2.2.5,1                  Graphics library for fast creation of images
+libgee-0.20.1                  GObject collection library
+libglade2-2.6.4_9              GNOME glade library
+libgpg-error-1.33              Common error values for all GnuPG components
+libgsf-1.14.44                 Extensible I/O abstraction for dealing with structured file formats
+libgtop-2.38.0_1               GNOME top library
+libgudev-230_1                 GObject bindings for libudev.
+libiconv-1.14_11               Character set conversion library
+libid3tag-0.15.1b_1            ID3 tags library (part of MAD project)
+libidn-1.34_1                  Internationalized Domain Names command line tool
+libidn2-2.0.5_1                Implementation of IDNA2008 internationalized domain names
+libijs-0.35_5                  C library that supports plugin printer driver for Ghostscript
+libinotify-20180201            Kevent based inotify compatible library
+libinput-1.6.0_1               Generic input library
+libksba-1.3.5                  KSBA is an X.509 Library
+liblqr-1-0.4.2                 Easy to use C/C++ seam carving library
+libltdl-2.4.6                  System independent dlopen wrapper
+liblz4-1.8.3,1                 LZ4 compression library, lossless and very fast
+libmtdev-1.1.5_1               Multitouch Protocol Translation Library
+libnghttp2-1.33.0              HTTP/2.0 C Library
+libnotify-0.7.7_1              Library for desktop notifications
+libogg-1.3.3,4                 Ogg bitstream library
+liboldX-1.0.1_3                Old X library
+libotf-0.9.16                  Library for handling OpenType fonts
+libpaper-1.1.24.4              Library providing routines for paper size management
+libpcap-1.9.0                  Ubiquitous network traffic capture library
+libpci-3.6.2                   PCI configuration space I/O made easy
+libpciaccess-0.13.5            Generic PCI access library
+libproxy-0.4.15                Library that provides automatic proxy configuration management
+libpthread-stubs-0.4           This library provides weak aliases for pthread functions
+libraw-0.18.13_2               Library for manipulating raw images
+librsvg2-2.40.20               Library for parsing and rendering SVG vector-graphic files
+libsecret-0.18.6               Library to access the secret service API
+libsndfile-1.0.28_1            Reading and writing files containing sampled sound (like WAV or AIFF)
+libsodium-1.0.16               Library to build higher-level cryptographic tools
+libsoup-2.62.2                 SOAP (Simple Object Access Protocol) implementation in C
+libsynaptics-0.14.6.c          Library to access the Xorg/XFree86 Synaptics TouchPad Driver
+libtasn1-4.13_1                ASN.1 structure parser library
+libtheora-1.1.1_7              Theora video codec for the Ogg multimedia streaming system
+libu2f-host-1.1.6_1            Yubico Universal 2nd Factor (U2F) Host C Library
+libudev-devd-0.3_1             libudev-compatible interface for devd
+libunistring-0.9.10_1          Unicode string library
+libunwind-20170615             Generic stack unwinding library
+libv4l-1.6.3_4                 Video4Linux library
+libva-2.2.0_3                  VAAPI wrapper and dummy driver
+libvdpau-1.1.1_2               VDPAU wrapper and tracing library
+libvolume_id-0.81.1            Library to provide file system type information
+libvorbis-1.3.6,3              Audio compression codec library
+libvpx-1.7.0_2                 VP8/VP9 Codec SDK
+libwacom-0.23_1                Adds tablet support to libinput
+libwmf-0.2.8.4_15              Tools and library for converting Microsoft WMF (windows metafile)
+libwnck3-3.24.1                Library used for writing pagers and taskslists
+libx264-0.155.2917             H.264/MPEG-4 AVC Video Encoding (Library)
+libxcb-1.13.1                  The X protocol C-language Binding (XCB) library
+libxdg-basedir-1.2.0_1         Implementation of the XDG Base Directory specification
+libxkbcommon-0.8.0             Keymap handling library for toolkits and window systems
+libxkbfile-1.0.9_2             XKB file library
+libxkbui-1.0.2_6               The xkbui library
+libxml2-2.9.7                  XML parser library for GNOME
+libxshmfence-1.2_4             Shared memory 'SyncFence' synchronization primitive
+libxslt-1.1.32                 The XSLT C library for GNOME
+libyaml-0.1.6_2                YAML 1.1 parser and emitter written in C
+libyubikey-1.13                Library for decrypting and parsing YubiKey One-Time Passwords
+linux-c6-atk-1.30.0_2          Accessibility Toolkit (Linux CentOS 6.10)
+linux-c6-cairo-1.8.8_8         Vector graphics library Cairo (Linux CentOS 6.10)
+linux-c6-expat-2.0.1_5         XML 1.0 parser written in C (Linux CentOS 6.10)
+linux-c6-fontconfig-2.8.0_3    XML-based font configuration API for X Windows (Linux CentOS 6.10)
+linux-c6-gdk-pixbuf2-2.24.1_5  Graphic library for GTK+ (Linux CentOS 6.10)
+linux-c6-gtk2-2.24.23_7        GTK+ library, version 2.X (Linux CentOS 6.10)
+linux-c6-jasper-libs-1.900.1_5 JPEG-2000 reference implementation (Linux CentOS 6.10)
+linux-c6-jpeg-1.2.1_3          SIMD-accelerated JPEG codec (Linux CentOS 6.10)
+linux-c6-libpng-1.2.49_5       Library for manipulating PNG images (Linux CentOS 6.10)
+linux-c6-libthai-0.1.12_1      Thai language support library (Linux CentOS 6.10)
+linux-c6-libtiff-3.9.4_5       Tools and library routines for working with TIFF images (Linux CentOS 6.10)
+linux-c6-pango-1.28.1_7        Pango library (Linux CentOS 6.10)
+linux-c6-pixman-0.32.8_1       Low-level pixel manipulation library (Linux CentOS 6.10)
+linux-c6-xorg-libs-7.4_10      Xorg libraries (Linux CentOS 6.10)
+linux-sublime3-3.1.76          Sophisticated text editor for code, markup and prose
+linux_base-c6-6.10             Base set of packages needed in Linux mode (Linux CentOS 6.10)
+llvm60-6.0.1_3                 LLVM and Clang
+log4j-1.2.17                   Fast and flexible logging library for Java
+lsof-4.92.b,8                  Lists information about open files (similar to fstat(1))
+lua51-5.1.5_9                  Small, compilable scripting language providing easy access to C code
+lua52-5.2.4                    Small, compilable scripting language providing easy access to C code
+luit-1.1.1_1                   Locale and ISO 2022 support for Unicode terminals
+m17n-db-1.8.0                  Data files for the m17n library
+m17n-lib-1.8.0_1               Library for the multilingual text handling
+mailutils-3.5                  Utilities, daemons, and filters for processing e-mail
+mesa-dri-18.1.9                OpenGL hardware acceleration drivers for DRI2+
+mesa-libs-18.1.9_4             OpenGL libraries that support GLX and EGL clients
+mhash-0.9.9.9_5                Easy-to-use library for strong hashes such as MD5 and SHA1
+mkfontdir-1.0.7                Create an index of X font files in a directory
+mkfontscale-1.1.3_2            Creates an index of scalable font files for X
+mpc-1.1.0_1                    Library of complex numbers with arbitrarily high precision
+mpfr-4.0.1                     Library for multiple-precision floating-point computations
+mysql-connector-java-5.1.47    MySQL Connector/J: JDBC interface for MySQL
+mysql80-client-8.0.12          Multithreaded SQL database (client)
+mysql80-server-8.0.12_3        Multithreaded SQL database (server)
+netpbm-10.83.02                Toolkit for conversion of images between different formats
+nettle-3.4.1_1                 Low-level cryptographic library
+networkmgr-3.0                 FreeBSD/GhostBSD network conection manager
+nginx-1.14.1,2                 Robust and small WWW server
+nmap-7.70                      Port scanning utility for large networks
+noto-lite-1.0.5_2              Google font family - lite version
+npth-1.6                       New GNU Portable Threads
+nspr-4.20                      Platform-neutral API for system level and libc like functions
+nss-3.41_1                     Libraries to support development of security-enabled applications
+oniguruma-6.9.0                Regular expressions library compatible with POSIX/GNU/Perl
+opencv-core-3.4.1_6            Open Source Computer Vision library
+openh264-1.8.0,2               Cisco implementation of H.264 codec
+openjdk8-8.192.26_1            Java Development Kit 8
+openjpeg-2.3.0_2               Open-source JPEG 2000 codec
+opensc-0.19.0                  Libraries and utilities to access smart cards
+opus-1.2.1                     IETF audio codec
+p11-kit-0.23.14                Library for loading and enumerating of PKCS#11 modules
+p5-Authen-NTLM-1.09_1          Perl5 NTLM authentication module
+p5-Authen-SASL-2.16_1          Perl5 module for SASL authentication
+p5-CGI-4.40                    Handle Common Gateway Interface requests and responses
+p5-Cairo-1.106                 Perl bindings to the cairo graphics library
+p5-Crypt-SSLeay-0.72_3         Perl5 interface to allow p5-libwww LWP to make https connections
+p5-Digest-HMAC-1.03_1          Perl5 interface to HMAC Message-Digest Algorithms
+p5-Encode-Locale-1.05          Determine the locale encoding
+p5-Error-0.17026               Error/exception handling in object-oriented programming style
+p5-ExtUtils-Depends-0.405      Easily build XS extensions that depend on XS extensions
+p5-ExtUtils-PkgConfig-1.16     Simplistic interface to pkg-config
+p5-File-Listing-6.04_1         Parse directory listings
+p5-GSSAPI-0.28_1               Perl extension providing access to the GSSAPIv2 library
+p5-Glib2-1.328                 This module provides access to Glib and GObject libraries
+p5-Gtk2-1.24992                Perl module for Gtk+ 2.x graphical user interface library
+p5-HTML-Parser-3.72            Perl5 module for parsing HTML documents
+p5-HTML-Tagset-3.20_1          Some useful data table in parsing HTML
+p5-HTTP-Cookies-6.04           HTTP Cookie jars
+p5-HTTP-Daemon-6.01_1          Simple HTTP server class
+p5-HTTP-Date-6.02_1            Conversion routines for the HTTP protocol date formats
+p5-HTTP-Message-6.18           Representation of HTTP style messages
+p5-HTTP-Negotiate-6.01_1       Implementation of the HTTP content negotiation algorithm
+p5-IO-HTML-1.001_1             Open an HTML file with automatic charset detection
+p5-IO-Socket-INET6-2.72_1      Perl module with object interface to AF_INET6 domain sockets
+p5-IO-Socket-SSL-2.060         Perl5 interface to SSL sockets
+p5-LWP-MediaTypes-6.02_1       Guess media type for a file or a URL
+p5-LWP-Protocol-https-6.07_1   Provide https support for LWP::UserAgent
+p5-Mozilla-CA-20180117         Perl extension for Mozilla CA cert bundle in PEM format
+p5-Net-HTTP-6.18               Low-level HTTP client
+p5-Net-SSLeay-1.85             Perl5 interface to SSL
+p5-PCSC-Card-1.4.14            Perl bindings for the PC/SC Lite Framework
+p5-Pango-1.227                 Perl module for layout and render i18n text
+p5-Socket6-0.29                IPv6 related part of the C socket.h defines and structure manipulators
+p5-Try-Tiny-0.30               Minimal try/catch with proper localization of $@
+p5-URI-1.74                    Perl5 interface to Uniform Resource Identifier (URI) references
+p5-WWW-RobotRules-6.02_1       Database of robots.txt-derived permissions
+p5-libwww-6.35                 Perl5 library for WWW access
+pango-1.42.4_1                 Open-source framework for the layout and rendering of i18n text
+pciids-20181113                Database of all known IDs used in PCI devices
+pcre-8.42_1                    Perl Compatible Regular Expressions library
+pcre2-10.31                    Perl Compatible Regular Expressions library, version 2
+pcsc-lite-1.8.23,2             Middleware library to access a smart card using SCard API (PC/SC)
+pcsc-tools-1.5.3               Tools to test a PCSC driver, card, or reader
+perl5-5.28.1                   Practical Extraction and Report Language
+perl5.26-5.26.3                Practical Extraction and Report Language
+php72-7.2.10                   PHP Scripting Language
+php72-composer-1.7.2           Dependency Manager for PHP
+php72-ctype-7.2.10             The ctype shared extension for php
+php72-curl-7.2.13              The curl shared extension for php
+php72-dom-7.2.10               The dom shared extension for php
+php72-extensions-1.0           "meta-port" to install PHP extensions
+php72-filter-7.2.10            The filter shared extension for php
+php72-gd-7.2.13                The gd shared extension for php
+php72-hash-7.2.10              The hash shared extension for php
+php72-iconv-7.2.10             The iconv shared extension for php
+php72-intl-7.2.13_1            The intl shared extension for php
+php72-json-7.2.10              The json shared extension for php
+php72-mbstring-7.2.10          The mbstring shared extension for php
+php72-odbc-7.2.13              The odbc shared extension for php
+php72-opcache-7.2.10           The opcache shared extension for php
+php72-openssl-7.2.10           The openssl shared extension for php
+php72-pdo-7.2.10               The pdo shared extension for php
+php72-pdo_mysql-7.2.10         The pdo_mysql shared extension for php
+php72-pdo_odbc-7.2.13          The pdo_odbc shared extension for php
+php72-pdo_sqlite-7.2.10        The pdo_sqlite shared extension for php
+php72-phar-7.2.10              The phar shared extension for php
+php72-posix-7.2.10             The posix shared extension for php
+php72-session-7.2.10           The session shared extension for php
+php72-simplexml-7.2.10         The simplexml shared extension for php
+php72-sqlite3-7.2.10           The sqlite3 shared extension for php
+php72-tokenizer-7.2.10         The tokenizer shared extension for php
+php72-xml-7.2.10               The xml shared extension for php
+php72-xmlreader-7.2.10         The xmlreader shared extension for php
+php72-xmlwriter-7.2.10         The xmlwriter shared extension for php
+pinentry-1.1.0_1               Collection of simple PIN or passphrase entry dialogs
+pinentry-tty-1.1.0             Console version of the GnuPG password dialog
+pixman-0.34.0_1                Low-level pixel manipulation library
+pkg-1.10.5_5                   Package manager
+pkgconf-1.5.4,1                Utility to help to configure compiler and linker flags
+plank-0.11.4                   Elegant, simple, and clean dock
+png-1.6.36                     Library for manipulating PNG images
+policykit-0.9_10               Framework for controlling access to system-wide components
+polkit-0.114_2                 Framework for controlling access to system-wide components
+poppler-0.72.0                 PDF rendering library
+poppler-data-0.4.9             Poppler encoding data
+poppler-glib-0.72.0            GLib bindings to poppler
+portaudio-19.6.0,1             Portable cross-platform Audio API
+postgresql-jdbc-9.2.1004       The Java JDBC implementation for PostgreSQL
+powerdxx-0.3.0                 CPU clock speed/frequency daemon
+protobuf-3.6.1_1,1             Data interchange format library
+pulledpork-0.7.3               Script to update snort-2.8+ rules
+py27-Babel-2.6.0               Collection of tools for internationalizing Python applications
+py27-Jinja2-2.10               Fast and easy to use stand-alone template engine
+py27-MarkupSafe-1.0            Implements XML/HTML/XHTML Markup safe string for Python
+py27-ansible-2.6.4             Radically simple IT automation
+py27-asn1crypto-0.22.0         ASN.1 library with a focus on performance and a pythonic API
+py27-bcrypt-3.1.4_1            Modern password hashing for your software and your servers
+py27-cffi-1.11.5               Foreign Function Interface for Python calling C code
+py27-cryptography-2.3          Cryptographic recipes and primitives for Python developers
+py27-enum34-1.1.6              Python 3.4 Enum backported to 3.3, 3.2, 3.1, 2.7
+py27-idna-2.7                  Internationalized Domain Names in Applications (IDNA)
+py27-ipaddress-1.0.22          Port of Python 3.3+ ipaddress module to 2.7
+py27-jmespath-0.9.3            JSON Matching Expressions
+py27-netaddr-0.7.19            Manipulation of IPv4, IPv6, CIDR, EUI and MAC network addresses
+py27-paramiko-2.4.1            Python SSH2 protocol library
+py27-pyasn1-0.4.2              ASN.1 toolkit for Python
+py27-pycparser-2.18            C parser in Python
+py27-pycrypto-2.6.1_3          Python Cryptography Toolkit
+py27-pynacl-1.3.0              Python binding to the Networking and Cryptography library
+py27-pytz-2018.7,1             World Timezone Definitions for Python
+py27-setuptools-40.6.2         Python packages installer
+py27-six-1.12.0                Python 2 and 3 compatibility utilities
+py27-yaml-3.13                 Python YAML parser
+py36-asn1crypto-0.22.0         ASN.1 library with a focus on performance and a pythonic API
+py36-cairo-1.14.1              Python 2 bindings for Cairo
+py36-certifi-2018.4.16         Mozilla SSL certificates
+py36-cffi-1.11.5               Foreign Function Interface for Python calling C code
+py36-chardet-3.0.4             Universal encoding detector for Python 2 and 3
+py36-cryptography-2.3          Cryptographic recipes and primitives for Python developers
+py36-gobject3-3.28.3           Common files for the Python bindings for GObject
+py36-httpie-0.9.9              Command line HTTP client
+py36-idna-2.7                  Internationalized Domain Names in Applications (IDNA)
+py36-openssl-17.5.0_1          Python interface to the OpenSSL library
+py36-pycparser-2.18            C parser in Python
+py36-pygments-2.2.0            Syntax highlighter written in Python
+py36-pysocks-1.6.8             Python SOCKS module
+py36-requests-2.18.4_1         HTTP library written in Python for human beings
+py36-setuptools-40.6.2         Python packages installer
+py36-six-1.12.0                Python 2 and 3 compatibility utilities
+py36-urllib3-1.22,1            HTTP library with thread-safe connection pooling, file post, and more
+pygobject3-common-3.28.3       Common files for the Python bindings for GObject
+python27-2.7.15                Interpreted object-oriented programming language
+python36-3.6.7                 Interpreted object-oriented programming language
+rcm-1.3.3                      RC file (dotfile) management
+re2-20180901                   Fast C++ regex library
+readline-7.0.5                 Library for editing command lines as they are typed
+redshift-1.12                  Adjusts the color temperature of your screen
+rhino-1.7.r4                   Implementation of JavaScript written in Java
+ripgrep-0.9.0_3                Command line search tool
+rofi-1.5.1_1                   Window switcher, run dialog and dmenu replacement
+ruby-2.4.5,1                   Object-oriented interpreted scripting language
+sessreg-1.1.1                  Manage utmp/wtmp entries for non-init X clients
+setxkbmap-1.3.1                Set the keyboard using the X Keyboard Extension
+shared-mime-info-1.8           MIME types database from the freedesktop.org project
+slf4j-1.7.21                   Simple facade or abstraction for various logging frameworks
+slim-1.3.6_16                  Graphical login manager for X11, derived from Login.app
+slim-themes-1.0.1_1            Theme pack for SLiM login app
+slock-1.4_2                    Simple X screen locker
+smproxy-1.0.6                  Session Manager Proxy
+snappy-1.1.6                   Fast compressor/decompressor library
+snort-2.9.11.1_1               Lightweight network intrusion detection system
+speech-dispatcher-0.8.6        Common interface to speech synthesis
+speex-1.2.0,1                  Audio compression format designed for speech
+speexdsp-1.2.r3_1              Audio compression format designed for speech
+spidermonkey52-52.9.0_1        Standalone JavaScript based from Mozilla 52-esr
+sql-workbench-118              DBMS-independent, cross-platform SQL query tool
+sqlite3-3.26.0                 SQL database engine in a C library
+st-1.9_2                       State Threads Library for Internet Applications
+stalonetray-0.8.3              STAnd-aLONE system tray
+startup-notification-0.12_4    Library that supports startup notification spec from freedesktop.org
+sterm-0.8.1                    Simple X terminal
+tcl86-8.6.8                    Tool Command Language
+tex-kpathsea-6.2.1_2           Path searching library for TeX
+tex-synctex-1.17.0_1           Synchronization TeXnology parser library
+the_silver_searcher-2.2.0      Code-searching tool similar to ack but faster
+thunderbird-60.4.0_1           Mozilla Thunderbird is standalone mail and news that stands above
+tiff-4.0.10                    Tools and library routines for working with TIFF images
+tmux-2.7                       Terminal Multiplexer
+tolua++-1.0.93_3               Extended version of tolua, a tool to integrate C/C++ code with Lua
+tpm-emulator-0.7.4_2           Trusted Platform Module (TPM) emulator
+trousers-0.3.14_2              Open-source TCG Software Stack
+twm-1.0.10                     Tab Window Manager for the X Window System
+u2f-devd-1.0.0_1               Devd hotplug rules for Universal 2nd Factor (U2F) tokens
+universal-ctags-g20180912      Fork of Exuberant Ctags to generate index/tag files
+unixODBC-2.3.7                 ODBC library suite for Unix
+urwfonts-1.0_7                 Another font package for X
+usql-0.7.0                     Universal command-line interface for SQL databases
+v4l_compat-1.6.3_3             Video4Linux IOCTL header files
+vim-8.1.0342                   Improved version of the vi editor
+wayland-1.16.0                 Wayland composite "server"
+wayland-protocols-1.16         Wayland protocols
+webcamd-4.17.0.3_1             Port of Linux USB webcam and DVB drivers into userspace
+webp-1.0.1_1                   Google WebP image format conversion tool
+weechat-2.2                    Lightweight and user friendly ncurses based IRC client
+wmname-0.1_2                   Prints/sets the window manager name property of the root window
+x11perf-1.6.0                  X11 server performance test program
+x265-2.8_1                     H.265/High Efficiency Video Coding (HEVC) format
+xalan-j-2.7.2                  Apache XSLT processor for transforming XML documents
+xauth-1.0.10                   X authority file utility
+xautolock-2.2_1                Activate xlock after a user defined time of inactivity
+xbacklight-1.2.2               Program to adjust backlight brightness
+xbitmaps-1.1.2                 X.Org bitmaps data
+xcalc-1.0.6_2                  Scientific calculator for X
+xcb-util-0.4.0_2,1             Module with libxcb/libX11 extension/replacement libraries
+xcb-util-renderutil-0.3.9_1    Convenience functions for the Render extension
+xcb-util-wm-0.4.1_3            Framework for window manager implementation
+xcb-util-xrm-1.0               XCB utility functions for the X resource manager
+xclip-0.13                     Interface to X selections ("the clipboard") from the command line
+xclock-1.0.7_2                 Analog and digital clock for X
+xcmsdb-1.0.5                   Device Color Characterization utility for X
+xconsole-1.0.7_1               Monitor system console messages with X
+xcursor-themes-1.0.5_2         X.org cursors themes
+xcursorgen-1.0.6_3             Create an X cursor file from a collection of PNG images
+xdg-utils-1.1.1                Tools to allow all applications to integrate with the free desktop
+xdm-1.1.11_8                   X.Org X display manager
+xdpyinfo-1.3.2_2               Display information utility for X
+xdriinfo-1.0.6_3               Query configuration information of DRI drivers
+xerces-j-2.12.0                XML parser for Java
+xev-1.2.2                      Print contents of X events
+xf86-input-evdev-2.10.6_3      X.Org event device input driver
+xf86-input-keyboard-1.9.0_3    X.Org keyboard input driver
+xf86-input-libinput-0.25.0_2   X.Org libinput input driver
+xf86-input-mouse-1.9.3_2       X.Org mouse input driver
+xf86-input-synaptics-1.9.1_3   X.Org synaptics input driver
+xf86-video-intel-2.99.917.20180512_2 Driver for Intel integrated graphics chipsets
+xf86-video-scfb-0.0.4_7        X.Org syscons display driver
+xf86-video-vesa-2.4.0_2        X.Org vesa display driver
+xf86dga-1.0.3_1                Test program for the XFree86-DGA extension
+xgamma-1.0.6                   Gamma correction through the X server
+xgc-1.0.5                      X graphics demo
+xhost-1.0.7                    Server access control program for X
+xinit-1.4.0,1                  X Window System initializer
+xinput-1.6.2_2                 Very useful utility for configuring and testing XInput devices
+xkbcomp-1.4.2                  Compile XKB keyboard description
+xkbevd-1.1.4                   XKB event daemon
+xkbutils-1.0.4_2               XKB utility demos
+xkeyboard-config-2.24_1        X Keyboard Configuration Database
+xkill-1.0.5                    Utility for killing a client by its X resource
+xlockmore-5.55                 Like XLock session locker/screen saver, but just more
+xlsatoms-1.1.2                 List interned atoms defined on a server
+xlsclients-1.1.4               List client applications running on a display
+xmessage-1.0.5                 Display message or query in a X window
+xmlcatmgr-2.2_2                SGML and XML catalog manager
+xmlgraphics-commons-1.5        Several reusable components used by Apache Batik and FOP
+xmodmap-1.0.9                  Utility for modifying keymaps and pointer button mappings in X
+xorg-7.7_3                     X.Org complete distribution metaport
+xorg-apps-7.7_2                X.org apps meta-port
+xorg-docs-1.7.1,1              X.org documentation files
+xorg-drivers-7.7_5             X.org drivers meta-port
+xorg-fonts-7.7_1               X.org fonts meta-port
+xorg-fonts-100dpi-7.7          X.Org 100dpi bitmap fonts
+xorg-fonts-75dpi-7.7           X.Org 75dpi bitmap fonts
+xorg-fonts-cyrillic-7.7        X.Org Cyrillic bitmap fonts
+xorg-fonts-miscbitmaps-7.7     X.Org miscellaneous bitmap fonts
+xorg-fonts-truetype-7.7_1      X.Org TrueType fonts
+xorg-fonts-type1-7.7           X.Org Type1 fonts
+xorg-libraries-7.7_2           X.org libraries meta-port
+xorg-server-1.18.4_10,1        X.Org X server and related programs
+xorgproto-2018.4               xorg protocol headers
+xpr-1.0.5                      Utility for printing an X window dump
+xprop-1.2.3                    Property displayer for X
+xrandr-1.5.0                   Primitive command line interface to the RandR extension
+xrdb-1.1.1                     X server resource database utility
+xrefresh-1.0.6                 Refresh all or part of an X screen
+xscreensaver-5.40_1            Save your screen while you entertain your cat
+xset-1.2.4_2                   User preference utility for X
+xsetmode-1.0.0                 Set the mode for an X Input Device
+xsetroot-1.1.2                 Root window parameter setting utility for X
+xstream-1.4.3                  Simple library to serialize Java objects to XML
+xterm-337                      Terminal emulator for the X Window System
+xtrans-1.3.5                   Abstract network code for X
+xvid-1.3.5,1                   Opensource MPEG-4 codec, based on OpenDivx
+xvinfo-1.1.3                   Print out X-Video extension adaptor information
+xwd-1.0.7                      Dump an image of an X window
+xwininfo-1.1.4_2               Window information utility for X
+xwud-1.0.5                     Image displayer for X
+ykclient-2.12_2                Yubico C client library
+ykpers-1.18.0_2                Library and tool for personalization of Yubico's YubiKey
+zathura-0.4.1_1                Customizable lightweight pdf viewer
+zathura-pdf-poppler-0.2.9_2    Poppler render PDF plugin for Zathura PDF viewer

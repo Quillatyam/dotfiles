@@ -1,287 +1,382 @@
-" Plugins{{{
-call plug#begin('~/.vim/plugged')
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maintainer: 
+"       Amir Salihefendic — @amix3k
+"
+" Awesome_version:
+"       Get this config, nice color schemes and lots of plugins!
+"
+"       Install the awesome version from:
+"
+"           https://github.com/amix/vimrc
+"
+" Sections:
+"    -> General
+"    -> VIM user interface
+"    -> Colors and Fonts
+"    -> Files and backups
+"    -> Text, tab and indent related
+"    -> Visual mode related
+"    -> Moving around, tabs and buffers
+"    -> Status line
+"    -> Editing mappings
+"    -> vimgrep searching and cope displaying
+"    -> Spell checking
+"    -> Misc
+"    -> Helper functions
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Color theme
-" ============================================================================ "
-Plug 'dracula/vim', { 'as': 'dracula' }
 
-" Airline
-" ============================================================================ "
-Plug 'vim-airline/vim-airline'
-let g:airline#extensions#ale#enabled = 1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
+set history=500
 
-" Supertab. Use <tab> for autocomplete
-" ============================================================================ "
-Plug 'ervandew/supertab'
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
 
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-" ============================================================================ "
-Plug 'junegunn/vim-easy-align'
+" Set to auto read when a file is changed from the outside
+set autoread
 
-" Easymotion
-" ============================================================================ "
-Plug 'easymotion/vim-easymotion'
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
 
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" Fast saving
+nmap <leader>w :w!<cr>
 
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
+" :W sudo saves the file 
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
 
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
 
-" Enhanced netrw
-" ============================================================================ "
-Plug 'tpope/vim-vinegar'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
 
-" Gundo
-" ============================================================================ "
-Plug 'sjl/gundo.vim'
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en' 
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
-" Linter 
-" ============================================================================ "
-Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 0
+" Turn on the Wild menu
+set wildmenu
 
-" Fuzzy search
-" ============================================================================ "
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Use the correct file source, based on context
-function! ContextualFZF()
-    " Determine if inside a git repo
-    silent exec "!git rev-parse --show-toplevel"
-    redraw!
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
 
-    if v:shell_error
-        " Search in current directory
-        call fzf#run({
-          \'sink': 'e',
-          \'down': '40%',
-        \})
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases 
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch 
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable 
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+try
+    colorscheme desert
+catch
+endtry
+
+set background=dark
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
     else
-        " Search in entire git repo
-        call fzf#run({
-          \'sink': 'e',
-          \'down': '40%',
-          \'source': 'git ls-tree --full-tree --name-only -r HEAD',
-        \})
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
-" map <C-p> :call ContextualFZF()<CR>
-map <C-p> :FZF<CR>
 
-" Typescript / Javascript
-" ============================================================================ "
-Plug 'pangloss/vim-javascript'
-Plug 'Quramy/tsuquyomi'
-Plug 'leafgarland/typescript-vim'
-set ballooneval
-autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
-let g:tagbar_type_typescript = {
-  \ 'ctagstype': 'typescript',
-  \ 'kinds': [
-    \ 'c:classes',
-    \ 'n:modules',
-    \ 'f:functions',
-    \ 'v:variables',
-    \ 'v:varlambdas',
-    \ 'm:members',
-    \ 'i:interfaces',
-    \ 'e:enums',
-  \ ]
-\ }
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction 
 
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
 
-" Rust
-" ============================================================================ "
-Plug 'rust-lang/rust.vim'
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-" Golang
-" ============================================================================ "
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
 
-" Haskell
-" ============================================================================ "
-Plug 'eagletmt/ghcmod-vim'
-nnoremap <Leader>ht :GhcModType<cr>
-nnoremap <Leader>htc :GhcModTypeClear<cr>
-autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
-
-" PHP (God forbid...)
-" ============================================================================ "
-Plug 'arnaud-lb/vim-php-namespace'
-let g:php_namespace_sort_after_insert=1
-
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
+    let @/ = l:pattern
+    let @" = l:saved_reg
 endfunction
-autocmd FileType php inoremap <Leader>pnu <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>pnu :call PhpInsertUse()<CR>
-
-function! IPhpExpandClass()
-    call PhpExpandClass()
-    call feedkeys('a', 'n')
-endfunction
-autocmd FileType php inoremap <Leader>pne <Esc>:call IPhpExpandClass()<CR>
-autocmd FileType php noremap <Leader>pne :call PhpExpandClass()<CR>
-
-Plug 'phpstan/vim-phpstan'
-let g:phpstan_analyse_level = 4
-
-" Initialize plugin system
-" ============================================================================ "
-call plug#end()
-
-"}}}
-" Defaults {{{
-syntax on                 " enable syntax highlighting
-filetype indent on        " load filetype-specific indent files
-filetype plugin on        " load filetype-specific plugins
-set wildmenu              " visual autocomplete for command menu
-set autowrite             " Write file on make, build etc.
-"set lazyredraw           " redraw only when we need to
-set showmatch             " highlight matching [{()}]
-set expandtab             " tabs are spaces
-set softtabstop=2         " number of spaces in tab when editing
-set tabstop=2             " number of visual spaces per TAB
-set termguicolors         " better terminal colors
-set number                " Enable line numbers
-set showcmd               " show command in bottom bar
-set cursorline            " highlight current line
-set incsearch             " search as characters are entered
-set hlsearch              " highlight matches
-set mouse=a               " enable mouse mode
-set colorcolumn=80        " Draw 80 column limit
-set tw=79                 " Textwidth 80 columns
-set wrap                  " Softwrap
-set number relativenumber " Relative line numbers
-set omnifunc=syntaxcomplete#Complete
-set completeopt=longest,menuone
-
-"}}}
-" Folds {{{
-set foldenable          " enable folding
-set foldlevelstart=10   " open most folds by default
-set foldnestmax=10      " 10 nested fold max
-set foldmethod=indent   " fold based on indent level
-"}}}
-" Compatibillity {{{
-set nocompatible
-set backspace=indent,eol,start
-"}}}
-" Theming & Colors {{{
-color dracula
-set guifont=Operator\ Mono\ Lig:h14
-:set fillchars+=vert:\  "vertical split character = space
-"}}} 
-" Filebrowser {{{
-let g:netrw_liststyle = 3           " Layout (Use 'i' to cycle layouts)
-let g:netrw_banner = 0              " Don't show the banner ('I' to toggle)
-let g:netrw_browse_split = 4        " Open files in hotizontal split
-let g:netrw_winsize = 25            " Width of the file browser
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-"let g:netrw_list_hide = &wildignore
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
-"}}}
-" Mappings {{{
-
-" leader is comma
-let mapleader=","       
-
-" turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
-
-" space open/closes folds
-nnoremap <space> za
-
-" move vertically by visual line
-nnoremap j gj
-nnoremap k gk
-
-" move to beginning/end of line
-nnoremap B ^
-nnoremap E $
-
-" $/^ doesn't do anything
-nnoremap $ <nop>
-nnoremap ^ <nop>
-
-" highlight last inserted text
-nnoremap gV `[v`]
-
-" jk is escape
-inoremap jk <esc>
-
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
-
-" save session
-nnoremap <leader>s :mksession<CR>
-
-" }}}
-" File specific augroup {{{
-augroup configgroup
-    autocmd!
-    autocmd VimEnter * highlight clear SignColumn
-    "autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.go
-    "            \:call <SID>StripTrailingWhitespaces()
-    "autocmd FileType php setlocal expandtab
-    "autocmd FileType php setlocal list
-    "autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-    "autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-    "autocmd FileType python setlocal commentstring=#\ %s
-    "autocmd BufEnter *.cls setlocal filetype=java
-    "autocmd BufEnter Makefile setlocal noexpandtab
-    "autocmd BufEnter *.sh setlocal tabstop=2
-    "autocmd BufEnter *.sh setlocal shiftwidth=2
-    "autocmd BufEnter *.sh setlocal softtabstop=2
-augroup END
-"}}}
-" Backups {{{
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
-" }}}
-" Custom functions {{{
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
-endfunction
- " }}}
-" Languages {{{
-" Rust
-let g:tagbar_type_rust = {
-    \ 'ctagstype' : 'rust',
-    \ 'kinds' : [
-        \'T:types,type definitions',
-        \'f:functions,function definitions',
-        \'g:enum,enumeration names',
-        \'s:structure names',
-        \'m:modules,module names',
-        \'c:consts,static constants',
-        \'t:traits',
-        \'i:impls,trait implementations',
-    \]
-    \}
-" }}}
-" vim:foldmethod=marker:foldlevel=0
-

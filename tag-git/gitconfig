@@ -42,8 +42,8 @@
     ui = true
 [core]
     excludesfile = ~/.gitignore
-	editor = vim
-	autocrlf = input
+    editor = vim
+    autocrlf = input
 [apply]
     whitespace = nowarn
 [help]
@@ -53,7 +53,7 @@
 [user]
     name = Robert den Harink
     email = robert@robhar.com
-    signingkey = B1F44296
+    signingkey = F96DC84AFA46DC19
 [commit]
     gpgsign = true
     template = ~/.gitmessage
@@ -63,10 +63,6 @@
     process = git-lfs filter-process
     required = true
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 [transfer]
-	fsckObjects = true
-[merge]
-  tool = ediff
-[mergetool "ediff"]
-  cmd = emacsclient -c -a \"\"  --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
+    fsckObjects = true

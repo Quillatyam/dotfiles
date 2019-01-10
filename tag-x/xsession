@@ -1,0 +1,37 @@
+#export TERM=xterm-256color
+
+# Configure PATH so that we can access our scripts below
+PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
+
+# Configure X
+xsetroot -cursor_name left_ptr &
+xrdb -merge ~/.Xresources &
+xmodmap ~/.xmodmap
+setxkbmap -option "ctrl:nocaps" &
+
+# Set a wallpaper
+feh --bg-fill ~/.wallpaper &
+
+# Start the system tray
+#stalonetray -c ~/.xmonad/stalonetrayrc-single &
+
+# Start screensaver
+#xscreensaver -no-splash &
+
+# lightweight OSD notifications
+dunst &
+
+# Set wmname for java applications redraw
+wmname ATOM
+
+# Enable auto lock on idle (also used by mod+shift+l and lock on pointer in
+# # upper left corner)
+#xautolock -locker 'sh -c "xlock"' \
+#   -corners +000 -time 5 -cornerdelay 1 -cornerredelay 10 &
+
+# Enable redshift
+redshift -l 52.37:4.89 &
+
+# Start xmonad
+exec dbus-launch --sh-syntax --exit-with-session xmonad
+#exec dbus-launch --sh-syntax --exit-with-session openbox

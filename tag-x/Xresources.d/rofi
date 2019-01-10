@@ -1,0 +1,4 @@
+rofi.separator-style : solid
+rofi.font            : IBMPlexMono (TTF) 10
+rofi.lines           : 10
+rofi.width           : 800
