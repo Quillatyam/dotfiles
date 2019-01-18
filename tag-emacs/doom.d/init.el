@@ -164,6 +164,9 @@
         projectile-git-submodule-command nil)
   )
 
+(setq epa-pinentry-mode 'loopback)
+(pinentry-start)
+
 ;;(def-package! company
 ;;  :config
 ;;  (setq company-idle-delay 0.2

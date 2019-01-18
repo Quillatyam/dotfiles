@@ -10,7 +10,7 @@ xmodmap ~/.xmodmap
 setxkbmap -option "ctrl:nocaps" &
 
 # Set a wallpaper
-feh --bg-fill ~/.wallpaper &
+feh --bg-fill ~/.wallpapers/wallpaper.png &
 
 # Start the system tray
 #stalonetray -c ~/.xmonad/stalonetrayrc-single &
