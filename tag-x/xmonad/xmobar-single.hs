@@ -1,9 +1,9 @@
 Config {
     position = TopP 0 0,
-    font = "xft:IBMPlexMono-Bold:size=10:bold:antialias=true",
+    font = "xft:IBMPlexMono-Bold:size=9:bold:antialias=true",
     additionalFonts = ["xft:FontAwesome-11"],
     bgColor = "#111111",
-    fgColor = "#f2f2f2",
+    fgColor = "#666666",
     lowerOnStart = False,
     overrideRedirect = False,
     allDesktops = True,
@@ -21,5 +21,5 @@ Config {
     ],
     sepChar = "*",
     alignSep = "}{",
-    template = "*StdinReader* }{ *ssid* | *brightness* | *load* | *temp* | *battery* | *date* "
+    template = "*StdinReader* }{ *ssid* | *load* | *temp* | *battery* | *date* "
 }

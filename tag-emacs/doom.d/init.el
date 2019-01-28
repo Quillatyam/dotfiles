@@ -161,13 +161,43 @@
   :config
   (setq projectile-enable-caching t
         shell-file-name "/bin/sh"
-        projectile-git-submodule-command nil)
-  )
+        projectile-git-submodule-command nil))
 
-(setq epa-pinentry-mode 'loopback)
-(pinentry-start)
+(def-package! ac-php
+  :config
+  (require 'cl)
+  (add-hook 'php-mode-hook
+            '(lambda ()
+               (auto-complete-mode t)
+               (require 'ac-php)
+               (setq ac-sources  '(ac-source-php ) )
+               (yas-global-mode 1)
+               (ac-php-core-eldoc-setup ) ;; enable eldoc
 
-;;(def-package! company
-;;  :config
-;;  (setq company-idle-delay 0.2
-;;      company-minimum-prefix-length 3))
+               (evil-define-key 'normal php-mode-map (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+               (evil-define-key 'normal php-mode-map (kbd "C-o") 'ac-php-location-stack-back)    ;go back
+               )))
+
+(def-package! company
+ :config
+ (setq company-idle-delay 0.4
+       company-minimum-prefix-length 3))
+
+(setq scroll-conservatively 101
+      fci-mode nil
+             mouse-wheel-scroll-amount '(1)
+             mouse-wheel-progressive-speed nil
+             epa-pinentry-mode 'loopback)
+
+(defun writing-mode ()
+  (interactive)
+  (setq buffer-face-mode-face '(:family "IBMPlexMono" :height 150))
+  (buffer-face-mode)
+  (linum-mode 0)
+  (writeroom-mode 1)
+  (display-line-numbers-mode 0)
+  (blink-cursor-mode)
+  (visual-line-mode 1)
+  (setq truncate-lines nil)
+  (setq-default line-spacing 5)
+  (setq global-hl-line-mode nil))

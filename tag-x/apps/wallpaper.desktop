@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Wallpaper
+Exec=/home/robert/.scripts/random_wallpaper.sh /home/robert/.wallpapers
+Icon=/home/robert/.icons/wallpaper.png
+

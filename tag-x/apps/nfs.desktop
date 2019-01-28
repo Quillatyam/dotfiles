@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=NFS
+Exec=~/scripts/nfs.sh
+Icon=/home/robert/.icons/share.png
+

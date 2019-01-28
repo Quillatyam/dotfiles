@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=CPU Medium
+Exec=~/scripts/__openbox_cpufreq.sh 800 1800
+Icon=/home/robert/.icons/cpu_M.png
+

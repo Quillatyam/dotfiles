@@ -16,6 +16,7 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Hooks.EwmhDesktops
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -26,7 +27,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "st"
+myTerminal = "xterm.sh"
 
 -- The command to lock the screen or show the screensaver.
 myScreensaver = "xlock"
@@ -108,26 +109,26 @@ myLayout = avoidStruts (
 -- Currently based on the ir_black theme.
 --
 myNormalBorderColor  = "#111111"
-myFocusedBorderColor = "#494949"
+myFocusedBorderColor = "#444444"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
-    activeBorderColor = "#494949",
-    activeTextColor = "#CEFFAC",
-    activeColor = "#ff0000",
+    activeBorderColor = "#444444",
+    activeTextColor = "#f2f2f2",
+    activeColor = "#666666",
     inactiveBorderColor = "#111111",
     inactiveTextColor = "#333333",
     inactiveColor = "#111111"
 }
 
 -- Color of current window title in xmobar.
-xmobarTitleColor = "#00e27c"
+xmobarTitleColor = "#adadad"
 
 -- Color of current workspace in xmobar.
 xmobarCurrentWorkspaceColor = "#00e27c"
 
 -- Width of the window border in pixels.
-myBorderWidth = 1
+myBorderWidth = 2
 
 
 ------------------------------------------------------------------------
@@ -168,27 +169,27 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Mute volume.
   , ((0, xF86XK_AudioMute),
-     spawn "amixer -q set Master toggle")
+     spawn "mixer vol 0")
 
   -- Decrease volume.
   , ((0, xF86XK_AudioLowerVolume),
-     spawn "amixer -q set Master 5%-")
+     spawn "mixer vol -10")
 
   -- Increase volume.
   , ((0, xF86XK_AudioRaiseVolume),
-     spawn "amixer -q set Master 5%+")
+     spawn "mixer vol +10")
 
   -- Mute volume.
   , ((modMask .|. controlMask, xK_m),
-     spawn "amixer -q set Master toggle")
+     spawn "mixer vol 0")
 
   -- Decrease volume.
   , ((modMask .|. controlMask, xK_j),
-     spawn "amixer -q set Master 5%-")
+     spawn "mixer vol -10")
 
   -- Increase volume.
   , ((modMask .|. controlMask, xK_k),
-     spawn "amixer -q set Master 5%+")
+     spawn "mixer vol +10")
 
   -- Audio previous.
   , ((0, 0x1008FF16),
@@ -349,7 +350,7 @@ myStartupHook = return ()
 --
 main = do
   xmproc <- spawnPipe ("xmobar " ++ myXmobarrc)
-  xmonad $ defaults {
+  xmonad $ ewmh defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xmproc
           , ppTitle = filter isAscii . xmobarColor xmobarTitleColor "" . shorten 50

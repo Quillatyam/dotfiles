@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=CPU High
+Exec=~/scripts/__openbox_cpufreq.sh 800 3000
+Icon=/home/robert/.icons/cpu_H.png
+

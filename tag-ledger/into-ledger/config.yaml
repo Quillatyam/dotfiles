@@ -1,0 +1,7 @@
+accounts:
+  ing:
+    j: /home/robert/fin/ledger.journal
+    d: 20060102
+    ic: "2,3,4,5,8,9"
+    o: /home/robert/fin/ing.out
+    s: 1

@@ -1,0 +1,29 @@
+! GRAY COLORS
+! -----------------------------------------------------------------------------
+*foreground: #e0e0e0
+*background: #222222
+! black
+*color0:     #000000
+*color8:     #222222
+! red
+*color1:     #434343
+*color9:     #434343
+! green
+*color2:     #6b6b6b
+*color10:    #a5a5a5
+! yellow
+*color3:     #969696
+*color11:    #e5e5e5
+! blue
+*color4:     #4a4a4a
+*color12:    #4d4d4d
+! mangenta
+*color5:     #707070
+*color13:    #747474
+! cyan
+*color6:     #a9a9a9
+*color14:    #c4c4c4
+! white
+*color7:     #ffffff
+*color15:    #dedede
+

@@ -1,33 +1,32 @@
 #export TERM=xterm-256color
 
+# Locale
+export LC_ALL=en_US.UTF-8
+
 # Configure PATH so that we can access our scripts below
-PATH=$PATH:~/.cabal/bin:~/.xmonad/bin
+PATH=$PATH:~/.cabal/bin:~/.xmonad/bin:~/.scripts:~/bin
 
 # Configure X
 xsetroot -cursor_name left_ptr &
+xrdb -load  ~/.Xdefaults &
 xrdb -merge ~/.Xresources &
 xmodmap ~/.xmodmap
-setxkbmap -option "ctrl:nocaps" &
+setxkbmap -option "ctrl:nocaps" -layout us -variant euro &
 
 # Set a wallpaper
-feh --bg-fill ~/.wallpapers/wallpaper.png &
-
-# Start the system tray
-#stalonetray -c ~/.xmonad/stalonetrayrc-single &
-
-# Start screensaver
-#xscreensaver -no-splash &
+feh --bg-fill ~/.wallpapers/current &
 
 # lightweight OSD notifications
-dunst &
+#dunst &
+
+# Tint2
+#tint2 &
+
+# Compton window fx
+compton -b
 
 # Set wmname for java applications redraw
 wmname ATOM
-
-# Enable auto lock on idle (also used by mod+shift+l and lock on pointer in
-# # upper left corner)
-#xautolock -locker 'sh -c "xlock"' \
-#   -corners +000 -time 5 -cornerdelay 1 -cornerredelay 10 &
 
 # Enable redshift
 redshift -l 52.37:4.89 &
