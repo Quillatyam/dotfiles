@@ -184,10 +184,18 @@
        company-minimum-prefix-length 3))
 
 (setq scroll-conservatively 101
-      fci-mode nil
-             mouse-wheel-scroll-amount '(1)
-             mouse-wheel-progressive-speed nil
-             epa-pinentry-mode 'loopback)
+      mouse-wheel-scroll-amount '(1)
+      mouse-wheel-progressive-speed nil
+      epa-pinentry-mode 'loopback
+      rust-format-on-save t)
+
+(setq magit-process-password-prompt-regexps
+      '("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$"
+        ;; match-group 99 is used to identify a host
+        "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$"
+        "^.*'s password: ?$"
+        "^Yubikey for .*: ?$"
+        "^Enter PIN for '.*': ?$"))
 
 (defun writing-mode ()
   (interactive)
@@ -201,3 +209,5 @@
   (setq truncate-lines nil)
   (setq-default line-spacing 5)
   (setq global-hl-line-mode nil))
+
+(add-hook 'after-init-hook #'pinentry-start)

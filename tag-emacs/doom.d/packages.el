@@ -4,3 +4,4 @@
 (package! ac-php)
 (package! company-php)
 (package! writeroom-mode)
+(package! pinentry)

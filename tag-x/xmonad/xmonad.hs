@@ -1,43 +1,48 @@
--- xmonad config used by Robert den Harink
--- Author: Robert den Harink
-
-import Data.Char
-import System.IO
-import System.Exit
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.SetWMName
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Spiral
-import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Layout.Spacing
+import XMonad.Hooks.FadeInactive
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.NoBorders
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Accordion
+import XMonad.Layout.Circle
+import XMonad.Layout.Dwindle
+import XMonad.Layout.BinarySpacePartition
+import XMonad.Layout.StackTile
+import System.IO
+import System.Exit
+import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
+import Data.Char (isAscii)
+import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
+import XMonad.Util.EZConfig
+import XMonad.Actions.CycleWS 
 import Graphics.X11.ExtraTypes.XF86
-import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
 
+import qualified Data.Map as M         -- haskell modules
+import qualified XMonad.StackSet as W  -- xmonad core
+import XMonad.Actions.FloatKeys        -- actions (keyResizeWindow)
+import XMonad.Actions.FloatSnap        -- actions (snapMove)
 
 ------------------------------------------------------------------------
--- Terminal
--- The preferred terminal program, which is used in a binding below and by
--- certain contrib modules.
---
+-- Preferences
+-- Thre preferred terminal program
 myTerminal = "xterm.sh"
 
 -- The command to lock the screen or show the screensaver.
-myScreensaver = "xlock"
+myScreensaver = "lock.sh"
 
 -- The command to take a selective screenshot, where you select
 -- what you'd like to capture on the screen.
 mySelectScreenshot = "select-screenshot"
 
 -- The command to take a fullscreen screenshot.
-myScreenshot = "screenshot"
+myScreenshot = "shot.sh"
 
 -- The command to use as a launcher, to launch commands that don't have
 -- preset keybindings.
@@ -48,13 +53,11 @@ myLauncher = "rofi -show run"
 -- Location of your xmobar.hs / xmobarrc
 myXmobarrc = "~/.xmonad/xmobar-single.hs"
 
-
 ------------------------------------------------------------------------
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
---
-myWorkspaces = ["1:TERM","2:WEB","3:CODE","4:VM","5:MEDIA"] ++ map show [6..9]
 
+myWorkspaces = ["1:TERMINAL","2:WEB","3:CODE","4:MEDIA","5:OTHER"] ++ map show [6..9]
 
 ------------------------------------------------------------------------
 -- Window rules
@@ -75,14 +78,7 @@ myManageHook = composeAll
     , className =? "Google-chrome"  --> doShift "2:WEB"
     , className =? "Firefox"        --> doShift "2:WEB"
     , className =? "Emacs"          --> doShift "3:CODE"
-    , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "gpicview"       --> doFloat
-    , className =? "MPlayer"        --> doFloat
-    , className =? "VirtualBox"     --> doShift "4:VM"
-    , className =? "Xchat"          --> doShift "5:MEDIA"
-    , className =? "stalonetray"    --> doIgnore
-    , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
-
+    ]
 
 ------------------------------------------------------------------------
 -- Layouts
@@ -94,31 +90,30 @@ myManageHook = composeAll
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (
-    ThreeColMid 1 (3/100) (1/2) |||
-    Tall 1 (3/100) (1/2) |||
-    Mirror (Tall 1 (3/100) (1/2)) |||
+mySpacing i = spacingRaw True (Border i i i i) True (Border i i i i) True
+ss = mySpacing 3
+myLayout = avoidStruts $ ss $
+    (ss $ Tall 1 (3/100) (1/2)) |||
     tabbed shrinkText tabConfig |||
-    Full |||
-    spiral (6/7)) |||
-    noBorders (fullscreenFull Full)
-
+    (ss $ Mirror (Tall 1 (3/100) (1/2))) |||
+    (ss $ Dwindle R CW (3/2) (11/10)) |||
+    (ss $ Squeeze D (3/2) (11/10))
 
 ------------------------------------------------------------------------
 -- Colors and borders
 -- Currently based on the ir_black theme.
 --
-myNormalBorderColor  = "#111111"
-myFocusedBorderColor = "#444444"
+myNormalBorderColor  = "#222222"
+myFocusedBorderColor = "#aaaaaa"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = defaultTheme {
     activeBorderColor = "#444444",
     activeTextColor = "#f2f2f2",
     activeColor = "#666666",
-    inactiveBorderColor = "#111111",
-    inactiveTextColor = "#333333",
-    inactiveColor = "#111111"
+    inactiveBorderColor = "#000000",
+    inactiveTextColor = "#cccccc",
+    inactiveColor = "#000000"
 }
 
 -- Color of current window title in xmobar.
@@ -129,7 +124,6 @@ xmobarCurrentWorkspaceColor = "#00e27c"
 
 -- Width of the window border in pixels.
 myBorderWidth = 2
-
 
 ------------------------------------------------------------------------
 -- Key bindings
@@ -203,7 +197,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((0, 0x1008FF17),
      spawn "")
  
- 	--------------------------------------------------------------------
+  -- -------------------------------------------------------------------
   -- "Standard" xmonad key bindings
   --
 
@@ -303,66 +297,28 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 --
 -- Focus rules
 -- True if your focus should follow your mouse cursor.
+--
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
 
-myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
-  [
+myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-button1, Set the window to floating mode and move by dragging
-    ((modMask, button1),
-     (\w -> focus w >> mouseMoveWindow w))
+    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
+                                       >> windows W.shiftMaster))
 
-    -- mod-button2, Raise the window to the top of the stack
-    , ((modMask, button2),
-       (\w -> focus w >> windows W.swapMaster))
+    -- mod-button2, Sink the window back to the grid.
+    , ((modm, button2), (\w -> withFocused $ windows . W.sink))
 
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modMask, button3),
-       (\w -> focus w >> mouseResizeWindow w))
-
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
-  ]
-
-
-------------------------------------------------------------------------
--- Status bars and logging
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'DynamicLog' extension for examples.
---
--- To emulate dwm's status bar
---
--- > logHook = dynamicLogDzen
---
-
+    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
+                                       >> windows W.shiftMaster))
+    ]
 
 ------------------------------------------------------------------------
 -- Startup hook
--- Perform an arbitrary action each time xmonad starts or is restarted
--- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
--- per-workspace layout choices.
 --
--- By default, do nothing.
-myStartupHook = return ()
-
-
-------------------------------------------------------------------------
--- Run xmonad with all the defaults we set up.
---
-main = do
-  xmproc <- spawnPipe ("xmobar " ++ myXmobarrc)
-  xmonad $ ewmh defaults {
-      logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = hPutStrLn xmproc
-          , ppTitle = filter isAscii . xmobarColor xmobarTitleColor "" . shorten 50
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
-          , ppSep = "   "
-      }
-      , manageHook = manageDocks <+> myManageHook
---      , startupHook = docksStartupHook <+> setWMName "LG3D"
-      , startupHook = setWMName "ATOM"
-      , handleEventHook = docksEventHook
-  }
-
+myStartupHook = do
+                spawn "compton"
 
 ------------------------------------------------------------------------
 -- Combine it all together
@@ -391,3 +347,28 @@ defaults = defaultConfig {
     manageHook         = myManageHook,
     startupHook        = myStartupHook
 }
+
+------------------------------------------------------------------------
+-- Run Xmonad
+main = do
+    xmproc <- spawnPipe ("xmobar " ++ myXmobarrc)
+    xmonad $ ewmh defaults { 
+      logHook = dynamicLogWithPP $ xmobarPP {
+          ppOutput = hPutStrLn xmproc
+        , ppTitle = filter isAscii . xmobarColor xmobarTitleColor "" . shorten 50
+        , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+        , ppSep = "   "
+        , ppSort = DO.getSortByOrder
+        }
+        , startupHook = docksStartupHook <+> setWMName "LG3D"
+        , manageHook = manageDocks <+> myManageHook
+        , handleEventHook = docksEventHook
+    } `additionalKeysP`
+      [
+        ("M-C-<R>",   DO.swapWith Next NonEmptyWS)
+      , ("M-C-<L>",   DO.swapWith Prev NonEmptyWS)
+      , ("M-S-<R>",   DO.shiftTo Next HiddenNonEmptyWS)
+      , ("M-S-<L>",   DO.shiftTo Prev HiddenNonEmptyWS)
+      , ("M-<R>",     DO.moveTo Next HiddenNonEmptyWS)
+      , ("M-<L>",     DO.moveTo Prev HiddenNonEmptyWS)
+      ]

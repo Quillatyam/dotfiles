@@ -1,0 +1,80 @@
+background yes
+use_xft yes
+xftfont IBMPlexMono:size=11
+xftalpha 1
+update_interval 5
+total_run_times 0
+own_window no
+own_window_transparent yes
+own_window_type normal 
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+double_buffer yes
+minimum_size 400
+maximum_width 400
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color white
+default_shade_color black
+default_outline_color white
+alignment top_right
+gap_x 12
+gap_y 12
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+#colour
+default_color white
+# white
+color1 FFFFFF
+# orange
+color2 FFFFFF
+TEXT
+${voffset 30}
+${font IBMPlexSans:pixelsize=50}${alignr}${time %H}${color2}:${color1}${time %M}${font}
+${voffset 10}${alignr}${time %A} ${color2}| ${color1}${time %d} ${time  %B} ${time %Y}${font}
+${font IBMPlexMono:bold:size=10}SYSTEM ${color2}${hr 2}${color1}
+${font IBMPlexMono:normal:size=10}$sysname $kernel $alignr $machine
+Host:$alignr$nodename
+Uptime:$alignr$uptime
+Local Ip:${alignr}${if_up wlan0}${addr wlan0}${endif}${if_up ue0}${addr ue0}${endif}${if_up em0}${addr em0}${endif}
+${font sans-serif:bold:size=10}PROCESSORS ${color2}${hr 2}${color1}
+${cpugraph cpu1}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU1: ${cpu cpu1}% ${execi 300 sysctl -n dev.cpu.0.temperature}
+${cpugraph cpu2}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU2: ${cpu cpu2}% ${execi 300 sysctl -n dev.cpu.1.temperature}
+${cpugraph cpu3}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU3: ${cpu cpu3}% ${execi 300 sysctl -n dev.cpu.2.temperature}
+${cpugraph cpu4}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU4: ${cpu cpu4}% ${execi 300 sysctl -n dev.cpu.3.temperature}
+${cpugraph cpu5}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU5: ${cpu cpu5}% ${execi 300 sysctl -n dev.cpu.4.temperature}
+${cpugraph cpu6}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU6: ${cpu cpu6}% ${execi 300 sysctl -n dev.cpu.5.temperature}
+${cpugraph cpu7}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU7: ${cpu cpu7}% ${execi 300 sysctl -n dev.cpu.6.temperature}
+${cpugraph cpu8}${offset -235}${voffset -15}${font sans-serif:normal:size=10}CPU8: ${cpu cpu8}% ${execi 300 sysctl -n dev.cpu.7.temperature}
+
+$font${top name 1}${alignr}${top cpu 1} %
+$font${top name 2}${alignr}${top cpu 2} %
+$font${top name 3}${alignr}${top cpu 3} %
+$font${top name 4}${alignr}${top cpu 4} %
+$font${top name 5}${alignr}${top cpu 5} %
+${font sans-serif:bold:size=10}MEMORY ${color2}${hr 2}${color1}
+${font sans-serif:normal:size=10}RAM $alignc $mem / $memmax $alignr $memperc%
+$membar
+SWAP $alignc ${swap} / ${swapmax} $alignr ${swapperc}%
+${swapbar}
+$font${top_mem name 1}${alignr}${top_mem mem 1} %
+$font${top_mem name 2}${alignr}${top_mem mem 2} %
+$font${top_mem name 3}${alignr}${top_mem mem 3} %
+$font${top_mem name 4}${alignr}${top_mem mem 4} %
+$font${top_mem name 5}${alignr}${top_mem mem 5} %
+${font IBMPlexMono:bold:size=10}STORAGE ${color2}${hr 2}${color1}
+${font IBMPlexMono:normal:size=10}/ $alignc ${fs_used /} / ${fs_size /} $alignr ${fs_used_perc /}%
+${fs_bar /}
+${font IBMPlexMono:bold:size=10}NETWORK ${color2}${hr 2}${color1}
+${if_up ue0}${downspeedgraph ue0}
+DLS:${downspeed ue0} kb/s $alignr total: ${totaldown ue0}
+${upspeedgraph ue0}
+ULS:${upspeed ue0} kb/s $alignr total: ${totalup ue0}${endif}
+${if_up wlan0}${downspeedgraph wlan0}
+DLS:${downspeed wlan0} kb/s $alignr total: ${totaldown wlan0}
+${upspeedgraph wlan0}
+ULS:${upspeed wlan0} kb/s $alignr total: ${totalup wlan0}${endif}
