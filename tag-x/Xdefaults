@@ -1,0 +1,9 @@
+URxvt.intensityStyles:    false
+URxvt.background:         [90]#000000
+URxvt.depth:              32
+URxvt.font:               xft:IBMPlexMono:size=12
+URxvt.scrollBar:          false
+URxvt.cursorColor:        magenta
+URxvt.internalBorder:     12
+
+#include "/home/robert/.Xresources.d/base16-3024.Xresources"
