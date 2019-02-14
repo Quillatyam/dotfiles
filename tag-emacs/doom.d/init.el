@@ -165,25 +165,38 @@
 
 (def-package! ac-php
   :config
-  (require 'cl)
   (add-hook 'php-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (require 'ac-php)
-               (setq ac-sources  '(ac-source-php ) )
-               (yas-global-mode 1)
-               (ac-php-core-eldoc-setup ) ;; enable eldoc
+          '(lambda ()
+             (require 'company-php)
+             (company-mode t)
+             (ac-php-core-eldoc-setup) ;; enable eldoc
+             (evil-define-key 'normal php-mode-map (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+             (evil-define-key 'normal php-mode-map (kbd "C-o") 'ac-php-location-stack-back)    ;go back
+             (make-local-variable 'company-backends)
+             (add-to-list 'company-backends 'company-ac-php-backend))))
 
-               (evil-define-key 'normal php-mode-map (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (evil-define-key 'normal php-mode-map (kbd "C-o") 'ac-php-location-stack-back)    ;go back
-               )))
+;; (def-package! ac-php
+;;   :config
+;;   (require 'cl)
+;;   (add-hook 'php-mode-hook
+;;             '(lambda ()
+;;                (auto-complete-mode t)
+;;                (require 'ac-php)
+;;                (setq ac-sources  '(ac-source-php ) )
+;;                (yas-global-mode 1)
+;;                (ac-php-core-eldoc-setup ) ;; enable eldoc
+
+;;                (evil-define-key 'normal php-mode-map (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+;;                (evil-define-key 'normal php-mode-map (kbd "C-o") 'ac-php-location-stack-back)    ;go back
+;;                )))
 
 (def-package! company
  :config
- (setq company-idle-delay 0.4
+ (setq company-idle-delay 0.6
        company-minimum-prefix-length 3))
 
 (setq scroll-conservatively 101
+      doom-font (font-spec :family "IBM Plex Mono" :size 16)
       mouse-wheel-scroll-amount '(1)
       mouse-wheel-progressive-speed nil
       epa-pinentry-mode 'loopback
@@ -210,4 +223,34 @@
   (setq-default line-spacing 5)
   (setq global-hl-line-mode nil))
 
-(add-hook 'after-init-hook #'pinentry-start)
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+	     (next-win-buffer (window-buffer (next-window)))
+	     (this-win-edges (window-edges (selected-window)))
+	     (next-win-edges (window-edges (next-window)))
+	     (this-win-2nd (not (and (<= (car this-win-edges)
+					 (car next-win-edges))
+				     (<= (cadr this-win-edges)
+					 (cadr next-win-edges)))))
+	     (splitter
+	      (if (= (car this-win-edges)
+		     (car (window-edges (next-window))))
+		  'split-window-horizontally
+		'split-window-vertically)))
+	(delete-other-windows)
+	(let ((first-win (selected-window)))
+	  (funcall splitter)
+	  (if this-win-2nd (other-window 1))
+	  (set-window-buffer (selected-window) this-win-buffer)
+	  (set-window-buffer (next-window) next-win-buffer)
+	  (select-window first-win)
+	  (if this-win-2nd (other-window 1))))))
+
+(global-set-key (kbd "C-x |") 'toggle-window-split)
+
+(add-hook 'after-init-hook
+          #'pinentry-start
+          (require 'company-posframe)
+          (company-posframe-mode 1))

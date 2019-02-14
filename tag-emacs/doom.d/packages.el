@@ -1,5 +1,5 @@
 ;;; packages.el -*- lexical-binding: t; -*-
-(package! company-postframe)
+(package! company-posframe)
 (package! ledger-mode)
 (package! ac-php)
 (package! company-php)

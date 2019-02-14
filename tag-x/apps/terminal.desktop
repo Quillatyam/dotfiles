@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Terminal
-Exec=~/scripts/xterm.sh
-Icon=/home/robert/.icons/terminal.png
-
