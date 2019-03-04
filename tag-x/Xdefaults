@@ -1,9 +1,29 @@
-URxvt.intensityStyles:    false
-URxvt.background:         [90]#000000
-URxvt.depth:              32
-URxvt.font:               xft:IBMPlexMono:size=12
-URxvt.scrollBar:          false
-URxvt.cursorColor:        magenta
-URxvt.internalBorder:     12
+Xft.antialias:  1
+Xft.autohint:   0
+Xft.dpi:        96
+Xft.hinting:    0
+Xft.hintstyle:  hintnone
+Xft.lcdfilter:  lcddefault
+Xft.rgba:       rgb
 
-#include "/home/robert/.Xresources.d/base16-3024.Xresources"
+Urxvt*termName:          rxvt-255color
+URxvt*mapAlert:          true
+URxvt*geometry:          96x25
+URxvt*saveLines:         5000
+URxvt*cursorBlink:       true
+URxvt*cursorUnderline:   true
+URxvt*secondaryScroll:   true
+URxvt*perl-ext-common:   default,matcher
+URxvt*url-launcher:      chromium
+URxvt*matcher.button:    2
+URxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+URxvt*matcher.rend.1:    Uline Bold
+URxvt.intensityStyles:   true
+URxvt.background:        #262626
+URxvt.depth:             32
+URxvt.font:              xft:IBMPlexMono:size=12
+URxvt.cursorColor:       white
+URxvt.internalBorder:    12
+URxvt.scrollBar:         false
+
+#include "/home/robert/.Xresources.d/base16-3024-256.Xresources"

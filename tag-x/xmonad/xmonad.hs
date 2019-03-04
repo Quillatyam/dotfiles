@@ -37,7 +37,7 @@ myTerminal      = "xterm"
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 1
+myBorderWidth   = 2
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -72,12 +72,12 @@ myNumlockMask   = 0
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["web","dev","3","4","5","6","7","8","9"]
+myWorkspaces    = ["term","web","code","4","5","6","7","8","9"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#000000"
-myFocusedBorderColor = "#666666"
+myFocusedBorderColor = "#000000"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -235,6 +235,11 @@ myManageHook = composeAll
     , className =? "Xfce4-appfinder" --> doFloat
     , className =? "Xfrun4"          --> doFloat
     , className =? "Keybase"         --> doFloat
+    , className =? "Chromium"        --> doShift "web"
+    , className =? "Firefox"         --> doShift "web"
+    , className =? "Emacs"           --> doShift "code"
+    , className =? "VSCode"          --> doShift "code"
+    , className =? "Code"            --> doShift "code"
     , className =? "Dropbox"         --> doIgnore
     , resource  =? "desktop_window"  --> doIgnore
     , className =? "xfce-notifyd"    --> doIgnore
@@ -277,7 +282,7 @@ main = xmonad $ ewmh xfceConfig
   { terminal = "urxvt"
   , modMask = mod4Mask
   , manageHook = myManageHook <+> manageHook xfceConfig
-  , layoutHook = smartBorders $ smartSpacing 5 $ avoidStruts $ myLayout
+  , layoutHook = smartBorders $ avoidStruts $ myLayout
   , startupHook = myStartupHook
   , focusFollowsMouse = myFocusFollowsMouse
   , borderWidth = myBorderWidth
