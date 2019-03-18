@@ -122,7 +122,14 @@ else
     autocmd FocusGained * call s:CommandTFlush()
 endif
 
+set termguicolors
 colorscheme onedark
+
+" Makes sure that colors are correct in tmux
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set background=dark
+se t_Co=256
 
 " ----------------------------------------------
 " Flush
@@ -248,6 +255,7 @@ autocmd VimResized * wincmd =
 ab teh the
 ab sefl self
 ab equivelant equivalent
+ab seperator separator
 
 " ----------------------------------------------
 " Tabularize
@@ -268,7 +276,6 @@ map gb :Gblame<CR>
 
 " Git checkout at block level
 vmap do :diffget<CR>
-map gd :Gdiff<CR>
 
 " ----------------------------------------------
 " Fast Navigation
@@ -276,6 +283,8 @@ map gd :Gdiff<CR>
 
 " Go to last edited line one keystroke 
 map ` g;
+
+" Go to last buffer
 map gl <C-^> 
 
 " ----------------------------------------------
@@ -339,11 +348,17 @@ autocmd BufNewFile,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal nonumber
 " ----------------------------------------------
 
 "X Clipboard
-set clipboard=unnamedplus,autoselect
+set clipboard=unnamedplus
 
-noremap <F11> :set invpaste paste?<CR>
-set pastetoggle=<F11>
+noremap <F12> :set invpaste paste?<CR>
+set pastetoggle=<F12>
 set showmode
 
 set shellslash
 set showmatch
+
+" ----------------------------------------------
+" Persistent Undo
+" ----------------------------------------------
+set undodir=~/.vim/undodir
+set undofile
