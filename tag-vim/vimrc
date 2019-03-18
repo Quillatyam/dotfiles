@@ -6,7 +6,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'wellle/tmux-complete.vim'
 
+Plug 'tpope/vim-sensible'
 Plug 'kien/ctrlp.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -18,6 +20,9 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'garbas/vim-snipmate'
+Plug 'troydm/easybuffer.vim'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'thaerkh/vim-workspace'
@@ -27,75 +32,81 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/git-messenger.vim'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
+" Hide buffer instead of unloading it.
+" This fixes nagging 'No write since last change' when switching buffers
+set hidden
 
-syntax on                     " syntax highlighing
-filetype plugin indent on     " enable loading indent file for filetype
+" Configure persistent undo
+" Vim will save undo in file stored in .vim/undodir
+set undodir=~/.vim/undodir
+set undofile
 
-set nocompatible
+" Complete command line on longest substring, 
+" then list alternatives
+set wildmode=longest,list
+
+" Always show sign for gitgutter
+set signcolumn=yes
+
+" Always use the clipboard for all operations
+set clipboard+=unnamed
+
+" Search continues over end of file
+set wrapscan
+
+" Show line numbers
 set number
-set nowrap
-set noshowmode
-set tw=80
-set formatprg=par
-set pumheight=12
-set conceallevel=0
-set smartcase
 
-set smarttab
-set smartindent
+" Don't show spaces.
+" Trailing whitespace is handled by sensible plugin.
+set nolist
+
+" Indentation settings
 set autoindent
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 
-set completeopt=menuone,menu,longest
+" Default text width is 80
+set textwidth=80
 
-set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
-set wildmode=longest,list,full
-set wildmenu
+" Show matching bracket
+set showmatch
 
-set cmdheight=1
+set ignorecase " searches are case insensitive...
+set smartcase  " ... unless they contain at least one capital letter
 
-" ----------------------------------------------
-" Set Leader to ','
-" ----------------------------------------------
-:let mapleader=","
+set formatoptions+=j " Delete comment character when joining commented lines
 
-" ----------------------------------------------
-" Tab Completion
-" ----------------------------------------------
+let mapleader=","
 
-set completeopt+=longest
+" Highlight column after textwidth
+" set colorcolumn=+1
+" highlight ColorColumn ctermbg=darkgrey
+
+" Show current git branch. Used in statusline
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
 
 " Use buffer words as default tab completion
 "let g:SuperTabDefaultCompletionType = '<C-x><C-o>'
-
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
 
 " ----------------------------------------------
-" CTRL+P
-" ----------------------------------------------
-
-map <silent> <Leader>t :CtrlP()<CR>
-noremap <leader>; :CtrlPBuffer<cr>
-let g:ctrlp_custom_ignore = '\v[\/]dist$'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-" ----------------------------------------------
 "  NerdTree
 " ----------------------------------------------
-
 map <Leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.pyc$']
 
 " ----------------------------------------------
 "  Indentation
 " ----------------------------------------------
-
 map <Leader>ig :IndentGuidesToggle<CR>
 
 " ----------------------------------------------
@@ -133,10 +144,44 @@ set wildmode=longest:list
 
 set dictionary="/usr/dict/words"
 
-" ----------------------------------------------
-" Color Schemes
-" ----------------------------------------------
+" Correct next line jump within wrapped lines
+nmap j gj
+nmap k gk
 
+" Don't interrupt v-mode due indent. Thanks, kaero
+vnoremap < <gv
+vnoremap > >gv
+
+" Center view on search result
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+nmap g# g#zz
+
+" Map BOL/EOL to 9/0 respectively
+nmap 0 $
+nmap 9 ^
+
+" C-c and C-v - Copy/Paste to global clipboard
+vmap <C-c> "+yi
+imap <C-v> <esc>"+gpi
+
+" Windows resizing
+if bufwinnr(1)
+    map + <C-W>3+
+    map - <C-W>3-
+    map . <C-W>3>
+    map , <C-W>3<
+endif
+
+" Quick tab actions
+" Don't override <tab> because in Vim it's the same as <c-i> which is jump
+" forward (opposite to <c-o>). So remapping <tab> breaks jump forward.
+nnoremap <S-tab> :tabnext<CR>
+
+" Colors
 if has("gui_running")
     " For gvim
     "colorscheme jellybeans
@@ -172,53 +217,44 @@ endfunc
 " ----------------------------------------------
 " HTML
 " ----------------------------------------------
-
 let g:mta_use_matchparen_group = 1
 
 " ----------------------------------------------
 " Haskell
 " ----------------------------------------------
+" let $PATH = $PATH . ':' . expand('~/.cabal/bin')
 
-let $PATH = $PATH . ':' . expand('~/.cabal/bin')
+" " Reload
+" map <silent> tu :call GHC_BrowseAll()<CR>
 
-" Reload
-map <silent> tu :call GHC_BrowseAll()<CR>
+" " Type Lookup
+" map tt :call GHC_ShowType(0)<CR>
 
-" Type Lookup
-map tt :call GHC_ShowType(0)<CR>
+" " Type Insertion
+" map <silent> tw :GhcModTypeInsert<CR>
+" map <silent> ts :GhcModSplitFunCase<CR>
+" map <silent> tq :GhcModType<CR>
+" map <silent> te :GhcModTypeClear<CR>
 
-" Type Insertion
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
+" au FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
+" au FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
 
-au FileType haskell nnoremap <buffer> <F1> :GhcModType<CR>
-au FileType haskell nnoremap <buffer> <F2> :GhcModTypeClear<CR>
+" noremap <silent> <C-S> :update<CR>
 
-noremap <silent> <C-S> :update<CR>
+" function! Pointfree()
+"   call setline('.', split(system('pointfree '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
+" endfunction
+" vnoremap <silent> <leader>h. :call Pointfree()<CR>
 
-function! Pointfree()
-  call setline('.', split(system('pointfree '.shellescape(join(getline(a:firstline, a:lastline), "\n"))), "\n"))
-endfunction
-vnoremap <silent> <leader>h. :call Pointfree()<CR>
+" nmap <silent> <leader>hl :SyntasticCheck hlint<CR>
 
-nmap <silent> <leader>hl :SyntasticCheck hlint<CR>
-
-" Disable haskell-vim omnifunc
-let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" " Disable haskell-vim omnifunc
+" let g:haskellmode_completion_ghc = 1
+" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " ----------------------------------------------
 " Syntastic
 " ----------------------------------------------
-
-map <Leader>s :SyntasticToggleMode<CR>
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
@@ -229,13 +265,11 @@ let g:syntastic_check_on_wq = 0
 " ----------------------------------------------
 " Python
 " ----------------------------------------------
-
 autocmd bufnewfile,bufread *.py set formatprg=par
 
 " ----------------------------------------------
 " Other Languages
 " ----------------------------------------------
-
 autocmd BufNewFile,BufRead *.agda set filetype=agda
 autocmd BufNewFile,BufRead *.idr set filetype=idris
 autocmd BufNewFile,BufRead *.ocaml set filetype=ocaml
@@ -253,7 +287,6 @@ autocmd BufNewFile,BufRead *.sol set filetype=solidity
 " ----------------------------------------------
 " Pane Switching
 " ----------------------------------------------
-
 nnoremap <C-j> <C-W>w
 
 nnoremap <C-j> <C-W>w
@@ -270,7 +303,6 @@ highlight Error term=underline gui=underline guibg=#00ff00
 "------------------------------------------------------------
 " Window split
 "------------------------------------------------------------
-
 " Make splits equal size
 noremap <silent> <F12> :wincmd =<CR>
 autocmd VimResized * wincmd =
@@ -278,7 +310,6 @@ autocmd VimResized * wincmd =
 " ----------------------------------------------
 " Autocorect
 " ----------------------------------------------
-
 ab teh the
 ab sefl self
 ab equivelant equivalent
@@ -287,7 +318,6 @@ ab seperator separator
 " ----------------------------------------------
 " Tabularize
 " ----------------------------------------------
-
 let g:haskell_tabular = 1
 
 vmap a= :Tabularize /=<CR>
@@ -296,18 +326,8 @@ vmap a, :Tabularize /,<CR>
 vmap a- :Tabularize /-><CR>
 
 " ----------------------------------------------
-" Git Version Traversal
-" ----------------------------------------------
-map gd :Gdiff<CR>
-map gb :Gblame<CR>
-
-" Git checkout at block level
-vmap do :diffget<CR>
-
-" ----------------------------------------------
 " Fast Navigation
 " ----------------------------------------------
-
 " Go to last edited line one keystroke 
 map ` g;
 
@@ -317,7 +337,6 @@ map gl <C-^>
 " ----------------------------------------------
 " Searching
 " ----------------------------------------------
-
 set incsearch
 map ff /\c
 
@@ -329,7 +348,6 @@ nnoremap <silent> <return> :noh<return>
 " ----------------------------------------------
 " Inactive Buffers
 " ----------------------------------------------
-
 function! Wipeout()
   " list of *all* buffer numbers
   let l:buffers = range(1, bufnr('$'))
@@ -366,34 +384,19 @@ endfunction
 " ----------------------------------------------
 " Writing Mode
 " ----------------------------------------------
-
 autocmd BufNewFile,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal spell
 autocmd BufNewFile,BufRead *.rst,*.txt,*.tex,*.latex,*.md setlocal nonumber
 
 " ----------------------------------------------
 " Clipboard
 " ----------------------------------------------
-
-"X Clipboard
-set clipboard=unnamedplus
-
-noremap <F12> :set invpaste paste?<CR>
-set pastetoggle=<F12>
-set showmode
-
-set shellslash
-set showmatch
-
-" ----------------------------------------------
-" Persistent Undo
-" ----------------------------------------------
-set undodir=~/.vim/undodir
-set undofile
+noremap <F9> :set invpaste paste?<CR>
+set pastetoggle=<F9>
 
 " ----------------------------------------------
 " Vim Workspace
 " ----------------------------------------------
-nnoremap <leader>s :ToggleWorkspace<CR>
+nnoremap <leader>W :ToggleWorkspace<CR>
 let g:workspace_session_name = 'Session.vim'
 let g:workspace_session_directory = $HOME . '/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
@@ -406,6 +409,7 @@ let g:workspace_autosave_ignore = ['gitcommit']
 " Deoplete autocompletion
 " ----------------------------------------------
 let g:deoplete#enable_at_startup = 1
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ----------------------------------------------
 " Cscope (find usages)
@@ -429,3 +433,45 @@ endfunction
 
 " Invoke command. 'g' is for call graph, kinda.
 nnoremap <silent> <Leader>g :call Cscope('3', expand('<cword>'))<CR>
+
+
+" FZF
+" fzf.vim mappings
+nnoremap <leader>; :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>T :Tags<CR>
+nnoremap <leader>t :BTags<CR>
+nnoremap <leader>s :Ag<CR>
+nnoremap <leader>h :GitMessenger<CR>
+nnoremap <leader>/ :History/<CR>
+nnoremap <leader>: :History:<CR>
+nnoremap <leader>gc :Commits<CR>
+nnoremap <leader>gbc :BCommits<CR>
+nnoremap <leader>gs :GFiles?<CR>
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Gutentags
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_modules = ['ctags', 'cscope']
+let g:gutentags_file_list_command = 'ag -l'
+let g:gutentags_define_advanced_commands = 1
+let g:gutentags_exclude_filetypes = ['vim', 'markdown', 'text', 'config', 'yaml']
+
+
+" F11 - Show tagbar list
+let g:tagbar_left=1
+nmap <F11> :TagbarToggle<CR>
+imap <F11> <esc>:TagbarToggle<CR>
+vmap <F11> <esc>:TagbarToggle<CR>
+
+"" F12 - Files
+nnoremap <F12> :NERDTreeToggle<cr>
+vnoremap <F12> <esc>:NERDTreeToggle<cr>i
+inoremap <F12> <esc>:NERDTreeToggle<cr>i
+
+" Surround shortcut to correctly wrap word 
+nmap ysw ysiW
