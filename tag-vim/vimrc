@@ -1,8 +1,32 @@
 " .vimrc of Robert den Harink
 
+call plug#begin('~/.vim/plugged')
+
+" Autocompletion with deoplete
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'ervandew/supertab'
+Plug 'vim-syntastic/syntastic'
+Plug 'godlygeek/tabular'
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'vim-erlang/vim-erlang-runtime'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'garbas/vim-snipmate'
+Plug 'tpope/vim-surround'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'thaerkh/vim-workspace'
+
+call plug#end()
+
+
 syntax on                     " syntax highlighing
 filetype plugin indent on     " enable loading indent file for filetype
-
 
 set nocompatible
 set number
@@ -27,9 +51,12 @@ set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
 set wildmode=longest,list,full
 set wildmenu
 
-set t_Co=256
-
 set cmdheight=1
+
+" ----------------------------------------------
+" Set Leader to ','
+" ----------------------------------------------
+:let mapleader=","
 
 " ----------------------------------------------
 " Pathogen Manager
@@ -54,7 +81,7 @@ inoremap <C-@> <C-Space>
 " ----------------------------------------------
 
 map <silent> <Leader>t :CtrlP()<CR>
-noremap <leader>b<space> :CtrlPBuffer<cr>
+noremap <leader>; :CtrlPBuffer<cr>
 let g:ctrlp_custom_ignore = '\v[\/]dist$'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
@@ -362,3 +389,20 @@ set showmatch
 " ----------------------------------------------
 set undodir=~/.vim/undodir
 set undofile
+
+" ----------------------------------------------
+" Vim Workspace
+" ----------------------------------------------
+nnoremap <leader>s :ToggleWorkspace<CR>
+let g:workspace_session_name = 'Session.vim'
+let g:workspace_session_directory = $HOME . '/.vim/sessions/'
+let g:workspace_session_disable_on_args = 1
+let g:workspace_persist_undo_history = 1
+let g:workspace_undodir = $HOME . '/.vim/undodir/'
+let g:workspace_autosave_always = 1
+let g:workspace_autosave_ignore = ['gitcommit']
+
+" ----------------------------------------------
+" Deoplete autocompletion
+" ----------------------------------------------
+let g:deoplete#enable_at_startup = 1
