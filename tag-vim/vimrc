@@ -33,7 +33,15 @@ Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/git-messenger.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'ledger/vim-ledger'
 
+Plug 'reedes/vim-pencil' " Super-powered writing things
+Plug 'tpope/vim-abolish' " Fancy abbreviation replacements
+Plug 'junegunn/limelight.vim' " Highlights only active paragraph
+Plug 'junegunn/goyo.vim' " Full screen writing mode
+Plug 'reedes/vim-lexical' " Better spellcheck mappings
+Plug 'reedes/vim-litecorrect' " Better autocorrections
+Plug 'reedes/vim-textobj-sentence' " Treat sentences as text objects
 call plug#end()
 
 " Hide buffer instead of unloading it.
@@ -45,9 +53,12 @@ set hidden
 set undodir=~/.vim/undodir
 set undofile
 
-" Complete command line on longest substring, 
+" Complete command line on longest substring,
 " then list alternatives
 set wildmode=longest,list
+
+" Spelling auto suggestion
+set complete+=kspell
 
 " Always show sign for gitgutter
 set signcolumn=yes
@@ -283,6 +294,9 @@ autocmd BufNewFile,BufRead *.ll set filetype=llvm
 autocmd BufNewFile,BufRead *.scala set filetype=scala
 autocmd BufNewFile,BufRead *.c set filetype=c
 autocmd BufNewFile,BufRead *.sol set filetype=solidity
+autocmd BufNewFile,BufRead *.journal set filetype=ledger
+autocmd BufNewFile,BufRead *.ledger set filetype=ledger
+
 
 " ----------------------------------------------
 " Pane Switching
@@ -475,3 +489,28 @@ inoremap <F12> <esc>:NERDTreeToggle<cr>i
 
 " Surround shortcut to correctly wrap word 
 nmap ysw ysiW
+
+" Ledger
+let g:ledger_maxwidth = 80
+let g:ledger_fillstring = '    -'
+let g:ledger_fold_blanks = 0
+let g:ledger_bin = '/home/robert/.cabal/bin/hledger'
+
+
+" Writing
+augroup pencil
+autocmd!
+autocmd filetype markdown,mkd call pencil#init()
+   \ | call lexical#init()
+   \ | call litecorrect#init()
+   \ | setl spell spl=en_us fdl=4 noru nonu nornu
+   \ | setl fdo+=search
+augroup END
+let g:pencil#wrapModeDefault = 'soft'
+let g:pencil#textwidth = 74
+let g:pencil#joinspaces = 0
+let g:pencil#cursorwrap = 1
+let g:pencil#conceallevel = 3
+let g:pencil#concealcursor = 'c'
+let g:pencil#softDetectSample = 20
+let g:pencil#softDetectThreshold = 130

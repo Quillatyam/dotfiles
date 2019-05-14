@@ -1,3 +1,3 @@
 function fish_prompt
-   echo (prompt_pwd)" > "
+	echo (prompt_pwd)" > "
 end

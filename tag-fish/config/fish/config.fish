@@ -1,13 +1,15 @@
 set -x EDITOR "vim"
 
 # Paths etc.
+set -gx fish_user_paths $HOME/bin $fish_user_paths
 set -gx fish_user_paths $HOME/.local/bin $fish_user_paths
 set -gx fish_user_paths $HOME/.cabal/bin $fish_user_paths
 set -gx fish_user_paths $HOME/source/go/bin $fish_user_paths
-#set -gx fish_user_paths $HOME/.config/composer/vendor/bin $fish_user_paths
+set -gx fish_user_paths $HOME/.composer/vendor/bin $fish_user_paths
 #set -gx fish_user_paths $HOME/.emacs.d/bin $fish_user_paths
 set -gx fish_user_paths "/usr/local/bin" $fish_user_paths
 set -gx fish_user_paths "/usr/lib/jvm/java-11-openjdk-amd64/bin" $fish_user_paths
+set -x VAULT_ADDR https://vault-a.tacitic.io:8200
 
 # Rust
 set -gx fish_user_paths $HOME/.cargo/bin $fish_user_paths

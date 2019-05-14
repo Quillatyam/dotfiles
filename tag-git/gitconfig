@@ -65,4 +65,4 @@
 [credential]
     helper = osxkeychain
 [transfer]
-    fsckObjects = true
+    fsckObjects = false

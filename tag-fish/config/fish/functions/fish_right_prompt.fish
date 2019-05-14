@@ -8,7 +8,7 @@ set cyan (set_color -o cyan)
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showstashstate 'no'
 set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_showupstream 'no'
+set __fish_git_prompt_showupstream 'yes'
 set __fish_git_prompt_color_branch yellow
 set __fish_git_prompt_color_upstream_ahead green
 set __fish_git_prompt_color_upstream_behind red
@@ -17,7 +17,7 @@ set __fish_git_prompt_color_upstream_behind red
 set __fish_git_prompt_char_dirtystate 'D'
 set __fish_git_prompt_char_stagedstate 'S'
 set __fish_git_prompt_char_untrackedfiles 'U'
-#set __fish_git_prompt_char_stashstate ''
+#set __fish_git_prompt_char_stashstate 'A'
 set __fish_git_prompt_char_upstream_ahead '+'
 set __fish_git_prompt_char_upstream_behind '-'
 
