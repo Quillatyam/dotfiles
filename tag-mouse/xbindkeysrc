@@ -1,0 +1,32 @@
+# XBindKeys to support Logitech MX Master Mouse on Linux
+# @see: https://wiki.archlinux.org/index.php/Logitech_MX_Master
+
+# Physical action                detected as
+# ----------------------------------------------------
+# Left button                    button 1
+# Press to wheel                 button 2
+# Right button                   button 3
+# Scroll wheel up                button 4
+# Scroll wheel down              button 5
+# Press "i" button under wheel   undetectable in linux
+# Scroll hor_wheel right (up)    button 6
+# Scroll hor_wheel left (down)   button 7
+# Side-bottom button             button 8
+# Side-top button                button 9
+# Thumb button                   Ctrl+Alt+Tab
+
+# thumb wheel up => increase volume and unmute      
+"amixer -D pulse set Master 4000+ unmute"
+   b:6
+
+# thumb wheel down => lower volume       
+"amixer -D pulse set Master 4000-"
+   b:7
+
+# backward button => previous page
+"xte 'keydown Alt_L' 'keydown Left' 'keyup Alt_L' 'keyup Left'"
+   b:8
+
+# forward button => next page       
+"xte 'keydown Alt_L' 'keydown Right' 'keyup Alt_L' 'keyup Right'"
+   b:9
