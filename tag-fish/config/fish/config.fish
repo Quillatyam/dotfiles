@@ -31,7 +31,7 @@ alias tm "tmux -2 new -A -s base"
 alias vd "vimdiff"
 
 # Screen/monitor setup aliases
-alias screen-dual "xrandr --setprovideroutputsource 1 0; xrandr --output DVI-I-1-1 --auto --above eDP1"
+#alias screen-dual "xrandr --setprovideroutputsource 1 0; xrandr --output DVI-I-1-1 --auto --above eDP1"
 
 # Git aliasses
 alias gs "git status -sb"

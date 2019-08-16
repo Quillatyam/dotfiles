@@ -34,6 +34,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/git-messenger.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'ledger/vim-ledger'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 Plug 'reedes/vim-pencil' " Super-powered writing things
 Plug 'tpope/vim-abolish' " Fancy abbreviation replacements
@@ -193,20 +194,21 @@ endif
 nnoremap <S-tab> :tabnext<CR>
 
 " Colors
-if has("gui_running")
+"if has("gui_running")
     " For gvim
     "colorscheme jellybeans
     "set guifont=Source\ Code\ Pro\ Medium\ 9
     "set anti enc=utf-8
-else
+"else
     " For terminal
     "colorscheme jellybeans
     "set guifont=ProggyCleanTT\ 12
-    autocmd FocusGained * call s:CommandTFlush()
-endif
+    "autocmd FocusGained * call s:CommandTFlush()
+"endif
 
 set termguicolors
-colorscheme onedark
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
 
 " Makes sure that colors are correct in tmux
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -487,7 +489,7 @@ nnoremap <F12> :NERDTreeToggle<cr>
 vnoremap <F12> <esc>:NERDTreeToggle<cr>i
 inoremap <F12> <esc>:NERDTreeToggle<cr>i
 
-" Surround shortcut to correctly wrap word 
+" Surround shortcut to correctly wrap word
 nmap ysw ysiW
 
 " Ledger
