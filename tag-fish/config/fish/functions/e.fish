@@ -1,3 +1,3 @@
-function e
-  __launch_emacs $argv --no-wait
+function e -d 'Even shorter alias for `ec`'
+  ec $argv
 end

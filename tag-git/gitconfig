@@ -1,8 +1,57 @@
-# Local/private config goes in the include
-[include]
-    path = ~/.gitconfig.local
-[hub]
-    protocol = https
+[user]
+    name = Robert den Harink
+    email = robert@robhar.com
+    signingkey = F96DC84AFA46DC19
+
+[commit]
+    gpgsign = true
+    template = ~/.gitmessage
+
+[core]
+    excludesfile = ~/.gitignore
+    editor = vim
+    autocrlf = input
+    safecrlf = warn
+    pager = less -Mi -+F
+    attributesfile = ~/.gitattributes
+
+[apply]
+    whitespace = fix
+
+[help]
+    autocorrect = 1
+
+[push]
+    default = simple
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[transfer]
+    fsckObjects = false
+
+[diff]
+	tool = vimdiff
+
+[grep]
+    extendedRegexp = true
+
+[merge]
+	tool = vimdiff
+    # Make 'git fetch; git merge' behave like 'git pull' on the
+    # current branch.
+    defaultToUpstream = true
+
+[color]
+    ui = auto
+
+[log]
+    # Show times in my time zone.
+    date = relative
+
 [alias]
     # commit count
     count             = !git shortlog -sn
@@ -42,51 +91,106 @@
 	# tree, graphical log
 	tree = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
 
-[color]
-    diff = auto
-    status = auto
-    branch = auto
-    ui = true
-[mergetool]
-    keepBackup = false
-[difftool]
-    prompt = false
-[help]
-    autocorrect = 1
-[push]
-    default = simple
-[color]
-    diff = auto
-    status = auto
-    branch = auto
-    ui = true
-[core]
-    excludesfile = ~/.gitignore
-    editor = vim
-    autocrlf = input
-[apply]
-    whitespace = nowarn
-[help]
-    autocorrect = 1
-[push]
-    default = simple
-[user]
-    name = Robert den Harink
-    email = robert@robhar.com
-    signingkey = F96DC84AFA46DC19
-[commit]
-    gpgsign = true
-    template = ~/.gitmessage
-[filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
-[credential]
-    helper = osxkeychain
-[transfer]
-    fsckObjects = false
-[diff]
-	tool = vimdiff
-[merge]
-	tool = vimdiff
+    ######################################################################
+    # Clean up whitespace.
+    #
+    # See
+    # http://stackoverflow.com/questions/591923/make-git-automatically-remove
+    # -trailing-whitespace-before-committing/15398512#15398512
+    ######################################################################
+
+    # Check that it's safe to fix whitespace.
+    #
+    # Called by whitespace fixers below.
+    fixws-is-safe = !"\
+      if [ -d \"$(git rev-parse --git-dir)/rebase-merge\" ] ; then \
+        echo \"Rebase in progress; can't 'git fixws'!\" ; \
+        false ; \
+      fi"
+
+    # Fix whitespace in the index while preserving a dirty tree, if
+    # any.
+    #
+    # Assuming your index is empty, some useful variations are: 
+    #
+    # - fix whitespace in all changes in all versioned files:
+    #
+    #     git add -u :/ && git fixws && git reset
+    #
+    # - fix whitespace in all unversioned files and in all changes in
+    #   all versioned files:
+    #
+    #     git add --all :/ && git fixws && git reset
+    #
+    # Logic:
+    #
+    # The 'git stash save' fails if the tree is clean (instead of
+    # creating an empty stash :P). So, we only 'stash' and 'pop' if
+    # the tree is dirty.
+    #
+    # The 'git rebase --whitespace=fix HEAD~' throws away the commit
+    # if it's empty, and adding '--keep-empty' prevents the whitespace
+    # from being fixed. So, we first check that the index is dirty.
+    #
+    # Also:
+    # - '(! git diff-index --quiet --cached HEAD)' is true (zero) if
+    #   the index is dirty
+    # - '(! git diff-files --quiet .)' is true if the tree is dirty
+    #
+    # The 'rebase --whitespace=fix' trick is from here:
+    # http://stackoverflow.com/a/19156679/470844
+    fixws = !"\
+      git fixws-is-safe && \
+      if (! git diff-files --quiet .) && \
+         (! git diff-index --quiet --cached HEAD) ; then \
+        git commit -m FIXWS_SAVE_INDEX && \
+        git stash save FIXWS_SAVE_TREE && \
+        git rebase --whitespace=fix HEAD~ && \
+        git stash pop && \
+        git reset --soft HEAD~ ; \
+      elif (! git diff-index --quiet --cached HEAD) ; then \
+        git commit -m FIXWS_SAVE_INDEX && \
+        git rebase --whitespace=fix HEAD~ && \
+        git reset --soft HEAD~ ; \
+      fi"
+
+    # Fix whitespace in the index and the tree.
+    #
+    # Precede with 'git add -N <files>' to also fix whitespace in
+    # unversioned files <files>.
+    #
+    # Logic:
+    #
+    # The different cases are:
+    # - dirty tree and dirty index
+    # - dirty tree and clean index
+    # - clean tree and dirty index
+    #
+    # We have to consider separate cases because the 'git rebase
+    # --whitespace=fix' is not compatible with empty commits (adding
+    # '--keep-empty' makes Git not fix the whitespace :P).
+    fixws-global-tree-and-index = !"\
+      git fixws-is-safe && \
+      if (! git diff-files --quiet .) && \
+         (! git diff-index --quiet --cached HEAD) ; then \
+        git commit -m FIXWS_SAVE_INDEX && \
+        git add -u :/ && \
+        git commit -m FIXWS_SAVE_TREE && \
+        git rebase --whitespace=fix HEAD~2 && \
+        git reset HEAD~ && \
+        git reset --soft HEAD~ ; \
+      elif (! git diff-files --quiet .) ; then \
+        git add -u :/ && \
+        git commit -m FIXWS_SAVE_TREE && \
+        git rebase --whitespace=fix HEAD~ && \
+        git reset HEAD~ ; \
+      elif (! git diff-index --quiet --cached HEAD) ; then \
+        git commit -m FIXWS_SAVE_INDEX && \
+        git rebase --whitespace=fix HEAD~ && \
+        git reset --soft HEAD~ ; \
+      fi"
+
+# Local/private config goes in the include
+[include]
+    path = ~/.gitconfig.local
+
