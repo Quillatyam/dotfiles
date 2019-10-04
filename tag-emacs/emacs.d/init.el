@@ -274,6 +274,23 @@
 (use-package git-gutter-fringe
   :ensure t)
 
+
+;; Terminal colors
+;; -----------------------------------------------------------------------;;
+(custom-set-faces
+ '(term-color-black ((t (:foreground "#282C34" :background "#282C34"))))
+ '(term-color-red ((t (:foreground "#E06C75" :background "#E06C75"))))
+ '(term-color-green ((t (:foreground "#98C379" :background "#98C379"))))
+ '(term-color-yellow ((t (:foreground "#E5C07B" :background "#E5C07B"))))
+ '(term-color-blue ((t (:foreground "#61AFEF" :background "#61AFEF"))))
+ '(term-color-magenta ((t (:foreground "#C678DD" :background "#C678DD"))))
+ '(term-color-cyan ((t (:foreground "#56B6C2" :background "#56B6C2"))))
+ '(term-color-white ((t (:foreground "#DCDCCC" :background "#656555"))))
+
+ '(term-default-fg-color ((t (:inherit term-color-white))))
+ '(term-default-bg-color ((t (:inherit term-color-black))))
+ )
+
 ;; Custom
 ;; -----------------------------------------------------------------------;;
 (custom-set-variables
