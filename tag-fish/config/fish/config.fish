@@ -2,14 +2,18 @@ set -x EDITOR "vim"
 
 # Paths etc.
 set -gx fish_user_paths $HOME/bin $fish_user_paths
-set -gx fish_user_paths $HOME/.local/bin $fish_user_paths
 set -gx fish_user_paths $HOME/.cabal/bin $fish_user_paths
+set -gx fish_user_paths $HOME/.local/bin $fish_user_paths
 set -gx fish_user_paths $HOME/source/go/bin $fish_user_paths
 set -gx fish_user_paths $HOME/.composer/vendor/bin $fish_user_paths
 #set -gx fish_user_paths $HOME/.emacs.d/bin $fish_user_paths
 set -gx fish_user_paths "/usr/local/bin" $fish_user_paths
 set -gx fish_user_paths "/usr/lib/jvm/java-11-openjdk-amd64/bin" $fish_user_paths
-set -x VAULT_ADDR https://vault-a.tacitic.io:8200
+set -x VAULT_ADDR https://vault.tacitic.io:8200
+
+# Node JS
+set -gx fish_user_paths "~/npm/bin" $fish_user_paths
+set -gx fish_user_paths "$NODE_PATH:~/npm/lib/node_modules" $fish_user_paths
 
 # Rust
 set -gx fish_user_paths $HOME/.cargo/bin $fish_user_paths
@@ -32,6 +36,12 @@ alias vd "vimdiff"
 
 # Screen/monitor setup aliases
 #alias screen-dual "xrandr --setprovideroutputsource 1 0; xrandr --output DVI-I-1-1 --auto --above eDP1"
+
+# Cat to Bat
+alias cat "bat"
+
+# LS
+alias ls "exa"
 
 # Git aliasses
 alias gs "git status -sb"
@@ -64,11 +74,10 @@ gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
 set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 
 # Base16 Shell
-#if status --is-interactive
-#    set BASE16_SHELL "$HOME/.config/base16-shell/"
-#    source "$BASE16_SHELL/profile_helper.fish"
-#    base16-3024
-#end
+if status --is-interactive
+    set BASE16_SHELL "$HOME/.config/base16-shell/"
+    source "$BASE16_SHELL/profile_helper.fish"
+end
 
 # Source local stuff.
 source ~/.localrc

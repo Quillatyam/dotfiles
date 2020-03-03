@@ -87,7 +87,10 @@
     
     # push including tags that are connected to the current branch.
     pushtags = push --follow-tags
-	
+    
+    # prune local tags that do not exist on remote
+    prunetags = !git tag -l | xargs git tag -d && git fetch -t
+
 	# tree, graphical log
 	tree = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
 
@@ -194,3 +197,5 @@
 [include]
     path = ~/.gitconfig.local
 
+[github]
+	user = rharink

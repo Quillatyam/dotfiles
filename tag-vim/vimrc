@@ -40,7 +40,7 @@ Plug 'reedes/vim-pencil' " Super-powered writing things
 Plug 'tpope/vim-abolish' " Fancy abbreviation replacements
 Plug 'junegunn/limelight.vim' " Highlights only active paragraph
 Plug 'junegunn/goyo.vim' " Full screen writing mode
-Plug 'reedes/vim-lexical' " Better spellcheck mappings
+Plug 'reedes/vim-lexical' " Better spellcheck mappins
 Plug 'reedes/vim-litecorrect' " Better autocorrections
 Plug 'reedes/vim-textobj-sentence' " Treat sentences as text objects
 call plug#end()
@@ -206,8 +206,15 @@ nnoremap <S-tab> :tabnext<CR>
     "autocmd FocusGained * call s:CommandTFlush()
 "endif
 
-set termguicolors
-colorscheme onehalfdark
+"set termguicolors
+"colorscheme base16-grayscale-dark
+
+" Change highlighting of cursor line when entering/leaving Insert Mode
+set cursorline
+highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=234 guifg=NONE guibg=#1c1c1c
+autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=233 guifg=NONE guibg=#121212
+
 let g:airline_theme='onehalfdark'
 
 " Makes sure that colors are correct in tmux

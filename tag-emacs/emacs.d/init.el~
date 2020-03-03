@@ -48,7 +48,7 @@
 (use-package multi-term
   :ensure t
   :config
-  (setq multi-term-program "/usr/bin/fish"))
+  (setq multi-term-program "/bin/bash"))
 
 ;; General (keybinds)
 ;; -----------------------------------------------------------------------;;
@@ -240,7 +240,6 @@
 
 (use-package tide
   :ensure t
-  :config (setq tide-completion-enable-autoimport-suggestions t)
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode)
