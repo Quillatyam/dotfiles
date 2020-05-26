@@ -41,13 +41,6 @@ shown by =SPC h v= and selecting what I thought looks good, I've ended up adding
 (display-battery-mode 1)                          ; On laptops it's nice to know how much power you have
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 #+END_SRC
-*** Fullscreen
-I also like the idea of fullscreen-ing when opened by ~emacs~ or the ~.desktop~ file.
-#+BEGIN_SRC emacs-lisp
-(if (eq initial-window-system 'x)                 ; if started by emacs command or desktop file
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
-#+END_SRC
 *** Auto-customisations
 By default changes made via a customisation interface are added to =init.el=.
 I prefer the idea of using a separate file for this. We just need to change a
@@ -219,6 +212,11 @@ Use org bullets to prettify title bullets etc.
 #+BEGIN_SRC emacs-lisp
 (package! org-bullets)
 #+END_SRC
+
+Completion with icons for company
+#+BEGIN_SRC emacs-lisp
+(package! company-box)
+#+END_SRC
 *** Window management
 #+BEGIN_SRC emacs-lisp
 (package! rotate :pin "091b5ac4fc310773253efb317e3dbe8e46959ba6")
@@ -244,7 +242,7 @@ View data frames better with
 [[https://github.com/dandavison/delta/][Delta]] is a git diff syntax highlighter written in rust. The author also wrote a
 package to hook this into the magit diff view. This requires the ~delta~ binary.
 #+BEGIN_SRC emacs-lisp
-(package! magit-delta :recipe (:host github :repo "dandavison/magit-delta") :pin "075d643691")
+;;(package! magit-delta :recipe (:host github :repo "dandavison/magit-delta") :pin "075d643691")
 #+END_SRC
 **** Info colours
 This makes manual pages nicer to look at :)
@@ -265,6 +263,14 @@ For ligatures
 *** Typescript
 #+BEGIN_SRC emacs-lisp
 (package! tide)
+#+END_SRC
+*** Rust
+I want to use Rust analyzer for autocompletion etc.
+
+Lets install the latest version of rust-analyzer first:
+#+BEGIN_SRC shell
+curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
+chmod +x ~/.local/bin/rust-analyzer
 #+END_SRC
 * Package configuration
 ** Abbrev mode
@@ -324,7 +330,7 @@ It's nice to have completions almost all the time, in my opinion. Key strokes
 are just waiting to be saved!
 #+BEGIN_SRC emacs-lisp
 (after! company
-  (setq company-idle-delay 0.5)
+  (setq company-idle-delay 0.2)
 (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 #+END_SRC
 Now, the improvements from ~precident~ are mostly from remembering history, so
@@ -332,6 +338,11 @@ let's improve that memory.
 #+BEGIN_SRC emacs-lisp
 (setq-default history-length 1000)
 (setq-default prescient-history-length 1000)
+#+END_SRC
+Enable company-box
+#+BEGIN_SRC emacs-lisp
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 #+END_SRC
 *** Plain Text
 ~ispell~ is nice, let's have it in ~text~, ~markdown~, and ~GFM~.
@@ -419,8 +430,8 @@ Magit is pretty nice by default. The diffs don't get any
 syntax-highlighting-love though which is a bit sad. Thankfully
 [[https://github.com/dandavison/magit-delta][dandavison/magit-delta]] exists, which we can put to use.
 #+BEGIN_SRC emacs-lisp
-(after! magit
-  (magit-delta-mode +1))
+;;(after! magit
+;;  (magit-delta-mode +1))
 #+END_SRC
 Unfortunately this seems to mess things up, which is something I'll want to look
 into later.
@@ -453,45 +464,34 @@ You can enable variable-pitch-mode automatically for org buffers by setting up a
 (add-hook 'org-mode-hook 'visual-line-mode)
 #+END_SRC
 
-Customize faces
 #+BEGIN_SRC emacs-lisp
-(let* ((variable-tuple
-        (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-              ((x-list-fonts "Verdana")         '(:font "Verdana"))
-              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-       (base-font-color     (face-foreground 'default nil 'default))
-       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+(eval-after-load "org"
+    (custom-theme-set-faces
+        'user
+        '(org-level-8 ((t (:inherit default :weight bold  :height 1))))
+        '(org-level-7 ((t (:inherit default :weight bold  :height 1))))
+        '(org-level-6 ((t (:inherit default :weight bold  :height 1))))
+        '(org-level-5 ((t (:inherit default :weight bold  :height 1))))
+        '(org-level-4 ((t (:inherit default :weight bold  :height 1))))
+        '(org-level-3 ((t (:inherit default :weight bold  :height 1.1))))
+        '(org-level-2 ((t (:inherit default :weight bold  :height 1.25))))
+        '(org-level-1 ((t (:inherit default :weight bold :height 1.5))))
+        '(org-document-title ((t (:inherit default :weight bold  :height 1.75))))
+        '(org-block ((t (:inherit fixed-pitch))))
+        '(org-code ((t (:inherit (shadow fixed-pitch)))))
+        '(org-document-info ((t (:foreground "dark orange"))))
+        '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+        '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+        '(org-link ((t (:foreground "royal blue" :underline t))))
+        '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+        '(org-property-value ((t (:inherit fixed-pitch))) t)
+        '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+        '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+        '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
+        '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+)
 
-  (custom-theme-set-faces
-   'user
-   `(org-level-8 ((t (,@headline ,@variable-tuple))))
-   `(org-level-7 ((t (,@headline ,@variable-tuple))))
-   `(org-level-6 ((t (,@headline ,@variable-tuple))))
-   `(org-level-5 ((t (,@headline ,@variable-tuple))))
-   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
-   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
-   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
-   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
-   `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
-
-(custom-theme-set-faces
- 'user
- '(org-block ((t (:inherit fixed-pitch))))
- '(org-code ((t (:inherit (shadow fixed-pitch)))))
- '(org-document-info ((t (:foreground "dark orange"))))
- '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
- '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
- '(org-link ((t (:foreground "royal blue" :underline t))))
- '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
- '(org-property-value ((t (:inherit fixed-pitch))) t)
- '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
- '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
- '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
- '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 #+END_SRC
-
 ** Pretty Mode
 Enable font ligatures
 #+BEGIN_SRC emacs-lisp
@@ -583,6 +583,15 @@ It's nice to see ansi colour codes displayed
     ;; Apply ANSI color codes
     (with-silent-modifications
       (ansi-color-apply-on-region (point-min) (point-max)))))
+#+END_SRC
+** Rust
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-rust
+    :after lsp-mode
+    :init
+    (setq lsp-rust-server 'rust-analyzer))
+
+(after! rust-mode (setq lsp-rust-server 'rust-analyzer))
 #+END_SRC
 ** Typescript
 #+BEGIN_SRC emacs-lisp
