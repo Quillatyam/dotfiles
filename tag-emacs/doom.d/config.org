@@ -240,7 +240,7 @@ View data frames better with
 [[https://github.com/dandavison/delta/][Delta]] is a git diff syntax highlighter written in rust. The author also wrote a
 package to hook this into the magit diff view. This requires the ~delta~ binary.
 #+BEGIN_SRC emacs-lisp
-;; (package! magit-delta :recipe (:host github :repo "dandavison/magit-delta") :pin "0c7d8b2359")
+(package! magit-delta :recipe (:host github :repo "dandavison/magit-delta") :pin "075d643691")
 #+END_SRC
 **** Info colours
 This makes manual pages nicer to look at :)
@@ -415,8 +415,8 @@ Magit is pretty nice by default. The diffs don't get any
 syntax-highlighting-love though which is a bit sad. Thankfully
 [[https://github.com/dandavison/magit-delta][dandavison/magit-delta]] exists, which we can put to use.
 #+BEGIN_SRC emacs-lisp
-;; (after! magit
-;;   (magit-delta-mode +1))
+(after! magit
+  (magit-delta-mode +1))
 #+END_SRC
 Unfortunately this seems to mess things up, which is something I'll want to look
 into later.

@@ -12,8 +12,12 @@
     editor = vim
     autocrlf = input
     safecrlf = warn
-    pager = less -Mi -+F
+    #pager = less -Mi -+F
+    pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
     attributesfile = ~/.gitattributes
+
+[interactive]
+    diffFilter = delta --color-only
 
 [apply]
     whitespace = fix
@@ -34,13 +38,13 @@
     fsckObjects = false
 
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 
 [grep]
     extendedRegexp = true
 
 [merge]
-	tool = vimdiff
+    tool = vimdiff
     # Make 'git fetch; git merge' behave like 'git pull' on the
     # current branch.
     defaultToUpstream = true
@@ -61,13 +65,13 @@
     # up-to-date before overwriting it. This indicates that you’ve at least 
     # fetched the changes you’re about to stomp. 
     please = push --force-with-lease
-	
+
     # Ever commit and then immediately realize you’d forgotten to stage a file?
     # git commend quietly tacks any staged files onto the last commit you 
     # created, re-using your existing commit message. So as long as you haven’t
     # pushed yet, no-one will be the wiser.
     commend = commit --amend --no-edit
-	
+
     # The first commit of a repository can not be rebased like regular commits, 
     # so it’s good practice to create an empty commit as your repository root. 
     # git it both initializes your repository and creates an empty root commit 
@@ -81,7 +85,7 @@
     stsh = stash --keep-index
     staash = stash --include-untracked
     staaash = stash --all
-	
+
     # git merc uses the --no-ff strategy, to always create a merge commit.
     merc = merge --no-ff
     
@@ -91,8 +95,8 @@
     # prune local tags that do not exist on remote
     prunetags = !git tag -l | xargs git tag -d && git fetch -t
 
-	# tree, graphical log
-	tree = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
+    # tree, graphical log
+    tree = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
 
     ######################################################################
     # Clean up whitespace.
@@ -198,4 +202,4 @@
     path = ~/.gitconfig.local
 
 [github]
-	user = rharink
+    user = rharink
