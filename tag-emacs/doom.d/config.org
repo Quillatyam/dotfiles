@@ -589,9 +589,10 @@ It's nice to see ansi colour codes displayed
 (use-package lsp-rust
     :after lsp-mode
     :init
+    (setq rustic-lsp-server 'rust-analyzer)
     (setq lsp-rust-server 'rust-analyzer))
 
-(after! rust-mode (setq lsp-rust-server 'rust-analyzer))
+(after! rustic-mode (setq rustic-lsp-server 'rust-analyzer))
 #+END_SRC
 ** Typescript
 #+BEGIN_SRC emacs-lisp
