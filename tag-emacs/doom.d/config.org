@@ -255,6 +255,11 @@ For ligatures
 #+BEGIN_SRC emacs-lisp
 (package! pretty-mode)
 #+END_SRC
+*** VTerm
+We should install libvterm first
+#+BEGIN_SRC shell
+sudo apt install libvterm0 libtool libtool-bin
+#+END_SRC
 *** Zetteldeft
 #+BEGIN_SRC emacs-lisp
 (package! zetteldeft)
