@@ -203,3 +203,5 @@
 
 [github]
     user = rharink
+[pull]
+	rebase = true

@@ -260,9 +260,13 @@ We should install libvterm first
 #+BEGIN_SRC shell
 sudo apt install libvterm0 libtool libtool-bin
 #+END_SRC
-*** Zetteldeft
+*** Zetteldeft(use-package webkit-color-picker
 #+BEGIN_SRC emacs-lisp
 (package! zetteldeft)
+#+END_SRC
+*** Colorpicker
+#+BEGIN_SRC emacs-lisp
+(package! webkit-color-picker)
 #+END_SRC
 ** Language packages
 *** Typescript
@@ -572,6 +576,11 @@ Nested snippets are good, enable that.
         :desc "zetteldeft-count-words" "x" #'zetteldeft-count-words
         )
   )
+#+END_SRC
+** Colorpicker
+#+BEGIN_SRC emacs-lisp
+(use-package webkit-color-picker
+  :bind (("C-c C-p" . webkit-color-picker-show)))
 #+END_SRC
 * Language configuration
 *** File Templates
